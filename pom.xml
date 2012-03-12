@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.placecruncher.server</groupId>
     <artifactId>placecruncher</artifactId>
@@ -11,6 +12,9 @@
         <java.version>1.6</java.version>
         <springframework.version>3.1.1.RELEASE</springframework.version>
         <spring-security.version>3.1.0.RELEASE</spring-security.version>
+        <hibernate-core.version>3.6.10.Final</hibernate-core.version>
+        <hibernate-annotations.version>3.4.0.GA</hibernate-annotations.version>
+        <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.6.11</aspectj.version>
         <log4j.configuration>file:${basedir}/log4j.properties</log4j.configuration>
@@ -23,20 +27,20 @@
         </repository>
     </repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <!--  Tomcat7 Plugin -->
-      <id>apache.snapshots</id>
-      <name>Apache Snapshots</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <!-- Tomcat7 Plugin -->
+            <id>apache.snapshots</id>
+            <name>Apache Snapshots</name>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -73,9 +77,9 @@
             <version>${springframework.version}</version>
         </dependency>
         <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-aspects</artifactId>
-          <version>${springframework.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -83,9 +87,9 @@
             <version>${aspectj.version}</version>
         </dependency>
         <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -93,7 +97,7 @@
             <version>${springframework.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -111,13 +115,13 @@
             <artifactId>commons-logging</artifactId>
             <version>1.1.1</version>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.3.1</version>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -136,11 +140,28 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernate-annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
@@ -151,22 +172,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.5.6-Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
         </dependency>
 
         <dependency>
@@ -194,6 +199,12 @@
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>2.2.2</version>
         </dependency>
 
         <dependency>
@@ -396,10 +407,49 @@
             </plugin>
 
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-resources-plugin</artifactId>
-              <version>2.5</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>2.0.1</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/db.changelog.xml</changeLogFile>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost/placecruncher?autoReconnect=true&amp;useServerPrepStmts=false</url>
+                    <username>placecruncher</username>
+                    <password>plac3crunch3r</password>
+                </configuration>
+            </plugin>
+
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>hibernate3-maven-plugin</artifactId> -->
+<!-- 				<version>2.2</version> -->
+<!-- 				<configuration> -->
+<!-- 					<components> -->
+<!-- 						<component> -->
+<!-- 							<name>hbm2ddl</name> -->
+<!-- 							<implementation>annotationconfiguration</implementation> -->
+<!-- 						</component> -->
+<!-- 					</components> -->
+
+<!-- 					<componentProperties> -->
+<!-- 						<drop>true</drop> -->
+<!-- 					</componentProperties> -->
+<!-- 				</configuration> -->
+<!-- 				<dependencies> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>mysql</groupId> -->
+<!-- 						<artifactId>mysql-connector-java</artifactId> -->
+<!-- 						<version>5.1.12</version> -->
+<!-- 					</dependency> -->
+<!-- 				</dependencies> -->
+<!-- 			</plugin> -->
 
         </plugins>
     </build>
@@ -416,7 +466,7 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-              </plugin>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>

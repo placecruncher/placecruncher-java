@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog logicalFilePath="db.changelog.xml"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+
+    <changeSet id="20120309_create_principal" author="placecruncher">
+        <createTable tableName="PRINCIPAL">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="USERNAME" type="VARCHAR(64)"><constraints nullable="false" unique="true"/></column>
+            <column name="PASSWORD" type="VARCHAR(32)"></column>
+            <column name="EMAIL" type="VARCHAR(320)"></column>
+            <column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true"><constraints nullable="false"/></column>
+            <column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false"><constraints nullable="false"/></column>
+        </createTable>
+        <addAutoIncrement tableName="PRINCIPAL" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+
+    <changeSet id="20120311_create_place" author="placecruncher">
+        <createTable tableName="PLACE">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="NAME" type="VARCHAR(256)"></column>
+            <column name="TITLE" type="VARCHAR(512)"></column>
+            <column name="DESCRIPTION" type="VARCHAR(4096)"></column>
+            <column name="ADDRESS" type="VARCHAR(256)"></column>
+            <column name="CITY" type="VARCHAR(128)"></column>
+            <column name="STATE" type="VARCHAR(2)"></column>
+            <column name="COUNTRY" type="VARCHAR(2)"></column>
+            <column name="PHONE" type="VARCHAR(15)"></column>
+            <column name="URL" type="VARCHAR(2000)"></column>
+        </createTable>
+        <addAutoIncrement tableName="PLACE" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+
+    <changeSet id="20120311_create_source" author="placecruncher">
+        <createTable tableName="SOURCE">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="NAME" type="VARCHAR(256)"></column>
+            <column name="TITLE" type="VARCHAR(512)"></column>
+            <column name="DESCRIPTION" type="VARCHAR(4096)"></column>
+            <column name="URL" type="VARCHAR(2000)"></column>
+            <column name="STATUS" type="VARCHAR(64)"><constraints nullable="false"/></column>
+        </createTable>
+        <addAutoIncrement tableName="SOURCE" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+
+    <changeSet id="20120311_create_member" author="placecruncher">
+        <createTable tableName="MEMBER">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+        </createTable>
+        <addAutoIncrement tableName="MEMBER" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+
+    <changeSet id="20120311_create_place_source" author="placecruncher">
+        <createTable tableName="PLACE_SOURCE">
+            <column name="PLACE_ID" type="BIGINT"><constraints nullable="false" /></column>
+            <column name="SOURCE_ID" type="BIGINT"><constraints nullable="false"/></column>
+        </createTable>
+
+        <addPrimaryKey tableName="PLACE_SOURCE"
+            columnNames="PLACE_ID, SOURCE_ID"
+            constraintName="PK_PLACE_SOURCE"/>
+
+        <addForeignKeyConstraint constraintName="FK_PLACE_SOURCE_PLACE"
+            baseTableName="PLACE_SOURCE" baseColumnNames="PLACE_ID"
+            referencedTableName="PLACE" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint constraintName="FK_PLACE_SOURCE_SOURCE"
+            baseTableName="PLACE_SOURCE" baseColumnNames="SOURCE_ID"
+            referencedTableName="SOURCE" referencedColumnNames="ID" />
+    </changeSet>
+
+</databaseChangeLog>
