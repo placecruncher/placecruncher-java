@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -16,8 +18,6 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.placecruncher.server.application.Constants;
 
 
 /**
@@ -38,9 +38,9 @@ public class Principal extends AbstractEntity implements UserDetails {
     private Integer id;
     private String username;
     private String password;
-    private String email;
     private boolean enabled;
     private boolean locked;
+    private Member member;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
@@ -73,13 +73,13 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.password = password;
     }
 
-    @Column(name="EMAIL", length=Constants.EMAIL_MAXLEN)
-    public String getEmail() {
-        return email;
+    @OneToOne
+    @JoinColumn(name = "MEMBER_ID", nullable = true)
+    public Member getMember() {
+        return member;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     @Column(name="LOCKED", nullable=false)

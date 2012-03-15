@@ -7,6 +7,18 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
 
+    <changeSet id="20120309_create_member" author="placecruncher">
+        <createTable tableName="MEMBER">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+        </createTable>
+        <addAutoIncrement tableName="MEMBER" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+
     <changeSet id="20120309_create_principal" author="placecruncher">
         <createTable tableName="PRINCIPAL">
             <column name="ID" type="BIGINT" >
@@ -20,8 +32,15 @@
             <column name="EMAIL" type="VARCHAR(320)"></column>
             <column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true"><constraints nullable="false"/></column>
             <column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false"><constraints nullable="false"/></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
         </createTable>
+
         <addAutoIncrement tableName="PRINCIPAL" columnName="ID" columnDataType="bigint" />
+
+        <addForeignKeyConstraint constraintName="FK_PRINCIPAL_MEMBER"
+            baseTableName="PRINCIPAL" baseColumnNames="MEMBER_ID"
+            referencedTableName="MEMBER" referencedColumnNames="ID" />
+
     </changeSet>
 
     <changeSet id="20120311_create_place" author="placecruncher">
@@ -62,18 +81,6 @@
         <addAutoIncrement tableName="SOURCE" columnName="ID" columnDataType="bigint" />
     </changeSet>
 
-    <changeSet id="20120311_create_member" author="placecruncher">
-        <createTable tableName="MEMBER">
-            <column name="ID" type="BIGINT" >
-                <constraints primaryKey="true" nullable="false" />
-            </column>
-            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
-            <column name="UPDATED" type="TIMESTAMP"></column>
-            <column name="VERSION" type="BIGINT"></column>
-        </createTable>
-        <addAutoIncrement tableName="MEMBER" columnName="ID" columnDataType="bigint" />
-    </changeSet>
-
     <changeSet id="20120311_create_place_source" author="placecruncher">
         <createTable tableName="PLACE_SOURCE">
             <column name="PLACE_ID" type="BIGINT"><constraints nullable="false" /></column>
@@ -92,5 +99,94 @@
             baseTableName="PLACE_SOURCE" baseColumnNames="SOURCE_ID"
             referencedTableName="SOURCE" referencedColumnNames="ID" />
     </changeSet>
+
+    <changeSet id="20120315_create_place_ref" author="placecruncher">
+        <createTable tableName="PLACE_REF">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="PLACE_ID" type="BIGINT"><constraints nullable="false" /></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
+            <column name="RATING" type="BIGINT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="PRIVACY" type="VARCHAR(64)"></column>
+        </createTable>
+        <addAutoIncrement tableName="PLACE_REF" columnName="ID" columnDataType="bigint" />
+
+        <addForeignKeyConstraint constraintName="FK_PLACE_REF_PLACE"
+            baseTableName="PLACE_REF" baseColumnNames="PLACE_ID"
+            referencedTableName="PLACE" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint constraintName="FK_PLACE_REF_MEMBER"
+            baseTableName="PLACE_REF" baseColumnNames="MEMBER_ID"
+            referencedTableName="MEMBER" referencedColumnNames="ID" />
+    </changeSet>
+
+    <changeSet id="20120315_create_friend_ref" author="placecruncher">
+        <createTable tableName="FRIEND_REF">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="FRIEND_ID" type="BIGINT"><constraints nullable="false" /></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
+        </createTable>
+        <addAutoIncrement tableName="FRIEND_REF" columnName="ID" columnDataType="bigint" />
+
+        <addForeignKeyConstraint constraintName="FK_FRIEND_REF_MEMBER"
+            baseTableName="FRIEND_REF" baseColumnNames="MEMBER_ID"
+            referencedTableName="MEMBER" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint constraintName="FK_FRIEND_REF_FRIEND"
+            baseTableName="FRIEND_REF" baseColumnNames="FRIEND_ID"
+            referencedTableName="MEMBER" referencedColumnNames="ID" />
+    </changeSet>
+
+    <changeSet id="20120315_create_tag" author="placecruncher">
+        <createTable tableName="TAG">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="NAME" type="VARCHAR(256)"></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints nullable="true"/></column>
+        </createTable>
+        <addAutoIncrement tableName="TAG" columnName="ID" columnDataType="bigint" />
+
+        <addForeignKeyConstraint constraintName="FK_TAG_MEMBER"
+            baseTableName="TAG" baseColumnNames="MEMBER_ID"
+            referencedTableName="MEMBER" referencedColumnNames="ID" />
+
+    </changeSet>
+
+    <changeSet id="20120315_create_tag_ref" author="placecruncher">
+        <createTable tableName="TAG_REF">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="TAG_ID" type="BIGINT"><constraints nullable="false"/></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
+        </createTable>
+        <addAutoIncrement tableName="TAG_REF" columnName="ID" columnDataType="bigint" />
+
+        <addForeignKeyConstraint constraintName="FK_TAG_REF_MEMBER"
+            baseTableName="TAG_REF" baseColumnNames="MEMBER_ID"
+            referencedTableName="MEMBER" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint constraintName="FK_TAG_REF_TAG"
+            baseTableName="TAG_REF" baseColumnNames="TAG_ID"
+            referencedTableName="TAG" referencedColumnNames="ID" />
+
+    </changeSet>
+
 
 </databaseChangeLog>
