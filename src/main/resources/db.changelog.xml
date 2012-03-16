@@ -15,6 +15,7 @@
             <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
             <column name="UPDATED" type="TIMESTAMP"></column>
             <column name="VERSION" type="BIGINT"></column>
+            <column name="EMAIL" type="VARCHAR(320)"></column>
         </createTable>
         <addAutoIncrement tableName="MEMBER" columnName="ID" columnDataType="bigint" />
     </changeSet>
@@ -29,7 +30,6 @@
             <column name="VERSION" type="BIGINT"></column>
             <column name="USERNAME" type="VARCHAR(64)"><constraints nullable="false" unique="true"/></column>
             <column name="PASSWORD" type="VARCHAR(32)"></column>
-            <column name="EMAIL" type="VARCHAR(320)"></column>
             <column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true"><constraints nullable="false"/></column>
             <column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false"><constraints nullable="false"/></column>
             <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
@@ -175,6 +175,7 @@
             <column name="VERSION" type="BIGINT"></column>
             <column name="TAG_ID" type="BIGINT"><constraints nullable="false"/></column>
             <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
+            <column name="PLACE_ID" type="BIGINT"><constraints nullable="false"/></column>
         </createTable>
         <addAutoIncrement tableName="TAG_REF" columnName="ID" columnDataType="bigint" />
 
@@ -185,6 +186,10 @@
         <addForeignKeyConstraint constraintName="FK_TAG_REF_TAG"
             baseTableName="TAG_REF" baseColumnNames="TAG_ID"
             referencedTableName="TAG" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint constraintName="FK_TAG_REF_PLACE"
+            baseTableName="TAG_REF" baseColumnNames="PLACE_ID"
+            referencedTableName="PLACE" referencedColumnNames="ID" />
 
     </changeSet>
 
