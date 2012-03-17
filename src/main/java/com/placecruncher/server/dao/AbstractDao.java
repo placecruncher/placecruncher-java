@@ -13,6 +13,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.domain.Entity;
 
@@ -22,7 +23,7 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
 
     /**
      * Instantiate the DAO.
-     * 
+     *
      * @param clazz The entity class type.
      */
     public AbstractDao(Class<T> clazz) {
@@ -41,7 +42,7 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
 
     /**
      * Create a hibernate query.
-     * 
+     *
      * @param query The query string.
      * @return The query.
      */
@@ -51,7 +52,7 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
 
     /**
      * Create a criteria for this entity.
-     * 
+     *
      * @return The criteria.
      */
     protected Criteria createCriteria() {
@@ -60,7 +61,7 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
 
     /**
      * Gets the current hibernate session.
-     * 
+     *
      * @return The current hibernate session
      */
     protected final Session getCurrentSession() {

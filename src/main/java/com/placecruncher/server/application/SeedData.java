@@ -1,41 +1,31 @@
 package com.placecruncher.server.application;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Collection;
 
-import com.placecruncher.server.dao.SourceDao;
-import com.placecruncher.server.domain.Source;
+import org.springframework.core.Ordered;
+import org.springframework.stereotype.Service;
 
 /**
- * Load seed data into the system.
+ * Classes that implement this interface will be invoked by the
+ * SeedDataProcessor and will be able to seed the database based on the current
+ * configuration.
  */
-public class SeedData implements ApplicationListener<ContextRefreshedEvent>{
-    private final Log log = LogFactory.getLog(this.getClass());
+public interface SeedData extends Ordered {
+    /**
+     * The name of the data set
+     * @return The name of the data set.
+     */
+    String getName();
 
-    @Autowired
-    private SourceDao sourceDao;
+    /**
+     * The configurations that should include this seed data, an empty list
+     * indicates that the seed data always applies.
+     * @return The configurations that should include this seed data.
+     */
+    Collection<String> getConfigurations();
 
-
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        log.info("Initializing Seed Data...");
-        initialize();
-        log.info("Seed data initialized.");
-    }
-
-    private Source createSource() {
-        Source source = new Source();
-        source.setName("Test");
-        source.setStatus(Source.StatusEnum.OPEN);
-        return sourceDao.load(sourceDao.persist(source));
-    }
-    @Transactional
-    public void initialize() {
-        createSource();
-
-
-    }
+    /**
+     * Populate the system with seed data defined by this bean.
+     */
+    void populate();
 }
