@@ -38,7 +38,8 @@ public class Place extends AbstractEntity {
     private String country;
     private String phone;
     private String url;
-
+    // TODO zipcode
+    
     private Set<Source> sources = new HashSet<Source>();
 
     @Id

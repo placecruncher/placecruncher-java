@@ -1,5 +1,8 @@
 package com.placecruncher.server.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,6 +32,7 @@ public class Source extends AbstractEntity {
     private String title;
     private String description;
     private StatusEnum status = StatusEnum.OPEN;
+    private Collection<Place> places = new ArrayList<Place>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
@@ -86,6 +91,14 @@ public class Source extends AbstractEntity {
         this.status = status;
     }
 
+    @ManyToMany(mappedBy="sources")
+    public Collection<Place> getPlaces() {
+    	return places;
+    }
+    private void setPlaces(Collection<Place> places) {
+    	this.places = places;
+    }
+    
 
     public enum StatusEnum {
         OPEN,
