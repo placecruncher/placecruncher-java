@@ -3,8 +3,7 @@ package com.placecruncher.server.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,10 +12,11 @@ import com.placecruncher.server.domain.Email;
 
 
 @Controller
-@RequestMapping("/emails")
+@RequestMapping("/api/v1/emails")
 public class EmailController {
     
-    private final Log log = LogFactory.getLog(this.getClass());
+	private static final Logger LOGGER = Logger.getLogger(EmailController.class);
+
     
     @RequestMapping(value = "")
     public ModelAndView receiveEmail(HttpServletRequest httpServletRequest, HttpServletResponse response) {
@@ -25,7 +25,7 @@ public class EmailController {
             String token = httpServletRequest.getParameter("token");
             String signature = httpServletRequest.getParameter("signature");
         
-            log.info("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
+            LOGGER.info("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
         
             if (timestamp == null || token == null || signature == null) {
                 return null;
@@ -35,7 +35,7 @@ public class EmailController {
         
             email.verify("key-6zwuz0tx6qryy2lgo6ww0qlr1uxazke9", token, timestamp, signature);
         } catch (Exception e) {
-            log.error(e, e);
+        	LOGGER.error(e, e);
         }
         return null;
     }

@@ -10,7 +10,7 @@ import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Source;
 
 @Controller
-@RequestMapping("/sources")
+@RequestMapping("/site/sources")
 public class SourceController {
 
     @Autowired
