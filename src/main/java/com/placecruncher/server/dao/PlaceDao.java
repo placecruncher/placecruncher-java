@@ -23,4 +23,11 @@ public class PlaceDao extends AbstractDao<Integer, Place> {
         return query.list();
 
     }
+    
+    public Place findByExample(Place place) {
+    	// This will need to be made much smarter.
+    	Query query = createQuery("from Place p where p.name = :name");
+    	query.setString("name", place.getName());
+    	return (Place)query.uniqueResult();
+    }
 }
