@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Configurable;
 
+// Standard change
+
 @Configurable(dependencyCheck = true)
 public class Email {
     private String recipient;
