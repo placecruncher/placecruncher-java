@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.placecruncher.server.domain.Email;
 
+// Email Controller
 @Controller
 @RequestMapping("/api/v1/emails")
 public class EmailController {
