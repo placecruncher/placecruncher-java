@@ -3,12 +3,13 @@ package com.placecruncher.server.domain;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Configurable;
 
+@Configurable(dependencyCheck = true)
 public class Email {
     private String recipient;
     private String sender;
@@ -22,7 +23,10 @@ public class Email {
     private long attachementCount;
     private String timestamp;
     
-    private final Log log = LogFactory.getLog(this.getClass());
+    @Value("${urbanairship.key}")
+    private String mailGunKey;
+    
+    private static final Logger LOGGER = Logger.getLogger(Email.class);
     
     public String getRecipient() {
         return recipient;
@@ -112,10 +116,6 @@ public class Email {
         this.timestamp = timestamp;
     }
 
-    public Log getLog() {
-        return log;
-    }
-
     @Override
     public String toString() {
         return "Email [recipient=" + recipient + ", sender=" + sender
@@ -127,11 +127,14 @@ public class Email {
                 + timestamp + "]";
     }
     
-    public boolean verify(String apiKey, String token, String timestamp, String signature) throws Exception {
-        log.info("apiKey: " + apiKey + " token:" + token + " timestamp: " + timestamp + " signature: " + signature);
-    
-        String key = apiKey;
-        byte[] keyBytes = Hex.decodeHex(key.toCharArray());
+    public boolean verify(String token, String timestamp, String signature) throws Exception {
+
+        if (LOGGER.isInfoEnabled()) {
+    		LOGGER.info("verify:apiKey: " + mailGunKey + " token:" + token + " timestamp: " + timestamp + " signature: " + signature);
+    	}
+    	
+        String key = mailGunKey;
+        byte[] keyBytes = key.getBytes();
 
         SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "HmacSHA256");
         Mac mac = Mac.getInstance("HmacSHA256");
@@ -141,11 +144,14 @@ public class Email {
         
         byte[] hmacBytes = mac.doFinal(encode.getBytes());
 
-        String result = new String(Hex.encodeHex(hmacBytes));
+        String newSignature = new String(Hex.encodeHex(hmacBytes));
         
-        log.info("result: " + result);
-    
-        return true;
+        if (LOGGER.isInfoEnabled()) {
+        	LOGGER.info("newSignature: " + newSignature + " old signature: " + signature);
+        }
+        
+        boolean result = StringUtils.equals(newSignature, signature);
+        return result;
     }
 
 }

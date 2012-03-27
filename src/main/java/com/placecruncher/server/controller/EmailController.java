@@ -10,14 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.placecruncher.server.domain.Email;
 
-
 @Controller
 @RequestMapping("/api/v1/emails")
 public class EmailController {
-    
-	private static final Logger LOGGER = Logger.getLogger(EmailController.class);
 
-    
+    private static final Logger LOGGER = Logger.getLogger(EmailController.class);
+
     @RequestMapping(value = "")
     public ModelAndView receiveEmail(HttpServletRequest httpServletRequest, HttpServletResponse response) {
         try {
@@ -25,19 +23,24 @@ public class EmailController {
             String token = httpServletRequest.getParameter("token");
             String signature = httpServletRequest.getParameter("signature");
         
-            LOGGER.info("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
-        
-            if (timestamp == null || token == null || signature == null) {
-                return null;
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
             }
+            
+          //  if (timestamp == null || token == null || signature == null) {
+          //      throw new IllegalArgumentException("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
+          //  }
         
             Email email = new Email();
         
-            email.verify("key-6zwuz0tx6qryy2lgo6ww0qlr1uxazke9", token, timestamp, signature);
+            boolean verifyResult = email.verify(token, timestamp, signature);
+        
+            if (!verifyResult) {
+                throw new IllegalArgumentException("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
+            }
         } catch (Exception e) {
         	LOGGER.error(e, e);
         }
         return null;
     }
-
 }
