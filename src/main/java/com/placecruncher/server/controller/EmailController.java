@@ -4,11 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.placecruncher.server.domain.Email;
+import com.placecruncher.server.service.EmailService;
 
 // Email Controller
 @Controller
@@ -16,9 +18,16 @@ import com.placecruncher.server.domain.Email;
 public class EmailController {
 
     private static final Logger LOGGER = Logger.getLogger(EmailController.class);
+    
+    @Autowired
+    private EmailService emailService;
 
     @RequestMapping(value = "")
     public ModelAndView receiveEmail(HttpServletRequest httpServletRequest, HttpServletResponse response) {
+        
+        Email email = new Email();
+        emailService.receviceEmail();
+        /*
         try {
             String timestamp = httpServletRequest.getParameter("timestamp");
             String token = httpServletRequest.getParameter("token");
@@ -28,9 +37,9 @@ public class EmailController {
                 LOGGER.info("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
             }
             
-          //  if (timestamp == null || token == null || signature == null) {
-          //      throw new IllegalArgumentException("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
-          //  }
+            if (timestamp == null || token == null || signature == null) {
+                throw new IllegalArgumentException("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
+            }
         
             Email email = new Email();
         
@@ -41,7 +50,7 @@ public class EmailController {
             }
         } catch (Exception e) {
         	LOGGER.error(e, e);
-        }
+        }*/
         return null;
     }
 }

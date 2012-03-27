@@ -127,6 +127,11 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
     public final void update(T detachedEntity) {
         getCurrentSession().update(detachedEntity);
     }
+    
+    /** {@inheritDoc} */
+    public final void saveOrUpdate(T detachedEntity) {
+        getCurrentSession().saveOrUpdate(detachedEntity);
+    }
 
     /** {@inheritDoc} */
     public Collection<T> findAll() {

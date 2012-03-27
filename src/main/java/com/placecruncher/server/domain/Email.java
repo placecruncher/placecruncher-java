@@ -2,19 +2,45 @@ package com.placecruncher.server.domain;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.placecruncher.server.dao.EmailDao;
+
 // Standard change
 
+@Entity
+@Table(name = "EMAIL")
 @Configurable(dependencyCheck = true)
-public class Email {
-    private String recipient;
+public class Email extends AbstractEntity {
+
+    private Integer id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID", nullable=false)
+    public Integer getId() {
+        return id;
+    }
+
+    protected void setId(Integer id) {
+        this.id = id;
+    }
+   // private String recipient;
+    
     private String sender;
+    /*
     private String from;
     private String subject;
     private String bodyPlain;
@@ -24,109 +50,23 @@ public class Email {
     private String strippedHtml;
     private long attachementCount;
     private String timestamp;
+    */
     
-    @Value("${urbanairship.key}")
+    @Value("${mailgun.api.key}")
     private String mailGunKey;
+    
+    @Autowired
+    private EmailDao emailDao;
     
     private static final Logger LOGGER = Logger.getLogger(Email.class);
     
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
+    @Column(name="SENDER", nullable=false)
     public String getSender() {
         return sender;
     }
 
     public void setSender(String sender) {
         this.sender = sender;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getBodyPlain() {
-        return bodyPlain;
-    }
-
-    public void setBodyPlain(String bodyPlain) {
-        this.bodyPlain = bodyPlain;
-    }
-
-    public String getStrippedText() {
-        return strippedText;
-    }
-
-    public void setStrippedText(String strippedText) {
-        this.strippedText = strippedText;
-    }
-
-    public String getStrippedSignature() {
-        return strippedSignature;
-    }
-
-    public void setStrippedSignature(String strippedSignature) {
-        this.strippedSignature = strippedSignature;
-    }
-
-    public String getBodyHtml() {
-        return bodyHtml;
-    }
-
-    public void setBodyHtml(String bodyHtml) {
-        this.bodyHtml = bodyHtml;
-    }
-
-    public String getStrippedHtml() {
-        return strippedHtml;
-    }
-
-    public void setStrippedHtml(String strippedHtml) {
-        this.strippedHtml = strippedHtml;
-    }
-
-    public long getAttachementCount() {
-        return attachementCount;
-    }
-
-    public void setAttachementCount(long attachementCount) {
-        this.attachementCount = attachementCount;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Email [recipient=" + recipient + ", sender=" + sender
-                + ", from=" + from + ", subject=" + subject + ", bodyPlain="
-                + bodyPlain + ", strippedText=" + strippedText
-                + ", strippedSignature=" + strippedSignature + ", bodyHtml="
-                + bodyHtml + ", strippedHtml=" + strippedHtml
-                + ", attachementCount=" + attachementCount + ", timestamp="
-                + timestamp + "]";
     }
     
     public boolean verify(String token, String timestamp, String signature) throws Exception {
@@ -154,6 +94,10 @@ public class Email {
         
         boolean result = StringUtils.equals(newSignature, signature);
         return result;
+    }
+    
+    public void store() {
+        emailDao.saveOrUpdate(this);
     }
 
 }
