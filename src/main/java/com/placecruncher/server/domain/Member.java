@@ -5,24 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.placecruncher.server.application.Constants;
+import com.placecruncher.server.dao.MemberDao;
 
 @Entity
-@Table(name=Member.DB_TABLE)
-@SequenceGenerator(name = Member.DB_SEQ, sequenceName = Member.DB_SEQ)
+@Table(name = "Member")
+@Configurable(dependencyCheck = true)
 public class Member extends AbstractEntity {
-    public static final String DB_TABLE = "MEMBER";
-    public static final String DB_SEQ = DB_TABLE + "_SEQ";
-
     private Integer id;
     private String email;
 
+    @Autowired
+    private MemberDao memberDao;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
-    @Column(name="ID", nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -31,15 +34,16 @@ public class Member extends AbstractEntity {
         this.id = id;
     }
 
-    @Column(name="EMAIL", length=Constants.EMAIL_MAXLEN)
-    public String getEmail()
-    {
+    @Column(name = "EMAIL", length = Constants.EMAIL_MAXLEN)
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
+    public void saveOrUpdate() {
+        this.memberDao.saveOrUpdate(this);
+    }
 }

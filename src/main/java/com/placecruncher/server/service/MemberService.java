@@ -1,0 +1,30 @@
+package com.placecruncher.server.service;
+
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.placecruncher.server.domain.Member;
+import com.placecruncher.server.domain.Principal;
+
+@Service
+public class MemberService {
+    
+    @Transactional
+    public String registerUser(String userName, String password) {
+        UUID token = UUID.randomUUID();
+        Principal principal = new Principal();
+        principal.setUsername(userName);
+        principal.setPassword(password);
+        principal.setToken(token.toString());
+        Member member = new Member();
+        member.setEmail(userName);
+        member.saveOrUpdate();
+        principal.setMember(member);
+        principal.saveOrUpdate();
+        
+        return token.toString();
+    }
+
+}

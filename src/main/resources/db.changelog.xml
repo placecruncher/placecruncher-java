@@ -221,7 +221,6 @@
 
     </changeSet>
     
-    
     <changeSet id="20120328_seed_data_log" author="davidjones">
         <createTable tableName="API_KEY">
             <column name="ID" type="BIGINT" >
@@ -234,6 +233,11 @@
             <column name="SECRET" type="VARCHAR(256)"><constraints unique="false" nullable="false" /></column>
         </createTable>
         <addAutoIncrement tableName="API_KEY" columnName="ID" columnDataType="bigint" />
-
+    </changeSet>
+    
+    <changeSet id="20120401_seed_data_log" author="davidjones">
+        <addColumn tableName="PRINCIPAL">
+             <column name="TOKEN" type="varchar(255)"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

@@ -11,26 +11,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.placecruncher.server.dao.PrincipalDao;
 
 
 /**
  * An identifiable person, program, or process that is associated with the authentication and authorization systems.
  */
 @Entity
-@Table(name=Principal.DB_TABLE, uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}) })
-@SequenceGenerator(name = Principal.DB_SEQ, sequenceName = Principal.DB_SEQ)
+@Table(name="PRINCIPAL", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}) })
+@Configurable(dependencyCheck = true)
 public class Principal extends AbstractEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
-
-    public static final String DB_TABLE = "PRINCIPAL";
-    public static final String DB_SEQ = DB_TABLE + "_SEQ";
 
     public static final int USERNAME_MAXLEN = 64;
     public static final int PASSWORD_MAXLEN = 32;
@@ -40,10 +40,14 @@ public class Principal extends AbstractEntity implements UserDetails {
     private String password;
     private boolean enabled;
     private boolean locked;
+    private String token;
     private Member member;
 
+    @Autowired
+    PrincipalDao principalDao;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID", nullable=false)
     public Integer getId() {
         return id;
@@ -64,7 +68,7 @@ public class Principal extends AbstractEntity implements UserDetails {
     }
 
     /** {@inheritDoc} */
-    @Column(name="PASSWRD", length=PASSWORD_MAXLEN)
+    @Column(name="PASSWORD", length=PASSWORD_MAXLEN)
     public String getPassword() {
         return password;
     }
@@ -91,6 +95,14 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.locked = accountLocked;
     }
 
+    @Column(name="TOKEN", nullable=false)
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     /** {@inheritDoc} */
     @Column(name="enabled", nullable=false)
@@ -145,5 +157,7 @@ public class Principal extends AbstractEntity implements UserDetails {
         }
     }
 
-
+    public void saveOrUpdate() {
+        this.principalDao.saveOrUpdate(this);
+    }
 }
