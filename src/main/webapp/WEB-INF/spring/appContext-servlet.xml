@@ -14,6 +14,18 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/private/v1/**" />
+            <bean id="apiSecurityHandler"
+                class="com.placecruncher.server.controller.ApiSecurityHandler">
+            </bean>
+        </mvc:interceptor>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+    </mvc:interceptors>
+    
+    <bean class="com.placecruncher.server.controller.PlacecruncherHandlerExceptionResolver"/>
+    
     <mvc:annotation-driven/>
 
     <mvc:view-controller path="/" view-name="home" />
