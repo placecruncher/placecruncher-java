@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.placecruncher.server.application.InvokerContext;
+import com.placecruncher.server.dao.PrincipalDao;
+import com.placecruncher.server.domain.Principal;
 import com.placecruncher.server.service.MemberService;
 
 @Controller
@@ -19,6 +22,9 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
     
+    @Autowired
+    PrincipalDao principalDao;
+    
     @RequestMapping(method = RequestMethod.POST, value = "self/register")
     @ResponseBody
     public ResponsePayload registerUser(@RequestBody RegisterPayload registerPayload) {
@@ -27,8 +33,32 @@ public class MemberController {
         ResponsePayload responsePayload = new ResponsePayload(meta);
         SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
         String token = "";
+        
         if (registerPayload.validate()) {
             token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword());
+        }
+        
+        sessionTokenWrapper.setToken(token);      
+        responsePayload.setResponse(sessionTokenWrapper);       
+        return responsePayload;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "self/token")
+    @ResponseBody
+    public ResponsePayload token(@RequestBody RegisterPayload registerPayload) {
+
+        Meta meta = new Meta();
+        ResponsePayload responsePayload = new ResponsePayload(meta);
+        SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
+        String token = "";
+        
+        Principal principal = null;
+        if (registerPayload.validate()) {
+            principal = this.principalDao.findByUserNameAndPassword(registerPayload.getUserName(), registerPayload.getPassword());
+        }
+        
+        if (principal != null) {
+            token = principal.getToken();
         }
         
         sessionTokenWrapper.setToken(token);      
