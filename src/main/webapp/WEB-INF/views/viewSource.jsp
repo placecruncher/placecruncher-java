@@ -5,11 +5,11 @@
 
 <h2>${source.name}</h2>
 
-<div width="100%">
-  <div style="float:left" id="places" width="20%" >
+<div>
+  <div id="places" >
       <ul>
         <c:forEach var="place" items="${source.places}">
-          <li>
+          <li id="place_${place.id}"_>
               ${place.name}<br/>
               ${place.address}<br/>
               ${place.city}, ${place.state}, ${place.country}<br/>
@@ -19,8 +19,8 @@
         </c:forEach>
     </ul>
   </div>
-  <div id="urlPreview" width="80%" style="float:right">
-    <iframe scrolling="yes" width="100%" height="720px" src="${source.url}"></iframe>
+  <div id="url_preview">
+    <iframe src="${source.url}"></iframe>
   </div>
 </div>
 

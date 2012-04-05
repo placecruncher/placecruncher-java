@@ -16,7 +16,7 @@
       <c:forEach var="source" items="${sources}">
         <tr >
           <td>${source.id}</td>
-          <td><a href="sources/${source.id}.html">${source.name}</a></td>
+          <td><a href="sources/${source.id}/edit.html">${source.name}</a></td>
           <td>${source.status}</td>
           <td>${source.url}</td>
         </tr>
