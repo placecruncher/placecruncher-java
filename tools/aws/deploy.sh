@@ -46,6 +46,7 @@ fi
 : ${context:="placecruncher"}
 host=$1
 war=$2
+user=ec2-user
 
 if [ ! -r "${war}" ]
 then
@@ -62,8 +63,16 @@ if [ -n key ]; then
   sshArgs="-i ${key}"
 fi
 
-ssh ${sshArgs} $host <<EOF
+tomcat_home=/usr/share/tomcat7/
+
+# scp ${sshArgs} ${war} ${user}@${host}:/tmp
+
+ssh -t -t ${sshArgs} ${user}@${host} <<EOF
   cleanup() {
+    echo "Cleaning up tomcat files in ${tomcat_home}..."
+    sudo rm -rf ${tomcat_home}/temp/*
+    sudo rm -rf ${tomcat_home}/work/*
+    sudo rm -rf ${tomcat_home}/webapps/*
   }
 
   stopTomcat() {
@@ -75,15 +84,16 @@ ssh ${sshArgs} $host <<EOF
   }
 
   deploy() {
-    sudo 
+    echo "Deploying web application..."
+    sudo mkdir -p ${tomcat_home}/webapps/${context}
+    sudo unzip /tmp/$(basename ${war}) -d ${tomcat_home}/webapps/${context}
+    sudo chown -R tomcat.tomcat ${tomcat_home}/webapps/${context}
   }
-    startJboss() {
-        cd $JBOSS_SERVER/bin
-        ./jbossctl.sh start
-        return 0;
-    }
-export JBOSS_HOME
-export JBOSS_SERVER=$JBOSS_HOME/server/default
-END
-return 0;
-}
+
+  stopTomcat
+  cleanup
+  deploy
+  startTomcat
+
+  exit
+EOF
