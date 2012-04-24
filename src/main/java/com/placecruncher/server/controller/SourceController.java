@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.placecruncher.server.dao.PlaceDao;
@@ -44,6 +45,17 @@ public class SourceController {
         ModelAndView mav = new ModelAndView("sources");
         mav.addObject("sources", sourceDao.findByStatus(status));
         return mav;
+    }
+
+    @RequestMapping(value="{id}.json", method=RequestMethod.GET)
+    @ResponseBody
+    public SourceModel getSource(@PathVariable("id") int id) {
+        Source source = sourceDao.get(id);
+        if (source == null) {
+        	// TODO handle bad param
+        	return null;
+        }
+        return new SourceModel(source);
     }
 
     @RequestMapping(value="{id}.html", method=RequestMethod.GET)

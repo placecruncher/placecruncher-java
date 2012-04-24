@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+
+<script>
+YUI().use('io-base', function (Y) {
+	var cfg = {
+// 		    method: 'GET',
+// 		    headers: {
+// 		        'Content-Type': 'application/json',
+// 		        'Authorization': 'Basic YWRtaW46c2VjcmV0'
+// 		    },
+		    on: {
+		        start: function() {
+		        	Y.log("Starting...");
+		        },
+		        complete: function() {
+		        	Y.log("Complete.");
+		        },
+		        success: function() {
+		        	Y.log("Success!");
+		        },
+		        failure: function(transactionid, response, arguments) {
+		        	Y.log("Failure!");
+		        }
+		    }
+	};
+
+	Y.io('www.google.com', cfg);
+});
+
+</script>
+</html>
+

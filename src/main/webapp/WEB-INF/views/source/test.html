@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+
+<style scoped>
+body {
+	margin: auto; /* center in viewport */
+	width: 960px;
+}
+
+ol,ul {
+	list-style: none outside none;
+}
+
+#place-app {
+	margin: 1em;
+}
+
+#place-list,#place-stats {
+	margin: 1em auto;
+	text-align: left;
+	width: 450px;
+}
+
+#place-list {
+	list-style: none;
+	padding: 0;
+}
+
+#place-stats,.place-clear {
+	color: #777;
+}
+
+.place-clear {
+	float: right;
+}
+
+.place-edit,.editing .place-view {
+	display: none;
+}
+
+.editing .place-edit {
+	display: block;
+}
+
+.place-form li {
+	padding-top: 15px;
+}
+
+.place-form-field { #
+	display: block;
+	font-family: Helvetica, sans-serif;
+	font-size: 20px;
+	line-height: normal;
+	margin: 5px auto 0;
+	padding: 6px;
+	width: 420px;
+}
+
+.place-form-label {
+	float: none;
+	witdh: auto;
+	clear: left;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.place-form-note {
+	color: #999999;
+	font-size: 13px;
+	font-style: normal;
+}
+
+.place-item {
+	border-bottom: 1px dotted #cfcfcf;
+	font-size: 20px;
+	padding: 6px;
+	position: relative;
+}
+
+.place-title {
+	color: #444;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.place-remaining {
+	color: #333;
+	font-weight: bold;
+}
+
+.place-remove {
+	position: absolute;
+	right: 0;
+	top: 12px;
+}
+
+.place-remove-icon { /*
+    Delete icon courtesy of The Noun Project:
+    http://thenounproject.com/noun/delete/
+    */
+	background: url(../assets/app/remove.png) no-repeat;
+	display: block;
+	height: 16px;
+	opacity: 0.6;
+	visibility: hidden;
+	width: 23px;
+}
+
+.place-remove:hover .place-remove-icon {
+	opacity: 1.0;
+}
+
+.place-hover .place-remove-icon,.place-remove:focus .place-remove-icon {
+	visibility: visible;
+}
+
+.editing .place-remove-icon {
+	visibility: hidden;
+}
+
+.invisible {
+	display:none;
+	visibility: hidden;
+}
+</style>
+
+<div class="yui3-g">
+    <div class="yui3-u-5-24">
+
+    </div>
+    <div class="yui3-u-19-24">
+<div id="place-app">
+    <p class="place-title">Places</p>
+
+    <div id="new-place">
+	    <button id="new-place-button" class="">Add Place</button>
+    </div>
+
+	<div id="place-form" class="invisible">
+	    <button id="save-new-place-button">Save</button>
+	    <button id="cancel-new-place-button">Cancel</button>
+		<ul>
+	    	<li>
+	    	<label class="place-form-label" for="name"> Name </label><em class="place-form-note">Nirvana Deli</em>
+	    	<div><input class="place-form-field" id="name" type="text"></div>
+	    	</li>
+
+	    	<li>
+	    	<label class="place-form-label" for="address"> Address </label>
+	    	<div><input class="place-form-field" id="address" type="text"></div>
+	    	</li>
+
+	    	<li>
+	    	<label class="place-form-label" for="location"> Location </label><em class="place-form-note">e.g. San Carlos, CA 94070</em>
+	    	<div><input class="place-form-field" id="location" name="location" type="text"></div>
+	    	</li>
+
+	    	<li>
+	    	<label class="place-form-label" for="phone"> Phone Number </label><em class="place-form-note">e.g. (555) 555-1212</em>
+	    	<div><input class="place-form-field" id="phone" type="text"></div>
+	    	</li>
+
+	    	<li>
+	    	<label class="place-form-label" for="website"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
+	    	<div><input class="place-form-field" id="website" type="text"></div>
+	    	</li>
+
+	    </ul>
+	</div>
+
+    <ul id="place-list"></ul>
+    <div id="place-stats"></div>
+</div>
+
+    </div>
+</div>
+
+<!-- This template HTML will be used to render each place item. -->
+<script type="text/x-template" id="place-item-template">
+    <div class="place-view">
+		<a href="{website}">{name}</a>, {address}, {location}
+    </div>
+
+    <a href="#" class="place-remove" title="Remove this place">
+        <span class="place-remove-icon"></span>
+    </a>
+</script>
+
+<!-- This template HTML will be used to render the statistics at the bottom of the place list. -->
+<script type="text/x-template" id="place-stats-template">
+    <span class="place-count">
+        <span class="place-count">{count}</span>
+        <span class="place-count-label">{label}</span>.
+    </span>
+
+</script>
+
+<script>
+YUI().use('event-focus', 'json', 'model', 'model-list', 'view', function (Y) {
+
+var PlaceAppView, PlaceList, SourceModel, PlaceView;
+
+// -- Model --------------------------------------------------------------------
+
+// The PlaceModel class extends Y.Model and customizes it to use a localStorage
+// sync provider (the source for that is further below) and to provide
+// attributes and methods useful for place items.
+
+PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [], {
+    // This tells the Model to use a localStorage sync provider (which we'll
+    // create below) to save and load information about a place item.
+    sync: LocalStorageSync('place'),
+
+}, {
+    ATTRS: {
+    	name: {value: ''},
+    	address: {value: ''},
+    	location: {value: ''},
+    	website: {value: ''},
+    	phone: {value: ''}
+    }
+});
+
+// -- ModelList ----------------------------------------------------------------
+
+// The PlaceList class extends Y.ModelList and customizes it to hold a list of
+// PlaceModel instances, and to provide some convenience methods for getting
+// information about the place items in the list.
+
+PlaceList = Y.PlaceList = Y.Base.create('placeList', Y.ModelList, [], {
+    // This tells the list that it will hold instances of the PlaceModel class.
+    model: PlaceModel,
+
+    // This tells the list to use a localStorage sync provider (which we'll
+    // create below) to load the list of place items.
+    sync : LocalStorageSync('place')
+
+//     // Returns an array of all models in this list with the `done` attribute
+//     // set to `true`.
+//     done: function () {
+//         return Y.Array.filter(this.toArray(), function (model) {
+//             return model.get('done');
+//         });
+//     },
+
+//     // Returns an array of all models in this list with the `done` attribute
+//     // set to `false`.
+//     remaining: function () {
+//         return Y.Array.filter(this.toArray(), function (model) {
+//             return !model.get('done');
+//         });
+//     }
+
+});
+
+// -- Place App View ------------------------------------------------------------
+
+// The PlaceAppView class extends Y.View and customizes it to represent the
+// main shell of the application, including the new item input fields and the
+// list of place items.
+//
+// This class also takes care of initializing a PlaceList instance and creating
+// and rendering a PlaceView instance for each place item when the list is
+// initially loaded or reset.
+
+PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
+    // The container node is the wrapper for this view.  All the view's events
+    // will be delegated from the container. In this case, the #place-app
+    // node already exists on the page, so we don't need to create it.
+    container: Y.one('#place-app'),
+
+    placeForm: Y.one('#place-form'),
+
+//     // This is a custom property that we'll use to hold a reference to the new place form
+//     inputNode: Y.one('#new-place'),
+
+    // The `template` property is a convenience property for holding a template
+    // for this view. In this case, we'll use it to store the contents of the
+    // #place-stats-template element, which will serve as the template for the
+    // statistics displayed at the bottom of the list.
+    template: Y.one('#place-stats-template').getContent(),
+
+    // This is where we attach DOM events for the view. The `events` object is a
+    // mapping of selectors to an object containing` one or more events to attach
+    // to the node(s) matching each selector.
+    events: {
+    	'#new-place-button': {click: 'createNewPlace'},
+    	'#save-new-place-button': {click: 'saveNewPlace'},
+    	'#cancel-new-place-button' : {click: 'cancelNewPlace'}
+    },
+
+    // The initializer runs when a PlaceAppView instance is created, and gives
+    // us an opportunity to set up the view.
+    initializer: function () {
+        // Create a new PlaceList instance to hold the place items.
+        var list = this.placeList = new PlaceList();
+
+        // Update the display when a new item is added to the list, or when the
+        // entire list is reset.
+        list.after('add', this.add, this);
+        list.after('reset', this.reset, this);
+
+        // Re-render the stats in the footer whenever an item is added, removed
+        // or changed, or when the entire list is reset.
+        list.after(['add', 'reset', 'remove', 'placeModel:doneChange'], this.render, this);
+
+        // Load saved items from localStorage, if available.
+        list.load();
+    },
+
+    // The render function is called whenever a place item is added, removed, or
+    // changed, thanks to the list event handler we attached in the initializer
+    // above.
+    render: function () {
+        var placeList = this.placeList,
+            stats = this.container.one('#place-stats');
+
+        // If there are no place items, then clear the stats.
+        if (placeList.isEmpty()) {
+            stats.empty();
+            return this;
+        }
+
+        // Update the statistics.
+        stats.setContent(Y.Lang.sub(this.template, {
+        	count : placeList.size(),
+        	label : placeList.size() === 1 ? 'place' : 'places'
+        }));
+
+        return this;
+    },
+
+    // -- Event Handlers -------------------------------------------------------
+
+    // Creates a new PlaceView instance and renders it into the list whenever a
+    // place item is added to the list.
+    add: function (e) {
+        var view = new PlaceView({model: e.model});
+        this.container.one('#place-list').append(view.render().container);
+    },
+
+    createNewPlace: function (e) {
+    	this.container.one('#place-form').removeClass('invisible');
+    	this.container.one('#new-place').addClass('invisible')
+//         var name, address;
+
+//         if (e.keyCode === 13) { // enter key
+//             name = Y.Lang.trim(this.inputNode.get('value'));
+//            	address = 'need to define the address field'
+
+//             if (!name) { return; }
+
+//             // This tells the list to create a new PlaceModel instance with the
+//             // specified text and automatically save it to localStorage in a
+//             // single step.
+//             this.placeList.create({name: name, address: address});
+
+//             this.inputNode.set('value', '');
+//             // DSDXXX need to create the address field
+//         }
+    },
+
+    saveNewPlace: function(e) {
+    	this.container.one('#place-form').addClass('invisible');
+    	this.container.one('#new-place').removeClass('invisible')
+
+    	var name = Y.Lang.trim(this.placeForm.one('#name').get('value'));
+    	var address = Y.Lang.trim(this.placeForm.one('#address').get('value'));
+    	var location = Y.Lang.trim(this.placeForm.one('#location').get('value'));
+    	var phone = Y.Lang.trim(this.placeForm.one('#phone').get('value'));
+    	var website = Y.Lang.trim(this.placeForm.one('#website').get('value'));
+
+    	this.placeList.create({
+    		name: name,
+    		address: address,
+    		location: location,
+    		phone: phone,
+    		website: website});
+
+    },
+
+    cancelNewPlace: function(e) {
+    	Y.one('#place-form').addClass('invisible');
+    	Y.one('#new-place').removeClass('invisible')
+    },
+
+    // Turns off the hover state on a place item.
+    hoverOff: function (e) {
+        e.currentTarget.removeClass('place-hover');
+    },
+
+    // Turns on the hover state on a place item.
+    hoverOn: function (e) {
+        e.currentTarget.addClass('place-hover');
+    },
+
+    // Creates and renders views for every place item in the list when the entire list is reset.
+    reset: function (e) {
+        var fragment = Y.one(Y.config.doc.createDocumentFragment());
+
+        Y.Array.each(e.models, function (model) {
+            var view = new PlaceView({model: model});
+            fragment.append(view.render().container);
+        });
+
+        this.container.one('#place-list').setContent(fragment);
+    }
+});
+
+
+
+// -- Place item view -----------------------------------------------------------
+
+// The PlaceView class extends Y.View and customizes it to represent the content
+// of a single place item in the list. It also handles DOM events on the item to
+// allow it to be edited and removed from the list.
+
+PlaceView = Y.PlaceView = Y.Base.create('placeView', Y.View, [], {
+    // Specifying an HTML string as this view's container element causes that
+    // HTML to be automatically converted into an unattached Y.Node instance.
+    // The PlaceAppView (above) will take care of appending it to the list.
+    container: '<li class="place-item"/>',
+
+    // The template property holds the contents of the #place-item-template
+    // element, which will be used as the HTML template for each place item.
+    template: Y.one('#place-item-template').getContent(),
+
+    // Delegated DOM events to handle this view's interactions.
+    events: {
+        // When the text of this place item is clicked or focused, switch to edit
+        // mode to allow editing.
+        '.place-content': {
+            click: 'edit',
+            focus: 'edit'
+        },
+
+        // On the edit field, when enter is pressed or the field loses focus,
+        // save the current value and switch out of edit mode.
+        '.place-input'   : {
+            blur    : 'save',
+            keypress: 'enter'
+        },
+
+        // When the remove icon is clicked, delete this place item.
+        '.place-remove': {click: 'remove'}
+    },
+
+    initializer: function () {
+        // The model property is set to a PlaceModel instance by PlaceAppView when
+        // it instantiates this PlaceView.
+        var model = this.model;
+
+        // Re-render this view when the model changes, and destroy this view
+        // when the model is destroyed.
+        model.after('change', this.render, this);
+        model.after('destroy', this.destroy, this);
+    },
+
+    render: function () {
+        var container = this.container,
+            model     = this.model;
+
+        container.setContent(Y.Lang.sub(this.template, {
+        	name     : model.getAsHTML('name'),
+        	address  : model.getAsHTML('address'),
+        	location : model.getAsHTML('location'),
+        	website  : model.getAsHTML('website'),
+        	phone    : model.getAsHTML('phone')
+        }));
+
+//        this.inputNode = container.one('.place-input');
+
+        return this;
+    },
+
+    // -- Event Handlers -------------------------------------------------------
+
+    // Toggles this item into edit mode.
+    edit: function () {
+        this.container.addClass('editing');
+        this.inputNode.focus();
+    },
+
+    // Removes this item from the list.
+    remove: function (e) {
+        e.preventDefault();
+
+        this.constructor.superclass.remove.call(this);
+        this.model.destroy({'delete': true});
+    },
+
+    // Toggles this item out of edit mode and saves it.
+    save: function () {
+        this.container.removeClass('editing');
+        this.model.set('name', this.inputNode.get('value')).save();
+        this.model.set('address', this.inputNode.get('value')).save();
+    },
+
+});
+
+// -- localStorage Sync Implementation -----------------------------------------
+
+// This is a simple factory function that returns a `sync()` function that can
+// be used as a sync layer for either a Model or a ModelList instance. The
+// PlaceModel and PlaceList instances above use it to save and load items.
+
+function LocalStorageSync(key) {
+    var localStorage;
+
+    if (!key) {
+        Y.error('No storage key specified.');
+    }
+
+    if (Y.config.win.localStorage) {
+        localStorage = Y.config.win.localStorage;
+    }
+
+    // Try to retrieve existing data from localStorage, if there is any.
+    // Otherwise, initialize `data` to an empty object.
+    var data = Y.JSON.parse((localStorage && localStorage.getItem(key)) || '{}');
+
+    // Delete a model with the specified id.
+    function destroy(id) {
+        var modelHash;
+
+        if ((modelHash = data[id])) {
+            delete data[id];
+            save();
+        }
+
+        return modelHash;
+    }
+
+    // Generate a unique id to assign to a newly-created model.
+    function generateId() {
+        var id = '',
+            i  = 4;
+
+        while (i--) {
+            id += (((1 + Math.random()) * 0x10000) | 0)
+                    .toString(16).substring(1);
+        }
+
+        return id;
+    }
+
+    // Loads a model with the specified id. This method is a little tricky,
+    // since it handles loading for both individual models and for an entire
+    // model list.
+    //
+    // If an id is specified, then it loads a single model. If no id is
+    // specified then it loads an array of all models. This allows the same sync
+    // layer to be used for both the PlaceModel and PlaceList classes.
+    function get(id) {
+        return id ? data[id] : Y.Object.values(data);
+    }
+
+    // Saves the entire `data` object to localStorage.
+    function save() {
+        localStorage && localStorage.setItem(key, Y.JSON.stringify(data));
+    }
+
+    // Sets the id attribute of the specified model (generating a new id if
+    // necessary), then saves it to localStorage.
+    function set(model) {
+        var hash        = model.toJSON(),
+            idAttribute = model.idAttribute;
+
+        if (!Y.Lang.isValue(hash[idAttribute])) {
+            hash[idAttribute] = generateId();
+        }
+
+        data[hash[idAttribute]] = hash;
+        save();
+
+        return hash;
+    }
+
+    // Returns a `sync()` function that can be used with either a Model or a
+    // ModelList instance.
+    return function (action, options, callback) {
+        // `this` refers to the Model or ModelList instance to which this sync
+        // method is attached.
+        var isModel = Y.Model && this instanceof Y.Model;
+
+        switch (action) {
+        case 'create': // intentional fallthru
+        case 'update':
+            callback(null, set(this));
+            return;
+
+        case 'read':
+            callback(null, get(isModel && this.get('id')));
+            return;
+
+        case 'delete':
+            callback(null, destroy(isModel && this.get('id')));
+            return;
+        }
+    };
+}
+
+// -- Start your engines! ------------------------------------------------------
+
+// Finally, all we have to do is instantiate a new PlaceAppView to set everything
+// in motion and bring our place list into existence.
+new PlaceAppView();
+
+});
+</script>
+</html>

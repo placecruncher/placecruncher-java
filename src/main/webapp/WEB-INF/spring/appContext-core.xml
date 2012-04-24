@@ -25,8 +25,8 @@
     </bean>
 
     <bean id="invokerContextTarget" scope="prototype" class="com.placecruncher.server.application.InvokerContextImpl"/>
-    
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer">
         <property name="order" value="999"/>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
         <property name="ignoreResourceNotFound" value="true"/>
@@ -40,9 +40,9 @@
                  System properties (defined by -D on the command line) will take highest precedence.
                 -->
                 <value>classpath:/placecruncher.properties</value>
-                <value>${inqcloud.base:file:.}/environment.properties</value>
-                <value>${inqcloud.base:file:.}/${placecruncher.environment}.properties</value>
-                <value>${inqcloud.base:file:.}/local.properties</value>
+                <value>${placecruncher.base:file:.}/environment.properties</value>
+                <value>${placecruncher.base:file:.}/${placecruncher.environment}.properties</value>
+                <value>${placecruncher.base:file:.}/local.properties</value>
             </list>
         </property>
     </bean>
@@ -61,7 +61,7 @@
             </property>
         </bean>
     </beans>
-    
-    
+
+
 
 </beans>

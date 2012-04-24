@@ -1,28 +1,23 @@
 #!/bin/bash
 
 function usage() {
-  echo "Usage: $(basename $0) [-v] [-i key] [-c context] host war"
+  echo "Usage: $(basename $0) [-v] [-i key] host war"
   echo
   echo "host  The hostname to deploy to"
   echo "war   The WAR file to deploy"
   echo
   echo "-v Verbose logging"
   echo "-i Private key"
-  echo "-c Web application context (default: placecruncher)"
   echo
 }
 
 
 unset key
 unset verbose
-unset context
 
-while getopts i:c:v?h VAR
+while getopts i:v?h VAR
 do
   case $VAR in
-    c)
-      context="${OPTARG}"
-      ;;
     v)
       verbose=true
       ;;
@@ -43,7 +38,6 @@ then
   exit 1
 fi
 
-: ${context:="placecruncher"}
 host=$1
 war=$2
 user=ec2-user
@@ -55,7 +49,7 @@ then
 fi
 
 if [ -n verbose ]; then
- echo "Deploying ${war} to ${host} using context ${context}"
+ echo "Deploying ${war} to ${host}"
 fi
 
 sshArgs=""
@@ -65,9 +59,9 @@ fi
 
 tomcat_home=/usr/share/tomcat7/
 
-# scp ${sshArgs} ${war} ${user}@${host}:/tmp
+scp ${sshArgs} ${war} ${user}@${host}:/tmp
 
-ssh -t -t ${sshArgs} ${user}@${host} <<EOF
+ssh -t -t -v ${sshArgs} ${user}@${host} <<-EOF
   cleanup() {
     echo "Cleaning up tomcat files in ${tomcat_home}..."
     sudo rm -rf ${tomcat_home}/temp/*
@@ -85,9 +79,8 @@ ssh -t -t ${sshArgs} ${user}@${host} <<EOF
 
   deploy() {
     echo "Deploying web application..."
-    sudo mkdir -p ${tomcat_home}/webapps/${context}
-    sudo unzip /tmp/$(basename ${war}) -d ${tomcat_home}/webapps/${context}
-    sudo chown -R tomcat.tomcat ${tomcat_home}/webapps/${context}
+    sudo rm /etc/placecruncher/placecruncher.war
+    sudo mv /tmp/$(basename ${war}) /etc/placecruncher/placecruncher.war
   }
 
   stopTomcat
