@@ -1,0 +1,22 @@
+Getting Started
+
+The quickest way to get up and running is to execute the sytem in place using demo data 
+and an in-memory database.  
+
+1. create a file named local.properties
+  app.baseUrl=http://localhost:8080/placecruncher
+  db.driver=org.hsqldb.jdbcDriver
+  db.url=jdbc:hsqldb:mem:placecruncher
+  db.username=root
+  db.password=root
+  custom.seed.data.configurations=demo
+
+2. start tomcat
+
+  $ mvn tomcat7:run
+
+3. enjoy
+
+  http://localhost:8080/placecruncher
+
+
