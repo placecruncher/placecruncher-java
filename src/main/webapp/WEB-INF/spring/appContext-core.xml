@@ -26,9 +26,8 @@
 
     <bean id="invokerContextTarget" scope="prototype" class="com.placecruncher.server.application.InvokerContextImpl"/>
 
-    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer">
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="order" value="999"/>
-        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
         <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
             <list>

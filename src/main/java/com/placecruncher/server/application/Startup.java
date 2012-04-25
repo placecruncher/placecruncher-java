@@ -1,12 +1,14 @@
 package com.placecruncher.server.application;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class Startup implements SmartLifecycle
 
     @Autowired
     private SeedDataService seedDataService;
+
+    @Value("${default.seed.data.configurations}")
+    private Collection<String> defaultConfigurations;
+
+    @Value("${custom.seed.data.configurations:}")
+    private Collection<String> customConfigurations;
 
     /** {@inheritDoc} */
     public boolean isAutoStartup()
@@ -39,8 +47,9 @@ public class Startup implements SmartLifecycle
         if (log.isInfoEnabled()) log.info("Starting up application...");
 
         if (log.isInfoEnabled()) log.info("Loading seed data...");
-        List<String> configurations = Arrays.asList(new String[] { "demo" });
-        seedDataService.loadSeedData(configurations);
+        @SuppressWarnings("unchecked")
+		Collection<String> collections = CollectionUtils.union(defaultConfigurations, customConfigurations);
+        seedDataService.loadSeedData(collections);
 
         if (log.isInfoEnabled()) log.info("Application startup complete.");
         running = true;

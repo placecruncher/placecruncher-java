@@ -1,6 +1,5 @@
 package com.placecruncher.server.application;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,42 +13,10 @@ import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.service.SourceService;
 
 @Service
-public class DemoSeedData implements SeedData {
-	private final String[] sourceNames = {
-			// 0 = prefix, 1 = city
-			"Best of {1}",
-			"Top Eateries in {1}",
-			"Talk of {1}",
-			"An Evening in {1}",
-			"Breakfast in {1}",
-			"{0}'s Top Picks"
-	};
-	
-	private final String[] placeNames = {
-			// 0 = prefix, 1 = city, 2 = street
-			"{0}'s Diner",
-			"{0}'s Pub",
-			"{0}'s Place",
-			"{2} Grille",
-			"Top of {1} Restaurant",
-			"{1} Tavern",
-			"{0} Eats"
-	};
-	
-	private final String[] streets = {
-			" Main Street",
-			" 1st Street",
-			" High Street",
-			" Laurel Street",
-			" Nantucket",
-			" Keswick Drive",
-			" Atterbury",
-			" El Camino Real"
-	};
-	
+public class SanFranciscoSourceData implements SeedData {
     @Autowired
     private SourceService sourceService;
-    
+
     public int getOrder() {
         return Integer.MAX_VALUE;
     }
@@ -58,37 +25,12 @@ public class DemoSeedData implements SeedData {
         return "Demo Data";
     }
 
-    public Collection<String> getConfigurations() {
-        return Arrays.asList(new String[] {"demo"});
+    public boolean isRepeatable() {
+    	return true;
     }
 
-    private String pick(int choice, String[] choices) {
-    	return choices[choice % choices.length];
-    }
-    
-    private String pickPlaceName(int choice, String prefix, String city, String street) {
-    	return MessageFormat.format(pick(choice, placeNames), prefix, city, street);
-    }
-    private String pickSourceName(int choice, String prefix, String city) {
-    	return MessageFormat.format(pick(choice, sourceNames), prefix, city);
-    }
-    
-    private List<Place> createPlaces(int count, String prefix) {
-    	List<Place> places = new ArrayList<Place>();
-    	while (count-- > 0) {
-    		String street = pick(count, streets);
-    		String city = prefix + "ville";
-    		String name = pickPlaceName(count, prefix, city, street);
-    		
-    		Place place = new Place();
-    		place.setName(name);
-    		place.setAddress(count + " " + street);
-    		place.setCity(city);
-    		place.setState("CA");
-    		place.setCountry("US");
-    		places.add(place);
-    	}
-    	return places;
+    public Collection<String> getConfigurations() {
+        return Arrays.asList(new String[] {"demo"});
     }
 
     private Place createPlace(String name, String address, String phone, String url, String description) {
@@ -101,7 +43,7 @@ public class DemoSeedData implements SeedData {
     	place.setDescription(description);
     	return place;
     }
-    
+
     public void populate() {
     	List<Place> places = new ArrayList<Place>();
     	Source source = sourceService.createSource("We Love Mission Food", "http://www.sfgate.com/cgi-bin/article.cgi?f=/c/a/2012/03/16/FD5G1NDD9Q.DTL");
@@ -142,7 +84,7 @@ public class DemoSeedData implements SeedData {
     	places.add(createPlace( "Radio Africa", "4800 Third St.", "(415) 420-2486", "radioafricakitchen.com", "Dinner Tuesday-Saturday; lunch begins next month."));
     	places.add(createPlace( "El Huarache Loco", "1803 Larkspur Landing Circle", "(415) 925-1403", "huaracheloco.com", "Open 8 a.m.-8 p.m. daily"));
     	sourceService.addPlaces(source, places);
-    	
+
     	source = sourceService.createSource("WHAT'S NEW: New life for an old favorite","http://www.sfgate.com/cgi-bin/article.cgi?f=/c/a/2012/01/27/FDSS1MVHB0.DTL#ixzz1pZJxsqNw");
 
     	source = sourceService.createSource("Finding talented chefs for 20 years", "http://www.sfgate.com/cgi-bin/article.cgi?f=/c/a/2012/03/11/FD861NGNCN.DTL");
@@ -151,9 +93,9 @@ public class DemoSeedData implements SeedData {
     	places.add(createPlace( "Locanda", "557 Valencia St", "(415) 863-6800", "locandasf.com", ""));
     	places.add(createPlace( "Outerlands", "4001 Judah St", "(415) 661-6140", "outerlandssf.com", ""));
     	sourceService.addPlaces(source, places);
-    	
-    
-    
+
+
+
     }
 
 }

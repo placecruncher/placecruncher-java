@@ -3,12 +3,11 @@ package com.placecruncher.server.application;
 import java.util.Collection;
 
 import org.springframework.core.Ordered;
-import org.springframework.stereotype.Service;
 
 /**
- * Classes that implement this interface will be invoked by the
- * SeedDataProcessor and will be able to seed the database based on the current
- * configuration.
+ * SeedData can be used to create data using business methods instead of directly
+ * inserting data into the database.  Classes that implement this interface will be
+ * invoked during startup by the Startup class.
  */
 public interface SeedData extends Ordered {
     /**
@@ -28,4 +27,13 @@ public interface SeedData extends Ordered {
      * Populate the system with seed data defined by this bean.
      */
     void populate();
+
+    /**
+     * Implementations should return true if they are capable of being
+     * run each time the system is started.  This can allow seed data
+     * to be reset or updated.
+     * @return true if this seed data should be (re)loaded each time the
+     * system is started.
+     */
+    boolean isRepeatable();
 }
