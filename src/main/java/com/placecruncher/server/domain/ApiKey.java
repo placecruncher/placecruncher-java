@@ -24,7 +24,7 @@ public class ApiKey extends AbstractEntity {
     private static final Logger LOGGER = Logger.getLogger(ApiKey.class);
 
     private Integer id;
-    private String key;    
+    private String key;
     private String secret;
 
     @Id
@@ -33,11 +33,11 @@ public class ApiKey extends AbstractEntity {
     public Integer getId() {
         return id;
     }
-    
+
     protected void setId(Integer id) {
         this.id = id;
     }
-    
+
     public String getKey() {
         return key;
     }
@@ -66,21 +66,20 @@ public class ApiKey extends AbstractEntity {
             try {
                 String digest = timeStamp + "." + this.secret;
 
-                String newSignature = DigestUtils.sha256Hex(digest);
+                String expectedSignature = DigestUtils.sha256Hex(digest);
 
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("key: " + requestKey + " signature: " + signature
                             + " timeStamp: " + timeStamp
                             + " timestampLeniencySeconds: "
                             + timestampLeniencySeconds + " digest: " + digest
-                            + " newSignature: " + newSignature);
+                            + " expectedSignature: " + expectedSignature);
                 }
 
-                if (StringUtils.equals(signature, newSignature)) {
+                if (StringUtils.startsWith(signature,  expectedSignature)) {
                     DateTime passedInDateTime = null;
 
-                    DateTimeFormatter parser = ISODateTimeFormat
-                            .basicDateTimeNoMillis();
+                    DateTimeFormatter parser = ISODateTimeFormat.basicDateTimeNoMillis();
                     passedInDateTime = parser.parseDateTime(timeStamp);
 
                     DateTime currentTime = DateTime.now();
@@ -95,7 +94,7 @@ public class ApiKey extends AbstractEntity {
                                 + " timeStamp: " + timeStamp
                                 + " timestampLeniencySeconds: "
                                 + timestampLeniencySeconds + " digest: "
-                                + digest + " newSignature: " + newSignature
+                                + digest + " newSignature: " + expectedSignature
                                 + " diff: " + diff);
                     }
 
@@ -117,7 +116,7 @@ public class ApiKey extends AbstractEntity {
         }
         return result;
     }
-    
+
     @Override
     public String toString() {
         return "ApiKey [id=" + id + ", key=" + key + ", secret=" + secret + "]";

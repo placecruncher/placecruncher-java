@@ -10,9 +10,7 @@ import com.placecruncher.server.util.TransformUtils;
 public class PlaceModel {
     private String name;
     private String address;
-    private String city;
-    private String state;
-    private String country;
+    private String location;
     private String phone;
     private String url;
 
@@ -41,23 +39,11 @@ public class PlaceModel {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCity() {
-		return city;
+	public String getLocation() {
+		return location;
 	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	public String getPhone() {
 		return phone;

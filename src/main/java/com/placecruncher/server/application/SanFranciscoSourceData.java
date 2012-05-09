@@ -45,6 +45,9 @@ public class SanFranciscoSourceData implements SeedData {
     }
 
     public void populate() {
+    	
+    	// Since this is a repeatable seed data set, we need to be sure not to keep adding more data
+    	// each time the system starts up, so we blow away all the sources in the database.
     	List<Place> places = new ArrayList<Place>();
     	Source source = sourceService.createSource("We Love Mission Food", "http://www.sfgate.com/cgi-bin/article.cgi?f=/c/a/2012/03/16/FD5G1NDD9Q.DTL");
     	places.add(createPlace( "18 Reasons", "3674 18th St.", "(415) 568-2710", "18reasons.org", ""));

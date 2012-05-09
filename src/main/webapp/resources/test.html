@@ -163,8 +163,8 @@ ol,ul {
 	    	</li>
 
 	    	<li>
-	    	<label class="place-form-label" for="website"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
-	    	<div><input class="place-form-field" id="website" type="text"></div>
+	    	<label class="place-form-label" for="url"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
+	    	<div><input class="place-form-field" id="url" type="text"></div>
 	    	</li>
 
 	    </ul>
@@ -180,7 +180,7 @@ ol,ul {
 <!-- This template HTML will be used to render each place item. -->
 <script type="text/x-template" id="place-item-template">
     <div class="place-view">
-		<a href="{website}">{name}</a>, {address}, {location}
+		<a href="{url}">{name}</a>, {address}, {location}
     </div>
 
     <a href="#" class="place-remove" title="Remove this place">
@@ -198,7 +198,17 @@ ol,ul {
 </script>
 
 <script>
-YUI().use('event-focus', 'json', 'model', 'model-list', 'view', function (Y) {
+
+var Y = YUI({
+    allowRollup: false,
+    filter: (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'min',
+    modules: {
+        'model-sync-rest': {
+                fullpath: "js/model-sync-rest.js",
+                requires: ['io-base', 'json-stringify']
+        },
+    }
+}).use('event-focus', 'json', 'model', 'model-list', 'view', 'model-sync-rest', function (Y) {
 
 var PlaceAppView, PlaceList, SourceModel, PlaceView;
 
@@ -208,17 +218,14 @@ var PlaceAppView, PlaceList, SourceModel, PlaceView;
 // sync provider (the source for that is further below) and to provide
 // attributes and methods useful for place items.
 
-PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [], {
-    // This tells the Model to use a localStorage sync provider (which we'll
-    // create below) to save and load information about a place item.
-    sync: LocalStorageSync('place'),
-
+PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.REST], {
+    root: '../site/places'
 }, {
     ATTRS: {
     	name: {value: ''},
     	address: {value: ''},
     	location: {value: ''},
-    	website: {value: ''},
+    	url: {value: ''},
     	phone: {value: ''}
     }
 });
@@ -229,13 +236,15 @@ PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [], {
 // PlaceModel instances, and to provide some convenience methods for getting
 // information about the place items in the list.
 
-PlaceList = Y.PlaceList = Y.Base.create('placeList', Y.ModelList, [], {
+PlaceList = Y.PlaceList = Y.Base.create('placeList', Y.ModelList, [Y.ModelSync.REST], {
+    root: '../site/places',
+
     // This tells the list that it will hold instances of the PlaceModel class.
     model: PlaceModel,
 
     // This tells the list to use a localStorage sync provider (which we'll
     // create below) to load the list of place items.
-    sync : LocalStorageSync('place')
+//    sync : LocalStorageSync('place')
 
 //     // Returns an array of all models in this list with the `done` attribute
 //     // set to `true`.
@@ -370,14 +379,14 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
     	var address = Y.Lang.trim(this.placeForm.one('#address').get('value'));
     	var location = Y.Lang.trim(this.placeForm.one('#location').get('value'));
     	var phone = Y.Lang.trim(this.placeForm.one('#phone').get('value'));
-    	var website = Y.Lang.trim(this.placeForm.one('#website').get('value'));
+    	var url = Y.Lang.trim(this.placeForm.one('#url').get('value'));
 
     	this.placeList.create({
     		name: name,
     		address: address,
     		location: location,
     		phone: phone,
-    		website: website});
+    		url: url});
 
     },
 
@@ -466,7 +475,7 @@ PlaceView = Y.PlaceView = Y.Base.create('placeView', Y.View, [], {
         	name     : model.getAsHTML('name'),
         	address  : model.getAsHTML('address'),
         	location : model.getAsHTML('location'),
-        	website  : model.getAsHTML('website'),
+        	url  : model.getAsHTML('url'),
         	phone    : model.getAsHTML('phone')
         }));
 

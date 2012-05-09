@@ -14,7 +14,7 @@ import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.MemberDao;
 
 @Entity
-@Table(name = "Member")
+@Table(name = "MEMBER")
 @Configurable(dependencyCheck = true)
 public class Member extends AbstractEntity {
     private Integer id;

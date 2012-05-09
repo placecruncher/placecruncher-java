@@ -206,7 +206,7 @@
         <addAutoIncrement tableName="SEED_DATA_LOG" columnName="ID" columnDataType="bigint" />
 
     </changeSet>
-    
+
     <changeSet id="20120326_seed_data_log" author="davidjones">
         <createTable tableName="EMAIL">
             <column name="ID" type="BIGINT" >
@@ -220,7 +220,7 @@
         <addAutoIncrement tableName="EMAIL" columnName="ID" columnDataType="bigint" />
 
     </changeSet>
-    
+
     <changeSet id="20120328_seed_data_log" author="davidjones">
         <createTable tableName="API_KEY">
             <column name="ID" type="BIGINT" >
@@ -234,7 +234,7 @@
         </createTable>
         <addAutoIncrement tableName="API_KEY" columnName="ID" columnDataType="bigint" />
     </changeSet>
-    
+
     <changeSet id="20120401_seed_data_log" author="davidjones">
         <addColumn tableName="PRINCIPAL">
              <column name="TOKEN" type="varchar(255)"/>

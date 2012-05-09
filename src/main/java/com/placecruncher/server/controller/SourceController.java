@@ -20,7 +20,7 @@ import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.domain.SourceModel;
 
 @Controller
-@RequestMapping("/site/sources")
+@RequestMapping("/site")
 public class SourceController {
 	private static final Logger LOG = Logger.getLogger(SourceController.class);
 
@@ -40,14 +40,20 @@ public class SourceController {
         return mav;
     }
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "sources.html")
     public ModelAndView listSources(@RequestParam("status") Source.StatusEnum status) {
         ModelAndView mav = new ModelAndView("sources");
         mav.addObject("sources", sourceDao.findByStatus(status));
         return mav;
     }
 
-    @RequestMapping(value="{id}.json", method=RequestMethod.GET)
+    @RequestMapping(value = "sources.json")
+    @ResponseBody
+    public Collection<SourceModel> getSources() {
+    	return SourceModel.transform(sourceDao.findByStatus(Source.StatusEnum.OPEN));
+    }
+
+    @RequestMapping(value="sources/{id}.json", method=RequestMethod.GET)
     @ResponseBody
     public SourceModel getSource(@PathVariable("id") int id) {
         Source source = sourceDao.get(id);
@@ -58,7 +64,7 @@ public class SourceController {
         return new SourceModel(source);
     }
 
-    @RequestMapping(value="{id}.html", method=RequestMethod.GET)
+    @RequestMapping(value="sources/{id}.html", method=RequestMethod.GET)
     public ModelAndView viewSource(@PathVariable("id") int id) {
         Source source = sourceDao.get(id);
         if (source == null) {
@@ -71,7 +77,7 @@ public class SourceController {
         return mav;
     }
 
-    @RequestMapping(value="{id}/edit.html", method=RequestMethod.GET)
+    @RequestMapping(value="sources/{id}/edit.html", method=RequestMethod.GET)
     public ModelAndView editSource(@PathVariable("id") int id) {
         Source source = sourceDao.get(id);
         if (source == null) {
@@ -81,12 +87,12 @@ public class SourceController {
         return getSourceFormView(source);
     }
 
-    @RequestMapping(value="{id}/edit.html", method=RequestMethod.POST)
+    @RequestMapping(value="sources/{id}/edit.html", method=RequestMethod.POST)
     public ModelAndView saveSource(@PathVariable("id") int id, SourceModel source) {
     	return getSourceFormView(source);
     }
 
-    @RequestMapping(value="{id}/places/create.html", method=RequestMethod.GET)
+    @RequestMapping(value="sources/{id}/places/create.html", method=RequestMethod.GET)
     public ModelAndView createPlace(@PathVariable("id") int id, @RequestParam("index") int index) {
     	ModelAndView mav = new ModelAndView("source/placeForm");
     	mav.addObject("place", new PlaceModel());

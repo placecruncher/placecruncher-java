@@ -18,7 +18,7 @@ public final class Constants
     public static final int COUNTRY_MAXLEN = 2;
     public static final int PHONE_MAXLEN = 15;
 
-
+    public static final String JSON_CONTENT = "application/json";
 
     private Constants() {}
 }

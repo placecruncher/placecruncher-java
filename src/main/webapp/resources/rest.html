@@ -1,10 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0/build/rollups/sha256.js"></script>
+<script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"></script>
+<div id="output">
+    <ul>
+        <li>places go here</li>
+    </ul>
+</div>
 
 <script>
-YUI().use('io-base', function (Y) {
+YUI().use( 'substitute','io-base','json-parse','node', 'datatype', function (Y) {
+	var output = Y.one("#output ul");
+
+	var getToken = {
+ 		    method: 'POST',
+ 		    headers: {
+ 		        'Content-Type': 'application/json',
+ 		    },
+			data: '{"userName":"admin","password":"secret"}',
+		    on: {
+		        success: function(transactionid, response, arguments) {
+		        	Y.log("Success on getToken!");
+		        },
+		        failure: function(transactionid, response, arguments) {
+		        	Y.log("Failure on getToken!");
+		        }
+		    }
+	};
+
 	var cfg = {
 // 		    method: 'GET',
 // 		    headers: {
@@ -18,8 +42,27 @@ YUI().use('io-base', function (Y) {
 		        complete: function() {
 		        	Y.log("Complete.");
 		        },
-		        success: function() {
+		        success: function(transactionid, response, arguments) {
+
 		        	Y.log("Success!");
+		        	var s = Y.substitute("fuck {you}", {you:'this'});
+
+		        	var sources = Y.JSON.parse(response.responseText);
+		            if (sources && sources.length) {
+
+		                var s = "<!--begin places-->",
+		                    //t in this case is our simple template; this is fed to
+		                    //Y.Lang.substitute as we loop through places
+		                    t = "<li><a href='{url}'>{name}</a></li>";
+
+		                for (var i=0; i<sources.length; i++) {
+		                    s += Y.substitute(t, sources[i]);
+		                }
+
+		                //Output the string to the page:
+		                output.set("innerHTML", s);
+		                output.addClass("yui-null");
+		            }
 		        },
 		        failure: function(transactionid, response, arguments) {
 		        	Y.log("Failure!");
@@ -27,7 +70,19 @@ YUI().use('io-base', function (Y) {
 		    }
 	};
 
-	Y.io('www.google.com', cfg);
+	var key = "abc123";
+	var secret = "secret";
+	var timestamp = Y.DataType.Date.format(new Date(), {format:"%Y%m%dT%H%M%S%z"});
+	var message =  timestamp + "." + secret;
+	var digest =  CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
+
+	Y.io.header("X-API-Key", key);
+	Y.io.header("X-API-Timestamp", timestamp);
+	Y.io.header("X-API-Signature", digest);
+	Y.io('http://localhost:8080/placecruncher/api/private/v1/members/self/token', getToken);
+
+
+//	Y.io('http://localhost:8080/placecruncher/site/sources.json', cfg);
 });
 
 </script>

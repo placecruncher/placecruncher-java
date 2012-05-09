@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.Source;
@@ -53,5 +54,25 @@ public class PlaceDaoTest extends DaoTestCase {
         Assert.assertEquals(1, places.size());
         Assert.assertTrue(places.contains(place2));
     }
+
+    @Test
+    public void delete() {
+        Place place = placeFactory.create();
+        Assert.assertNotNull(placeDao.get(place.getId()));
+        placeDao.delete(place);
+        Assert.assertNull(placeDao.get(place.getId()));
+    }
+
+    @Test
+    public void deleteWithSources() {
+        Source source1 = sourceFactory.create();
+        Source source2 = sourceFactory.create();
+        Place place = placeFactory.create(source1, source2);
+        flush();
+        Assert.assertNotNull(placeDao.get(place.getId()));
+        placeDao.delete(place);
+        Assert.assertNull(placeDao.get(place.getId()));
+    }
+
 
 }
