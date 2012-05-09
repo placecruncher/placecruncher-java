@@ -11,7 +11,7 @@ into a Model or ModelList subclass.
 
 This makes it trivial for your Model or ModelList subclasses communicate and
 transmit JSON data via RESTful HTTP. In most cases you'll only need to provide a
-value for `root` when sub-classing Model, and only provide a value for `url`
+value for `root` when sub-classing Model, and only provide a value for `restUrl`
 when sub-classing ModelList.
 
     var User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
@@ -24,7 +24,7 @@ when sub-classing ModelList.
 
     var Users = Y.Base.create('users', Y.ModelList, [Y.ModelSync.REST], {
         model: User,
-        url  : '/user'
+        restUrl  : '/user'
     });
 
 @class ModelSync.REST
@@ -117,11 +117,11 @@ Model or ModelList constructor.
 
 @property _NON_ATTRS_CFG
 @type Array
-@default ['url']
+@default ['restUrl']
 @static
 @protected
 **/
-RESTSync._NON_ATTRS_CFG = ['url'];
+RESTSync._NON_ATTRS_CFG = ['restUrl'];
 
 RESTSync.prototype = {
 
@@ -153,7 +153,7 @@ RESTSync.prototype = {
         newUser.save(); // Will POST the User data to: /user/
 
     When sub-classing Y.ModelList, usually you'll want to ignore configuring the
-    `root` and instead just set the `url` to a String; but if you just specify a
+    `root` and instead just set the `restUrl` to a String; but if you just specify a
     value for `root`, things will work correctly.
 
     @property root
@@ -167,37 +167,37 @@ RESTSync.prototype = {
     XHRs. While, this property can be defined for each Model/ModelList instance,
     usually you'll want to use a Function or String-pattern instead.
 
-    If the `url` property is a Function, it should return the String that should
+    If the `restUrl` property is a Function, it should return the String that should
     be used as the URL. The Function will be called before each request and will
     be passed the sync `action` which is currently being performed.
 
-    If the `url` property is a String, it will be processed by `Y.Lang.sub()`;
+    If the `restUrl` property is a String, it will be processed by `Y.Lang.sub()`;
     this is useful when the URLs for a Model type match a specific pattern and
     can use simple replacement tokens:
 
     @example
         '/user/{id}'
 
-    **Note:** String substitution on the `url` property will only happen for
+    **Note:** String substitution on the `restUrl` property will only happen for
     Y.Model subclasses, and only String and Number ATTR values will be
     substituted; do not expect something fancy to happen with Object, Array, or
     Boolean values; they will simply be ignored.
 
     When sub-classing Y.Model, you will probably be able to rely on the default
-    implementation of `url()` which works in conjunction with the `root`
+    implementation of `restUrl()` which works in conjunction with the `root`
     property and whether the Model instance is new or not (i.e. has an `id`). If
     the `root` property ends with a trailing-slash, the generated URL for the
     specific Model instance will also end with a trailing-slash.
 
     If your URL-space has plural root or collection URLs, while the specific
     item resources are under a singular name, e.g. /users (plural) and /user/123
-    (singular); you'll probably want to configure the `root` and `url`
+    (singular); you'll probably want to configure the `root` and `restUrl`
     properties like this:
 
     @example
         var User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
             root: '/users',
-            url : '/user/{id}'
+            restUrl : '/user/{id}'
         }, {
             ATTRS: {
                 name: {}
@@ -211,33 +211,33 @@ RESTSync.prototype = {
         newUser.save(); // Will POST the User data to: /users
 
     When sub-classing Y.ModelList, you probably just need to specify a simple
-    String for the `url` property and leave `root` to be the default value.
+    String for the `restUrl` property and leave `root` to be the default value.
 
-    @property url
+    @property restUrl
     @type Function|String
     **/
-    url: function () {
+    restUrl: function () {
         var root = this.root,
-            url;
+            restUrl;
 
         if (this instanceof Y.ModelList || this.isNew()) {
             return root;
         }
 
-        url = this.getAsURL('id');
+        restUrl = this.getAsURL('id');
         if (root && root.charAt(root.length - 1) === '/') {
             // Add trailing-slash because root has a trailing-slash.
-            url += '/';
+            restUrl += '/';
         }
 
-        return this._joinURL(url);
+        return this._joinURL(restUrl);
     },
 
     // -- Lifecycle Methods ----------------------------------------------------
 
     initializer: function (config) {
         config || (config = {});
-        isValue(config.url) && (this.url = config.url);
+        isValue(config.restUrl) && (this.restUrl = config.restUrl);
     },
 
     // -- Public Methods -------------------------------------------------------
@@ -272,7 +272,7 @@ RESTSync.prototype = {
     sync: function (action, options, callback) {
         options || (options = {});
 
-        var url     = this._getURL(action),
+        var restUrl     = this._getURL(action),
             method  = RESTSync.HTTP_METHODS[action],
             headers = Y.merge(RESTSync.HTTP_HEADERS, options.headers),
             timeout = options.timeout || RESTSync.HTTP_TIMEOUT,
@@ -297,7 +297,7 @@ RESTSync.prototype = {
         }
 
         // Setup and send the XHR.
-        Y.io(url, {
+        Y.io(restUrl, {
             method : method,
             headers: headers,
             data   : entity,
@@ -327,7 +327,7 @@ RESTSync.prototype = {
     /**
     Helper method to return the URL to use when making the XHR to the server.
 
-    This method correctly handles variations of the `url` property/method.
+    This method correctly handles variations of the `restUrl` property/method.
 
     @method _getURL
     @param {String} action Sync action to perform.
@@ -335,11 +335,11 @@ RESTSync.prototype = {
     @protected
     **/
     _getURL: function (action) {
-        var url = this.url,
+        var restUrl = this.restUrl,
             data;
 
-        if (isFunction(url)) {
-            return this.url(action);
+        if (isFunction(restUrl)) {
+            return this.restUrl(action);
         }
 
         if (this instanceof Y.Model) {
@@ -353,14 +353,14 @@ RESTSync.prototype = {
             });
 
             // Substitute placeholders with the URL-encoded data values.
-            url = sub(url, data);
+            restUrl = sub(restUrl, data);
         }
 
-        return url || this.root;
+        return restUrl || this.root;
     },
 
     /**
-    Joins the `root` URL to the specified _url_, normalizing leading/trailing
+    Joins the `root` URL to the specified _restUrl_, normalizing leading/trailing
     `/` characters.
 
     Copied from YUI 3's `Y.Controller` Class: by Ryan Grove (Yahoo! Inc.)
@@ -376,20 +376,20 @@ RESTSync.prototype = {
         model._joinURL('/bar'); // => '/foo/bar'
 
     @method _joinURL
-    @param {String} url URL to append to the `root` URL.
+    @param {String} restUrl URL to append to the `root` URL.
     @return {String} Joined URL.
     @protected
     **/
-    _joinURL: function (url) {
+    _joinURL: function (restUrl) {
         var root = this.root;
 
-        if (url.charAt(0) === '/') {
-            url = url.substring(1);
+        if (restUrl.charAt(0) === '/') {
+            restUrl = restUrl.substring(1);
         }
 
         return root && root.charAt(root.length - 1) === '/' ?
-                root + url :
-                root + '/' + url;
+                root + restUrl :
+                root + '/' + restUrl;
     },
 
     /**
