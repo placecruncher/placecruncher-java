@@ -44,4 +44,15 @@ public class SourceDaoTest extends DaoTestCase {
         Assert.assertEquals(Collections.singletonList(closed), sources);
 
     }
+
+    @Test
+    public void findByUrl() {
+        Source s1 = sourceFactory.create();
+        Source s2 = sourceFactory.create();
+
+        Assert.assertFalse(s1.getUrl().equals(s2.getUrl()));
+
+        Assert.assertEquals(s1, sourceDao.findByUrl(s1.getUrl()));
+        Assert.assertEquals(s2, sourceDao.findByUrl(s2.getUrl()));
+    }
 }

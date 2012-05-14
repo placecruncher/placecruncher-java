@@ -6,7 +6,9 @@
 <%-- exposes tiles attributes as '${}' accessible beans --%>
 <tiles:importAttribute />
 
+<!DOCTYPE html>
 <html>
+
 <head>
 <title>${title}</title>
 
@@ -14,19 +16,10 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<style type="text/css">
-.error, .notice, .success {margin-bottom:1em;border:2px solid #ddd;}
-.error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
-</style>
-
-
 </head>
 
 <body>
-
-    <h3>${title}</h3>
-
     ${body}
-
 </body>
+
 </html>

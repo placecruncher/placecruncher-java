@@ -25,10 +25,16 @@ public class PlaceService {
 	}
 
 	@Transactional
-	public void deletePlace(int id) {
-		Place place = placeDao.get(id);
-		if (place != null) {
-			placeDao.delete(place);
-		}
+	public void deletePlace(Place place) {
+		placeDao.delete(place);
+	}
+
+	@Transactional
+	public Place updatePlace(Place place, PlaceModel model) {
+		place.setName(model.getName());
+		place.setPhone(model.getPhone());
+		place.setUrl(model.getUrl());
+		place.setDescription(model.getLocation());
+		return place;
 	}
 }

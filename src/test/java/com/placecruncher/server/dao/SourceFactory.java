@@ -8,6 +8,8 @@ import com.placecruncher.server.domain.Source;
 
 @Component
 public class SourceFactory implements EntityFactory<Source> {
+    private static int COUNTER = 0;
+
     @Autowired
     private SourceDao sourceDao;
 
@@ -17,13 +19,18 @@ public class SourceFactory implements EntityFactory<Source> {
     }
 
     public Source build(Object... values) {
+    	int counter = COUNTER++;
+
         Source source = new Source();
         for (Object value : values) {
             if (value instanceof Source.StatusEnum) {
                 source.setStatus((Source.StatusEnum)value);
             }
         }
-        source.setName("Some name");
+        source.setName("Source " + counter);
+        source.setUrl("http://places.google.com/" + counter);
+        source.setDescription("Description of Test Source #" + counter);
+        source.setTitle("Test Source " + counter);
         return source;
     }
 }

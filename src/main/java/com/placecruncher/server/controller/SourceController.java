@@ -1,28 +1,33 @@
 package com.placecruncher.server.controller;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.PlaceModel;
 import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.domain.SourceModel;
+import com.placecruncher.server.service.SourceService;
 
 @Controller
 @RequestMapping("/site")
 public class SourceController {
 	private static final Logger LOG = Logger.getLogger(SourceController.class);
+
+	@Autowired
+	private SourceService sourceService;
 
     @Autowired
     private SourceDao sourceDao;
@@ -30,74 +35,49 @@ public class SourceController {
     @Autowired
     private PlaceDao placeDao;
 
-    private ModelAndView getSourceFormView(Source source) {
-    	return getSourceFormView(new SourceModel(source));
-    }
-
-    private ModelAndView getSourceFormView(SourceModel source) {
-        ModelAndView mav = new ModelAndView("source/sourceForm");
-        mav.addObject("source", source);
-        return mav;
-    }
-
-    @RequestMapping(value = "sources.html")
-    public ModelAndView listSources(@RequestParam("status") Source.StatusEnum status) {
-        ModelAndView mav = new ModelAndView("sources");
+    @RequestMapping(value = "sources/list.html", method=RequestMethod.GET, produces=Constants.HTML_CONTENT)
+    public ModelAndView listSources(@RequestParam(value="status", required=false) Source.StatusEnum status) {
+    	if (status == null) {
+    		status = Source.StatusEnum.OPEN;
+    	}
+        ModelAndView mav = new ModelAndView("sources/listSources");
         mav.addObject("sources", sourceDao.findByStatus(status));
         return mav;
     }
 
-    @RequestMapping(value = "sources.json")
-    @ResponseBody
-    public Collection<SourceModel> getSources() {
-    	return SourceModel.transform(sourceDao.findByStatus(Source.StatusEnum.OPEN));
-    }
-
-    @RequestMapping(value="sources/{id}.json", method=RequestMethod.GET)
-    @ResponseBody
-    public SourceModel getSource(@PathVariable("id") int id) {
-        Source source = sourceDao.get(id);
-        if (source == null) {
-        	// TODO handle bad param
-        	return null;
-        }
-        return new SourceModel(source);
-    }
-
-    @RequestMapping(value="sources/{id}.html", method=RequestMethod.GET)
+    @RequestMapping(value="sources/{id}/view.html", method=RequestMethod.GET, produces=Constants.HTML_CONTENT)
     public ModelAndView viewSource(@PathVariable("id") int id) {
-        Source source = sourceDao.get(id);
-        if (source == null) {
-        	// TODO handle bad param
-        	return null;
-        }
-
-        ModelAndView mav = new ModelAndView("viewSource");
+        Source source = sourceDao.load(id);
+        ModelAndView mav = new ModelAndView("sources/viewSource");
         mav.addObject("source", source);
         return mav;
     }
 
-    @RequestMapping(value="sources/{id}/edit.html", method=RequestMethod.GET)
+    @RequestMapping(value="sources/{id}/edit.html", method=RequestMethod.GET, produces=Constants.HTML_CONTENT)
     public ModelAndView editSource(@PathVariable("id") int id) {
-        Source source = sourceDao.get(id);
-        if (source == null) {
-        	// TODO handle bad param
-        	return null;
-        }
-        return getSourceFormView(source);
+        Source source = sourceDao.load(id);
+        ModelAndView mav = new ModelAndView("sources/editSource");
+        mav.addObject("source", source);
+        return mav;
     }
 
-    @RequestMapping(value="sources/{id}/edit.html", method=RequestMethod.POST)
-    public ModelAndView saveSource(@PathVariable("id") int id, SourceModel source) {
-    	return getSourceFormView(source);
+    @RequestMapping(value="sources/{id}", method=RequestMethod.GET, produces=Constants.JSON_CONTENT)
+    public @ResponseBody SourceModel getSource(@PathVariable("id") int id) {
+        Source source = sourceDao.load(id);
+        return new SourceModel(source);
     }
 
-    @RequestMapping(value="sources/{id}/places/create.html", method=RequestMethod.GET)
-    public ModelAndView createPlace(@PathVariable("id") int id, @RequestParam("index") int index) {
-    	ModelAndView mav = new ModelAndView("source/placeForm");
-    	mav.addObject("place", new PlaceModel());
-    	mav.addObject("index", index);
-    	return mav;
+    @RequestMapping(value="sources/{id}/places", method=RequestMethod.GET, produces=Constants.JSON_CONTENT)
+    public @ResponseBody Collection<PlaceModel> getPlaces(@PathVariable("id") int id) {
+        Source source = sourceDao.load(id);
+    	return PlaceModel.transform(placeDao.findBySource(source));
     }
+
+    @RequestMapping(value="sources/{id}/places", method=RequestMethod.POST, consumes=Constants.JSON_CONTENT, produces=Constants.JSON_CONTENT)
+    public @ResponseBody PlaceModel addPlace(@PathVariable("id") int id, @RequestBody PlaceModel model) {
+        Source source = sourceDao.load(id);
+    	return new PlaceModel(sourceService.createOrAddPlace(source, model));
+    }
+
 
 }

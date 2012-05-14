@@ -22,4 +22,10 @@ public class SourceDao extends AbstractDao<Integer, Source> {
         return query.list();
 
     }
+
+	public Source findByUrl(String url) {
+        Query query = createQuery("from Source s where s.url = :url");
+        query.setParameter("url", url);
+        return (Source)query.uniqueResult();
+	}
 }

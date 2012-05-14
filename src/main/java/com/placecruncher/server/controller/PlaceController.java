@@ -44,12 +44,16 @@ public class PlaceController {
     }
 
     @RequestMapping(value="places/{id}", method=RequestMethod.PUT, consumes=Constants.JSON_CONTENT)
-    public @ResponseBody PlaceModel updatePlace(@PathVariable("id") int id, @RequestBody PlaceModel placeModel) {
-    	return null;
+    public @ResponseBody PlaceModel updatePlace(@PathVariable("id") int id, @RequestBody PlaceModel model) {
+    	Place place = placeDao.load(id);
+    	return new PlaceModel(placeService.updatePlace(place, model));
     }
 
     @RequestMapping(value="places/{id}", method=RequestMethod.DELETE)
     public void updatePlace(@PathVariable("id") int id) {
-    	placeService.deletePlace(id);
+    	Place place = placeDao.get(id);
+    	if (place != null) {
+    		placeService.deletePlace(place);
+    	}
     }
 }

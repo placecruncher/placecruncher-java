@@ -1,4 +1,6 @@
-<%@ include file="../taglibs.inc"%>
+<%@ include file="../../taglibs.inc"%>
+
+
 <tiles:insertDefinition name="default" flush="true">
     <tiles:putAttribute name="title" value="PlaceCruncher" />
     <tiles:putAttribute name="body" type="string">
@@ -16,9 +18,12 @@
       <c:forEach var="source" items="${sources}">
         <tr >
           <td>${source.id}</td>
-          <td><a href="sources/${source.id}/edit.html">${source.name}</a></td>
+          <td><a href="${source.url}">${source.name}</a></td>
           <td>${source.status}</td>
-          <td>${source.url}</td>
+          <td>
+            <a href="${source.id}/view.html">View</a> |
+            <a href="${source.id}/edit.html">Edit</a>
+          </td>
         </tr>
       </c:forEach>
   </tbody>

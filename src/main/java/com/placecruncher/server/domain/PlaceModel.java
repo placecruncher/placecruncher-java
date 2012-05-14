@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import com.placecruncher.server.util.TransformUtils;
 
 public class PlaceModel {
+	private Integer id;
     private String name;
     private String address;
     private String location;
@@ -26,6 +27,13 @@ public class PlaceModel {
 
 	public PlaceModel(Place place) {
     	BeanUtils.copyProperties(place, this);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
