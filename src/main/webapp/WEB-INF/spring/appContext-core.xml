@@ -39,9 +39,9 @@
                  System properties (defined by -D on the command line) will take highest precedence.
                 -->
                 <value>classpath:/placecruncher.properties</value>
-                <value>${placecruncher.base:file:.}/environment.properties</value>
-                <value>${placecruncher.base:file:.}/${placecruncher.environment}.properties</value>
-                <value>${placecruncher.base:file:.}/local.properties</value>
+                <value>${placecruncher.base:file:}/environment.properties</value>
+                <value>${placecruncher.base:file:}/${placecruncher.environment}.properties</value>
+                <value>${placecruncher.base:file:}/local.properties</value>
             </list>
         </property>
     </bean>

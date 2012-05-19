@@ -12,14 +12,14 @@ import com.placecruncher.server.domain.Principal;
 public class MemberService {
     
     @Transactional
-    public String registerUser(String userName, String password) {
+    public String registerUser(String userName, String password, String email) {
         UUID token = UUID.randomUUID();
         Principal principal = new Principal();
         principal.setUsername(userName);
         principal.setPassword(password);
         principal.setToken(token.toString());
         Member member = new Member();
-        member.setEmail(userName);
+        member.setEmail(email);
         member.saveOrUpdate();
         principal.setMember(member);
         principal.saveOrUpdate();

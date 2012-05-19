@@ -35,7 +35,7 @@ public class MemberController {
         String token = "";
         
         if (registerPayload.validate()) {
-            token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword());
+            token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail());
         }
         
         sessionTokenWrapper.setToken(token);      
@@ -45,7 +45,7 @@ public class MemberController {
     
     @RequestMapping(method = RequestMethod.POST, value = "self/token")
     @ResponseBody
-    public ResponsePayload token(@RequestBody RegisterPayload registerPayload) {
+    public ResponsePayload token(@RequestBody AuthenticationPayload authenticationPayload) {
 
         Meta meta = new Meta();
         ResponsePayload responsePayload = new ResponsePayload(meta);
@@ -53,8 +53,8 @@ public class MemberController {
         String token = "";
         
         Principal principal = null;
-        if (registerPayload.validate()) {
-            principal = this.principalDao.findByUserNameAndPassword(registerPayload.getUserName(), registerPayload.getPassword());
+        if (authenticationPayload.validate()) {
+            principal = this.principalDao.findByUserNameAndPassword(authenticationPayload.getUserName(), authenticationPayload.getPassword());
         }
         
         if (principal != null) {

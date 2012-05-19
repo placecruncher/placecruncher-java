@@ -240,4 +240,14 @@
              <column name="TOKEN" type="varchar(255)"/>
         </addColumn>
     </changeSet>
+    
+    <changeSet id="20120518_seed_data_log" author="davidjones">
+    	<insert tableName="API_KEY">
+      	  <column name="KEY" value="cloud_key"/>
+       	  <column name="SECRET" value="cloud_secret"/>
+       	  <column name="VERSION" valueNumeric="0"/>
+       	  <column name="CREATED" valueDate="2012-05-18T12:00:00"/>
+       	  <column name="UPDATED" valueDate="2012-05-18T12:00:00"/>
+       	</insert>  
+    </changeSet>
 </databaseChangeLog>

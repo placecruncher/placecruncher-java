@@ -2,10 +2,9 @@ package com.placecruncher.server.controller;
 
 import org.apache.commons.lang.StringUtils;
 
-public class RegisterPayload {
+public class AuthenticationPayload {
     private String userName;
     private String password;
-    private String email;
     
     public String getUserName() {
         return userName;
@@ -24,20 +23,12 @@ public class RegisterPayload {
     }
     
     public boolean validate() {
-        return !(StringUtils.isEmpty(password) || StringUtils.isEmpty(userName) || StringUtils.isEmpty(email));
+        return !(StringUtils.isEmpty(password) || StringUtils.isEmpty(userName));
     }
     
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public String toString() {
-        return "RegisterPayload [userName=" + userName + ", password="
-                + password + ", email=" + email + "]";
+        return "RegisterPayload [userName=" + userName + ", password=" + password + "]";
     }
+
 }
