@@ -23,7 +23,10 @@ public class MemberController {
     private MemberService memberService;
     
     @Autowired
-    PrincipalDao principalDao;
+    private PrincipalDao principalDao;
+    
+    @Autowired
+    private InvokerContext invokerContext;
     
     @RequestMapping(method = RequestMethod.POST, value = "self/register")
     @ResponseBody
@@ -63,6 +66,24 @@ public class MemberController {
         
         sessionTokenWrapper.setToken(token);      
         responsePayload.setResponse(sessionTokenWrapper);       
+        return responsePayload;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "self")
+    @ResponseBody
+    public ResponsePayload self() {
+
+        Meta meta = new Meta();
+        ResponsePayload responsePayload = new ResponsePayload(meta);
+        PrincipalWrapper principalWrapper = new PrincipalWrapper();
+      
+        Principal principal = invokerContext.getPrincipal();
+        
+        if (principal !=null) {
+            principalWrapper.setPrincipal(principal);
+        }
+        
+        responsePayload.setResponse(principalWrapper);       
         return responsePayload;
     }
 }
