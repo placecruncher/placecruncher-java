@@ -250,4 +250,18 @@
        	  <column name="UPDATED" valueDate="2012-05-18T12:00:00"/>
        	</insert>  
     </changeSet>
+    
+   <changeSet id="201203282_seed_data_log" author="davidjones">
+        <createTable tableName="APPROVED_EMAIL">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="EMAIL" type="VARCHAR(256)"><constraints unique="true" nullable="false" /></column>
+            <column name="PRINCIPAL_ID" type="BIGINT"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="APPROVED_EMAIL" columnName="ID" columnDataType="bigint" />
+    </changeSet>
 </databaseChangeLog>

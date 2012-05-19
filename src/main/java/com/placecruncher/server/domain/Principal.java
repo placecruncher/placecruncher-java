@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import com.placecruncher.server.dao.PrincipalDao;
 
 
@@ -42,6 +45,7 @@ public class Principal extends AbstractEntity implements UserDetails {
     private boolean locked;
     private String token;
     private Member member;
+    private List<ApprovedEmail> approvedEmails;
 
     @Autowired
     PrincipalDao principalDao;
@@ -159,5 +163,15 @@ public class Principal extends AbstractEntity implements UserDetails {
 
     public void saveOrUpdate() {
         this.principalDao.saveOrUpdate(this);
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy="principal", fetch=FetchType.LAZY)
+    public List<ApprovedEmail> getApprovedEmails() {
+        return approvedEmails;
+    }
+
+    public void setApprovedEmails(List<ApprovedEmail> approvedEmails) {
+        this.approvedEmails = approvedEmails;
     }
 }
