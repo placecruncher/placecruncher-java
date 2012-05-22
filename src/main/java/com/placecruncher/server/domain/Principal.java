@@ -25,14 +25,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import com.placecruncher.server.dao.PrincipalDao;
 
+public class Principal {
+    /*
 
-/**
- * An identifiable person, program, or process that is associated with the authentication and authorization systems.
- */
-@Entity
-@Table(name="PRINCIPAL", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}) })
-@Configurable(dependencyCheck = true)
-public class Principal extends AbstractEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MAXLEN = 64;
@@ -49,10 +44,10 @@ public class Principal extends AbstractEntity implements UserDetails {
 
     @Autowired
     PrincipalDao principalDao;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
+    @Column(name = "ID", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -61,8 +56,8 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.id = id;
     }
 
-    /** {@inheritDoc} */
-    @Column(name="USERNAME", nullable=false, unique=true, length=USERNAME_MAXLEN)
+
+    @Column(name = "USERNAME", nullable = false, unique = true, length = USERNAME_MAXLEN)
     public String getUsername() {
         return username;
     }
@@ -71,8 +66,8 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.username = username;
     }
 
-    /** {@inheritDoc} */
-    @Column(name="PASSWORD", length=PASSWORD_MAXLEN)
+
+    @Column(name = "PASSWORD", length = PASSWORD_MAXLEN)
     public String getPassword() {
         return password;
     }
@@ -86,11 +81,12 @@ public class Principal extends AbstractEntity implements UserDetails {
     public Member getMember() {
         return member;
     }
+
     public void setMember(Member member) {
         this.member = member;
     }
 
-    @Column(name="LOCKED", nullable=false)
+    @Column(name = "LOCKED", nullable = false)
     public boolean isAccountLocked() {
         return locked;
     }
@@ -99,7 +95,7 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.locked = accountLocked;
     }
 
-    @Column(name="TOKEN", nullable=false)
+    @Column(name = "TOKEN", nullable = false)
     public String getToken() {
         return token;
     }
@@ -108,40 +104,39 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.token = token;
     }
 
-    /** {@inheritDoc} */
-    @Column(name="enabled", nullable=false)
+
+    @Column(name = "enabled", nullable = false)
     public boolean isEnabled() {
         return enabled;
     }
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    /** {@inheritDoc} */
     @Transient
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new PrincipalAuthority("ROLE_USER"));
-        if(username.equals("root"))
-        {
+        if (username.equals("root")) {
             authorities.add(new PrincipalAuthority("ROOT"));
         }
         return authorities;
     }
 
-    /** {@inheritDoc} */
+
     @Transient
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    /** {@inheritDoc} */
+ 
     @Transient
     public boolean isAccountNonLocked() {
         return !locked;
     }
 
-    /** {@inheritDoc} */
+
     @Transient
     public boolean isCredentialsNonExpired() {
         return true;
@@ -155,7 +150,7 @@ public class Principal extends AbstractEntity implements UserDetails {
             this.authority = authority;
         }
 
-        /** {@inheritDoc} */
+
         public String getAuthority() {
             return authority;
         }
@@ -166,7 +161,7 @@ public class Principal extends AbstractEntity implements UserDetails {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy="principal", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "principal", fetch = FetchType.LAZY)
     public List<ApprovedEmail> getApprovedEmails() {
         return approvedEmails;
     }
@@ -174,4 +169,5 @@ public class Principal extends AbstractEntity implements UserDetails {
     public void setApprovedEmails(List<ApprovedEmail> approvedEmails) {
         this.approvedEmails = approvedEmails;
     }
+    */
 }

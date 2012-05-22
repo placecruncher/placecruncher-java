@@ -12,14 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.placecruncher.server.application.InvokerContext;
+import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.dao.PrincipalDao;
+import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Principal;
 
-public class PrincipalHanlderInterceptor extends HandlerInterceptorAdapter {
+public class MemberHandlerInterceptor extends HandlerInterceptorAdapter {
     protected static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ApiSecurityHandler.class);
 
     @Autowired
-    private PrincipalDao principalDao;
+    private MemberDao memberDao;
     
     @Autowired
     private InvokerContext invokerContext;
@@ -39,8 +41,8 @@ public class PrincipalHanlderInterceptor extends HandlerInterceptorAdapter {
                     LOGGER.info("token: " + token);
                 }
 
-                Principal principal = principalDao.findByToken(token);
-                invokerContext.setPrincipal(principal);
+                Member member = memberDao.findByToken(token);
+                invokerContext.setMember(member);
             }
         } catch (Exception e) {
             LOGGER.error(e, e);

@@ -1,13 +1,8 @@
 package com.placecruncher.server.dao;
 
-import org.hibernate.Query;
-import org.springframework.stereotype.Repository;
 
-import com.placecruncher.server.domain.Principal;
-
-@Repository
-public class PrincipalDao extends AbstractDao<Integer, Principal> {
-
+public class PrincipalDao /* extends AbstractDao<Integer, Principal> */ {
+/*
     public PrincipalDao() {
         super(Principal.class);
     }
@@ -26,4 +21,5 @@ public class PrincipalDao extends AbstractDao<Integer, Principal> {
         query.setString("password", password);
         return (Principal) query.uniqueResult();
     }
+    */
 }

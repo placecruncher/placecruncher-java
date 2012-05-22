@@ -28,10 +28,7 @@
             <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
             <column name="UPDATED" type="TIMESTAMP"></column>
             <column name="VERSION" type="BIGINT"></column>
-            <column name="USERNAME" type="VARCHAR(64)"><constraints nullable="false" unique="true"/></column>
-            <column name="PASSWORD" type="VARCHAR(32)"></column>
-            <column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true"><constraints nullable="false"/></column>
-            <column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false"><constraints nullable="false"/></column>
+            
             <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
         </createTable>
 
@@ -251,7 +248,7 @@
        	</insert>  
     </changeSet>
     
-   <changeSet id="201203282_seed_data_log" author="davidjones">
+   <changeSet id="201205282_seed_data_log" author="davidjones">
         <createTable tableName="APPROVED_EMAIL">
             <column name="ID" type="BIGINT" >
                 <constraints primaryKey="true" nullable="false" />
@@ -264,4 +261,40 @@
         </createTable>
         <addAutoIncrement tableName="APPROVED_EMAIL" columnName="ID" columnDataType="bigint" />
     </changeSet>
+
+   <changeSet id="20120521_seed_data_log" author="davidjones">
+        <dropTable tableName="PRINCIPAL"/>
+        <dropTable tableName="APPROVED_EMAIL"/>
+    </changeSet>
+
+	<changeSet id="201205212_seed_data_log" author="davidjones">
+		<addColumn tableName="MEMBER">
+			<column name="TOKEN" type="varchar(255)" />
+			<column name="USERNAME" type="VARCHAR(64)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="PASSWORD" type="VARCHAR(32)"></column>
+			<column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	
+	  <changeSet id="201205213_seed_data_log" author="davidjones">
+        <createTable tableName="APPROVED_EMAIL">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="EMAIL" type="VARCHAR(320"><constraints unique="true" nullable="false" /></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="APPROVED_EMAIL" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+
 </databaseChangeLog>
