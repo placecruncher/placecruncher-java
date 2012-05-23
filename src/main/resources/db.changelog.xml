@@ -325,4 +325,23 @@
        	  <column name="updated" valueDate="2012-05-18T12:00:00"/>
        	</insert>  
     </changeSet>
+    
+    <changeSet id="20120523_drop_email" author="davidjones">
+        <dropTable tableName="EMAIL"/>
+    </changeSet>
+    
+    <changeSet id="20120523_email" author="davidjones">
+        <createTable tableName="Email">
+            <column name="id" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="updated" type="TIMESTAMP"></column>
+            <column name="version" type="BIGINT"></column>
+            <column name="sender" type="VARCHAR(256)"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="email" columnName="id" columnDataType="bigint" />
+
+    </changeSet>
+    
 </databaseChangeLog>
