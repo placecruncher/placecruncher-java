@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.domain.Principal;
 
 @Service
 public class MemberService {

@@ -13,9 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.placecruncher.server.application.InvokerContext;
 import com.placecruncher.server.dao.MemberDao;
-import com.placecruncher.server.dao.PrincipalDao;
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.domain.Principal;
 
 public class MemberHandlerInterceptor extends HandlerInterceptorAdapter {
     protected static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ApiSecurityHandler.class);

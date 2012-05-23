@@ -4,7 +4,6 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.domain.Principal;
 
 @Repository
 public class MemberDao extends AbstractDao<Integer, Member> {
