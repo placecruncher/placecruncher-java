@@ -24,6 +24,12 @@ public class EntityListener implements PreUpdateEventListener, PreInsertEventLis
             Date now = TimeUtils.getCurrentTime();
             state[ArrayUtils.indexOf(event.getPersister().getPropertyNames(), Entity.CREATED_PROPERTY)] = now;
         }
+        if (SuperEntity.class.isAssignableFrom(event.getEntity().getClass()))
+        {
+            Object[] state = event.getState();
+            Date now = TimeUtils.getCurrentTime();
+            state[ArrayUtils.indexOf(event.getPersister().getPropertyNames(), Entity.CREATED_PROPERTY)] = now;
+        }
         return false;
     }
 
@@ -31,6 +37,12 @@ public class EntityListener implements PreUpdateEventListener, PreInsertEventLis
     public boolean onPreUpdate(PreUpdateEvent event)
     {
         if (AbstractEntity.class.isAssignableFrom(event.getEntity().getClass()))
+        {
+            Object[] state = event.getState();
+            Date now = TimeUtils.getCurrentTime();
+            state[ArrayUtils.indexOf(event.getPersister().getPropertyNames(), Entity.UPDATED_PROPERTY)] = now;
+        }
+        if (SuperEntity.class.isAssignableFrom(event.getEntity().getClass()))
         {
             Object[] state = event.getState();
             Date now = TimeUtils.getCurrentTime();
