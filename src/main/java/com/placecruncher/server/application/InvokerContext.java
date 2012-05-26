@@ -3,7 +3,7 @@ package com.placecruncher.server.application;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.placecruncher.server.domain.Principal;
+import com.placecruncher.server.domain.Member;
 
 public interface InvokerContext {
     String BEAN_NAME = "invokerContext";
@@ -13,7 +13,7 @@ public interface InvokerContext {
     
     void clear();
     
-    Principal getPrincipal();
+    Member getMember();
     
-    void setPrincipal(Principal principal);    
+    void setMember(Member member);    
 }

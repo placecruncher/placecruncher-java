@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
@@ -21,15 +20,14 @@ import com.placecruncher.server.dao.EmailDao;
 // Standard change
 
 @Entity
-@Table(name = "EMAIL")
 @Configurable(dependencyCheck = true)
-public class Email extends AbstractEntity {
+public class Email extends SuperEntity {
 
     private Integer id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
+    @Column(nullable=false)
     public Integer getId() {
         return id;
     }
@@ -60,7 +58,7 @@ public class Email extends AbstractEntity {
     
     private static final Logger LOGGER = Logger.getLogger(Email.class);
     
-    @Column(name="SENDER", nullable=false)
+    @Column(nullable=false)
     public String getSender() {
         return sender;
     }

@@ -17,4 +17,19 @@ public class MemberDao extends AbstractDao<Integer, Member> {
         query.setString("username", userName);
         return (Member) query.uniqueResult();
     }
+    public Member findByToken(String token) {
+        // This will need to be made much smarter.
+        Query query = createQuery("from Member m where m.token = :token");
+        query.setString("token", token);
+        return (Member) query.uniqueResult();
+    }
+    
+    public Member findByUserNameAndPassword(String userName, String password) {
+        // This will need to be made much smarter.
+        Query query = createQuery("from Member m where m.username = :username and m.password = :password");
+        query.setString("username", userName);
+        query.setString("password", password);
+        return (Member) query.uniqueResult();
+    }
+
 }

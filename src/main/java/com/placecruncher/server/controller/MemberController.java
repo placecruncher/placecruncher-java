@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.placecruncher.server.application.InvokerContext;
-import com.placecruncher.server.dao.PrincipalDao;
-import com.placecruncher.server.domain.Principal;
+import com.placecruncher.server.dao.MemberDao;
+import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.service.MemberService;
 
 @Controller
@@ -23,7 +23,7 @@ public class MemberController {
     private MemberService memberService;
     
     @Autowired
-    private PrincipalDao principalDao;
+    private MemberDao memberDao;
     
     @Autowired
     private InvokerContext invokerContext;
@@ -55,13 +55,13 @@ public class MemberController {
         SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
         String token = "";
         
-        Principal principal = null;
+        Member member = null;
         if (authenticationPayload.validate()) {
-            principal = this.principalDao.findByUserNameAndPassword(authenticationPayload.getUserName(), authenticationPayload.getPassword());
+            member = this.memberDao.findByUserNameAndPassword(authenticationPayload.getUserName(), authenticationPayload.getPassword());
         }
         
-        if (principal != null) {
-            token = principal.getToken();
+        if (member != null) {
+            token = member.getToken();
         }
         
         sessionTokenWrapper.setToken(token);      
@@ -75,15 +75,15 @@ public class MemberController {
 
         Meta meta = new Meta();
         ResponsePayload responsePayload = new ResponsePayload(meta);
-        PrincipalWrapper principalWrapper = new PrincipalWrapper();
+        MemberWrapper memberWrapper = new MemberWrapper();
       
-        Principal principal = invokerContext.getPrincipal();
+        Member member = invokerContext.getMember();
         
-        if (principal !=null) {
-            principalWrapper.setPrincipal(principal);
+        if (member !=null) {
+            memberWrapper.setMember(member);
         }
         
-        responsePayload.setResponse(principalWrapper);       
+        responsePayload.setResponse(memberWrapper);       
         return responsePayload;
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.domain.Principal;
 
 @Service
 public class MemberService {
@@ -16,20 +15,16 @@ public class MemberService {
     @Transactional
     public String registerUser(String userName, String password, String email) {
         UUID token = UUID.randomUUID();
-        Principal principal = new Principal();
-        principal.setUsername(userName);
-        principal.setPassword(password);
-        principal.setToken(token.toString());
         Member member = new Member();
+        member.setUsername(userName);
+        member.setPassword(password);
+        member.setToken(token.toString());
         member.setEmail(email);
         member.saveOrUpdate();
         
-        principal.setMember(member);
-        principal.saveOrUpdate();
-        
         ApprovedEmail approvedEmail = new ApprovedEmail();
         approvedEmail.setEmail(email);
-        approvedEmail.setPrincipal(principal);
+        approvedEmail.setMember(member);
         approvedEmail.saveOrUpdate();
         
         return token.toString();

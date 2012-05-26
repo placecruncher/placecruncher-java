@@ -28,10 +28,7 @@
             <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
             <column name="UPDATED" type="TIMESTAMP"></column>
             <column name="VERSION" type="BIGINT"></column>
-            <column name="USERNAME" type="VARCHAR(64)"><constraints nullable="false" unique="true"/></column>
-            <column name="PASSWORD" type="VARCHAR(32)"></column>
-            <column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true"><constraints nullable="false"/></column>
-            <column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false"><constraints nullable="false"/></column>
+            
             <column name="MEMBER_ID" type="BIGINT"><constraints nullable="false"/></column>
         </createTable>
 
@@ -207,7 +204,7 @@
 
     </changeSet>
 
-    <changeSet id="20120326_seed_data_log" author="davidjones">
+    <changeSet id="20120326_email" author="davidjones">
         <createTable tableName="EMAIL">
             <column name="ID" type="BIGINT" >
                 <constraints primaryKey="true" nullable="false" />
@@ -241,7 +238,7 @@
         </addColumn>
     </changeSet>
     
-    <changeSet id="20120518_seed_data_log" author="davidjones">
+    <changeSet id="20120518_api_key" author="davidjones">
     	<insert tableName="API_KEY">
       	  <column name="KEY" value="cloud_key"/>
        	  <column name="SECRET" value="cloud_secret"/>
@@ -251,7 +248,7 @@
        	</insert>  
     </changeSet>
     
-   <changeSet id="201203282_seed_data_log" author="davidjones">
+   <changeSet id="20120518_approved_email" author="davidjones">
         <createTable tableName="APPROVED_EMAIL">
             <column name="ID" type="BIGINT" >
                 <constraints primaryKey="true" nullable="false" />
@@ -264,4 +261,87 @@
         </createTable>
         <addAutoIncrement tableName="APPROVED_EMAIL" columnName="ID" columnDataType="bigint" />
     </changeSet>
+
+ 
+   <changeSet id="20120521_drop_tables" author="davidjones">
+        <dropTable tableName="PRINCIPAL"/>
+        <dropTable tableName="APPROVED_EMAIL"/>
+    </changeSet>
+
+	<changeSet id="20120521_change_member" author="davidjones">
+		<addColumn tableName="MEMBER">
+			<column name="TOKEN" type="varchar(255)" />
+			<column name="USERNAME" type="VARCHAR(64)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="PASSWORD" type="VARCHAR(32)"></column>
+			<column name="ENABLED" type="BOOLEAN" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCKED" type="BOOLEAN" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	   <changeSet id="20120522_approved_email" author="davidjones">
+        <createTable tableName="APPROVED_EMAIL">
+            <column name="ID" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATED" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="UPDATED" type="TIMESTAMP"></column>
+            <column name="VERSION" type="BIGINT"></column>
+            <column name="EMAIL" type="VARCHAR(256)"><constraints unique="true" nullable="false" /></column>
+            <column name="MEMBER_ID" type="BIGINT"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="APPROVED_EMAIL" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+    
+    <changeSet id="20120523_drop_api_key" author="davidjones">
+        <dropTable tableName="API_KEY"/>
+    </changeSet>
+    
+    <changeSet id="20120523_ApiKey" author="davidjones">
+        <createTable tableName="ApiKey">
+            <column name="id" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="updated" type="TIMESTAMP"></column>
+            <column name="version" type="BIGINT"></column>
+            <column name="key" type="VARCHAR(256)"><constraints unique="true" nullable="false" /></column>
+            <column name="secret" type="VARCHAR(256)"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="ApiKey" columnName="id" columnDataType="bigint" />
+    </changeSet>
+    
+     <changeSet id="20120523_insert_ApiKey" author="davidjones">
+    	<insert tableName="ApiKey">
+      	  <column name="key" value="cloud_key"/>
+       	  <column name="secret" value="cloud_secret"/>
+       	  <column name="version" valueNumeric="0"/>
+       	  <column name="created" valueDate="2012-05-18T12:00:00"/>
+       	  <column name="updated" valueDate="2012-05-18T12:00:00"/>
+       	</insert>  
+    </changeSet>
+    
+    <changeSet id="20120523_drop_email" author="davidjones">
+        <dropTable tableName="EMAIL"/>
+    </changeSet>
+    
+    <changeSet id="20120523_email" author="davidjones">
+        <createTable tableName="Email">
+            <column name="id" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="updated" type="TIMESTAMP"></column>
+            <column name="version" type="BIGINT"></column>
+            <column name="sender" type="VARCHAR(256)"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="email" columnName="id" columnDataType="bigint" />
+
+    </changeSet>
+    
 </databaseChangeLog>

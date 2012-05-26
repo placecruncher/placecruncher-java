@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 
 import com.placecruncher.server.domain.ApiKey;
-import com.placecruncher.server.domain.Principal;
+import com.placecruncher.server.domain.Member;
 
 /**
  * Dummy InvokerContext that basically shows the user 1 is always logged in on
@@ -24,7 +24,7 @@ public class InvokerContextImpl implements InvokerContext {
     protected String pushNotificationId;
     protected String uuid;
     protected String phoneModel;
-    protected Principal principal;
+    protected Member member;
 
     public void initInvokerContext(HttpServletRequest request, HttpServletResponse response) {
         if (LOGGER.isDebugEnabled()) {
@@ -72,7 +72,7 @@ public class InvokerContextImpl implements InvokerContext {
                      // user.
         phoneModel = null; // NOPMD This assignment clears the context for the
                            // next user.
-        principal = null; // NOPMD This assignment clears the context for the
+        member = null; // NOPMD This assignment clears the context for the
                           // next user.;
     }
 
@@ -97,12 +97,14 @@ public class InvokerContextImpl implements InvokerContext {
     }
 
     @Override
-    public Principal getPrincipal() {
-        return this.principal;
+    public Member getMember() {
+        return member;
     }
 
     @Override
-    public void setPrincipal(Principal principal) {
-        this.principal = principal;
+    public void setMember(Member member) {
+        this.member = member;
     }
+
+
 }

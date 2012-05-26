@@ -21,7 +21,7 @@ import com.placecruncher.server.dao.ApprovedEmailDao;
 public class ApprovedEmail extends AbstractEntity {
     private Integer id;
     private String email;
-    private Principal principal;
+    private Member member;
     
     @Autowired
     private ApprovedEmailDao approvedEmailDao;
@@ -46,13 +46,13 @@ public class ApprovedEmail extends AbstractEntity {
     }
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="PRINCIPAL_ID")
-    public Principal getPrincipal() {
-        return principal;
+    @JoinColumn(name="MEMBER_ID")
+    public Member getMember() {
+        return member;
     }
 
-    public void setPrincipal(Principal principal) {
-        this.principal = principal;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public void saveOrUpdate() {
@@ -61,7 +61,7 @@ public class ApprovedEmail extends AbstractEntity {
     
     @Override
     public String toString() {
-        return "ApprovedEmail [id=" + id + ", email=" + email + ", principal="
-                + principal + "]";
+        return "ApprovedEmail [id=" + id + ", email=" + email + ", member="
+                + member + ", approvedEmailDao=" + approvedEmailDao + "]";
     }
 }
