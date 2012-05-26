@@ -1,7 +1,7 @@
 package com.placecruncher.server.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +40,7 @@ public class Place extends AbstractEntity {
     private String url;
     // TODO zipcode
 
-    private Set<Source> sources = new HashSet<Source>();
+    private List<Source> sources = new ArrayList<Source>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
@@ -138,11 +138,12 @@ public class Place extends AbstractEntity {
     @JoinTable(name = "PLACE_SOURCE",
         joinColumns = {@JoinColumn(name = "PLACE_ID")},
         inverseJoinColumns = {@JoinColumn(name = "SOURCE_ID")})
-    public Set<Source> getSources() {
+    public List<Source> getSources() {
         return sources;
     }
 
-    private void setSources(Set<Source> sources) {
+    @SuppressWarnings("unused") // Hide the setter
+    private void setSources(List<Source> sources) {
         this.sources = sources;
     }
 

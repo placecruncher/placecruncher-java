@@ -1,4 +1,4 @@
-package com.placecruncher.server.application;
+package com.placecruncher.server.application.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,15 +6,15 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.service.SourceService;
 
-@Service
-public class SanFranciscoSourceData implements SeedData {
+@Component
+public class SanFranciscoSourceData extends AbstractSeedData {
     @Autowired
     private SourceService sourceService;
 
@@ -22,7 +22,7 @@ public class SanFranciscoSourceData implements SeedData {
     private SourceDao sourceDao;
 
     public int getOrder() {
-        return Integer.MAX_VALUE;
+    	return SEED_USER_DATA;
     }
 
     public String getName() {
@@ -101,7 +101,7 @@ public class SanFranciscoSourceData implements SeedData {
 
     	sourceUrl = "http://www.sfgate.com/cgi-bin/article.cgi?f=/c/a/2012/01/27/FDSS1MVHB0.DTL#ixzz1pZJxsqNw";
     	if (sourceDao.findByUrl(sourceUrl) == null) {
-    		Source source = sourceService.createSource("WHAT'S NEW: New life for an old favorite", sourceUrl);
+    		sourceService.createSource("WHAT'S NEW: New life for an old favorite", sourceUrl);
     	}
 
     	sourceUrl = "http://www.sfgate.com/cgi-bin/article.cgi?f=/c/a/2012/03/11/FD861NGNCN.DTL";

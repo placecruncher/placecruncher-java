@@ -12,6 +12,12 @@ public class PrincipalDao extends AbstractDao<Integer, Principal> {
         super(Principal.class);
     }
 
+    public Principal findByUserName(String userName) {
+        Query query = createQuery("from Principal p where p.username = :username");
+        query.setString("username", userName);
+        return (Principal) query.uniqueResult();
+    }
+
     public Principal findByToken(String token) {
         // This will need to be made much smarter.
         Query query = createQuery("from Principal p where p.token = :token");

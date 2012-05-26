@@ -95,6 +95,7 @@ public class Source extends AbstractEntity {
     public Collection<Place> getPlaces() {
     	return places;
     }
+    @SuppressWarnings("unused")  // Hide the setter
     private void setPlaces(Collection<Place> places) {
     	this.places = places;
     }

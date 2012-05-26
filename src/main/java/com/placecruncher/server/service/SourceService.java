@@ -65,6 +65,7 @@ public class SourceService {
 			place = placeService.createPlace(model);
 		}
 		source.getPlaces().add(place);
+		place.getSources().add(source);
 		return place;
 	}
 }

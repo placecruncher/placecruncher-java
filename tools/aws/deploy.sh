@@ -61,7 +61,7 @@ tomcat_home=/usr/share/tomcat7/
 
 scp ${sshArgs} ${war} ${user}@${host}:/tmp
 
-ssh -t -t -v ${sshArgs} ${user}@${host} <<-EOF
+ssh -t -t ${sshArgs} ${user}@${host} <<-EOF
   cleanup() {
     echo "Cleaning up tomcat files in ${tomcat_home}..."
     sudo rm -rf ${tomcat_home}/temp/*

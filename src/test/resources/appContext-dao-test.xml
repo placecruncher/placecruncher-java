@@ -9,7 +9,7 @@
     <import resource="file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml"/>
 
     <context:component-scan use-default-filters="false" base-package="com.placecruncher.server.dao">
-        <context:include-filter type="assignable" expression="com.placecruncher.server.domain.EntityFactory"/>
+        <context:include-filter type="assignable" expression="com.placecruncher.server.domain.ObjectFactory"/>
     </context:component-scan>
 
 </beans>

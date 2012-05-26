@@ -81,6 +81,7 @@ public class Principal extends AbstractEntity implements UserDetails {
         this.password = password;
     }
 
+    // TODO I'm not sure if member should be required for a principal.
     @OneToOne
     @JoinColumn(name = "MEMBER_ID", nullable = true)
     public Member getMember() {

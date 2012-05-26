@@ -1,32 +1,29 @@
 package com.placecruncher.server.dao;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.placecruncher.server.domain.EntityFactory;
+import com.placecruncher.server.domain.AbstractEntityFactory;
 import com.placecruncher.server.domain.Source;
 
 @Component
-public class SourceFactory implements EntityFactory<Source> {
+public class SourceFactory extends AbstractEntityFactory<Source> {
     private static int COUNTER = 0;
 
     @Autowired
     private SourceDao sourceDao;
 
-    public Source create(Object... values) {
-        Source source = build(values);
-        return sourceDao.load(sourceDao.persist(source));
+    public SourceDao getDao() {
+        return sourceDao;
     }
-
-    public Source build(Object... values) {
+    
+    public Source build(Map<String, Object> properties) {
     	int counter = COUNTER++;
 
         Source source = new Source();
-        for (Object value : values) {
-            if (value instanceof Source.StatusEnum) {
-                source.setStatus((Source.StatusEnum)value);
-            }
-        }
+        populate(source, properties);
         source.setName("Source " + counter);
         source.setUrl("http://places.google.com/" + counter);
         source.setDescription("Description of Test Source #" + counter);

@@ -1,8 +1,6 @@
 // Copyright 2011 INQ Mobile. All rights reserved.
 package com.placecruncher.server.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;

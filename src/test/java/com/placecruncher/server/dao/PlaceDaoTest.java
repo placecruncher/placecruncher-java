@@ -6,9 +6,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 
 import com.placecruncher.server.domain.Place;
+import com.placecruncher.server.domain.PropertyBuilder;
 import com.placecruncher.server.domain.Source;
 
 public class PlaceDaoTest extends DaoTestCase {
@@ -29,7 +29,9 @@ public class PlaceDaoTest extends DaoTestCase {
 
     @Test
     public void createWithSource() {
-        placeFactory.create(sourceFactory.create());
+        placeFactory.create(new PropertyBuilder()
+          .put("sources[0]", sourceFactory.create())
+          .build());
         flush();
     }
 
@@ -38,8 +40,15 @@ public class PlaceDaoTest extends DaoTestCase {
         Source source1 = sourceFactory.create();
         Source source2 = sourceFactory.create();
         Source source3 = sourceFactory.create();
-        Place place1 = placeFactory.create(source1, source2);
-        Place place2 = placeFactory.create(source2, source3);
+        Place place1 = placeFactory.create(new PropertyBuilder()
+            .put("sources[0]", source1)
+            .put("sources[1]", source2)
+            .build());
+
+        Place place2 = placeFactory.create(new PropertyBuilder()
+        .put("sources[0]", source2)
+        .put("sources[1]", source3)
+        .build());
 
         List<Place> places = placeDao.findBySource(source1);
         Assert.assertEquals(1, places.size());
@@ -67,7 +76,11 @@ public class PlaceDaoTest extends DaoTestCase {
     public void deleteWithSources() {
         Source source1 = sourceFactory.create();
         Source source2 = sourceFactory.create();
-        Place place = placeFactory.create(source1, source2);
+        Place place = placeFactory.create(new PropertyBuilder()
+            .put("sources[0]", source1)
+            .put("sources[1]", source2)
+            .build());
+
         flush();
         Assert.assertNotNull(placeDao.get(place.getId()));
         placeDao.delete(place);
