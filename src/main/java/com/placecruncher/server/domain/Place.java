@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.placecruncher.server.application.Constants;
@@ -21,12 +20,8 @@ import com.placecruncher.server.application.Constants;
  * A Place
  */
 @Entity
-@Table(name=Place.DB_TABLE)
-@SequenceGenerator(name = Place.DB_SEQ, sequenceName = Place.DB_SEQ)
-public class Place extends AbstractEntity {
-
-    public static final String DB_TABLE = "PLACE";
-    public static final String DB_SEQ = DB_TABLE + "_SEQ";
+@Table(name="PLACE")
+public class Place extends SuperEntity {
 
     private Integer id;
     private String name;
@@ -43,8 +38,8 @@ public class Place extends AbstractEntity {
     private Set<Source> sources = new HashSet<Source>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
-    @Column(name="ID", nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable=false)
     public Integer getId() {
         return id;
     }
@@ -53,7 +48,7 @@ public class Place extends AbstractEntity {
         this.id = id;
     }
 
-    @Column(name="NAME", nullable=false, length=Constants.NAME_MAXLEN)
+    @Column(nullable=false, length=Constants.NAME_MAXLEN)
     public String getName() {
         return name;
     }
@@ -62,7 +57,7 @@ public class Place extends AbstractEntity {
         this.name = name;
     }
 
-    @Column(name="TITLE", length=Constants.TITLE_MAXLEN)
+    @Column(length=Constants.TITLE_MAXLEN)
     public String getTitle() {
         return title;
     }
@@ -71,7 +66,7 @@ public class Place extends AbstractEntity {
         this.title = title;
     }
 
-    @Column(name="DESCRIPTION", length=Constants.DESCRIPTION_MAXLEN)
+    @Column(length=Constants.DESCRIPTION_MAXLEN)
     public String getDescription() {
         return description;
     }
@@ -80,7 +75,7 @@ public class Place extends AbstractEntity {
         this.description = description;
     }
 
-    @Column(name="ADDRESS", length = Constants.ADDRESS_MAXLEN)
+    @Column(length = Constants.ADDRESS_MAXLEN)
     public String getAddress() {
         return address;
     }
@@ -89,7 +84,7 @@ public class Place extends AbstractEntity {
         this.address = address;
     }
 
-    @Column(name="CITY", length = Constants.CITY_MAXLEN)
+    @Column(length = Constants.CITY_MAXLEN)
     public String getCity() {
         return city;
     }
@@ -98,7 +93,7 @@ public class Place extends AbstractEntity {
         this.city = city;
     }
 
-    @Column(name="STATE", length = Constants.STATE_MAXLEN)
+    @Column(length = Constants.STATE_MAXLEN)
     public String getState() {
         return state;
     }
@@ -107,7 +102,7 @@ public class Place extends AbstractEntity {
         this.state = state;
     }
 
-    @Column(name="COUNTRY", length = Constants.COUNTRY_MAXLEN)
+    @Column(length = Constants.COUNTRY_MAXLEN)
     public String getCountry() {
         return country;
     }
@@ -116,7 +111,7 @@ public class Place extends AbstractEntity {
         this.country = country;
     }
 
-    @Column(name="PHONE", length = Constants.PHONE_MAXLEN)
+    @Column(length = Constants.PHONE_MAXLEN)
     public String getPhone() {
         return phone;
     }
@@ -125,7 +120,7 @@ public class Place extends AbstractEntity {
         this.phone = phone;
     }
 
-    @Column(name="URL", length = Constants.URL_MAXLEN)
+    @Column(length = Constants.URL_MAXLEN)
     public String getUrl() {
         return url;
     }
@@ -136,8 +131,8 @@ public class Place extends AbstractEntity {
 
     @ManyToMany
     @JoinTable(name = "PLACE_SOURCE",
-        joinColumns = {@JoinColumn(name = "PLACE_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "SOURCE_ID")})
+        joinColumns = {@JoinColumn(name = "placeId")},
+        inverseJoinColumns = {@JoinColumn(name = "sourceId")})
     public Set<Source> getSources() {
         return sources;
     }

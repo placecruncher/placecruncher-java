@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Configurable;
@@ -19,12 +18,9 @@ import org.springframework.beans.factory.annotation.Configurable;
 import com.placecruncher.server.application.Constants;
 
 @Entity
-@Table(name=Source.DB_TABLE)
-@SequenceGenerator(name = Source.DB_SEQ, sequenceName = Source.DB_SEQ)
+@Table(name="SOURCE")
 @Configurable(dependencyCheck = true)
-public class Source extends AbstractEntity {
-    public static final String DB_TABLE = "SOURCE";
-    public static final String DB_SEQ = DB_TABLE + "_SEQ";
+public class Source extends SuperEntity {
 
     private Integer id;
     private String url;
@@ -35,8 +31,8 @@ public class Source extends AbstractEntity {
     private Collection<Place> places = new ArrayList<Place>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
-    @Column(name="ID", nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable=false)
     public Integer getId() {
         return id;
     }
@@ -45,7 +41,7 @@ public class Source extends AbstractEntity {
         this.id = id;
     }
 
-    @Column(name="URL", nullable = false, unique = true, updatable = false, length = Constants.URL_MAXLEN)
+    @Column(nullable = false, unique = true, updatable = false, length = Constants.URL_MAXLEN)
     public String getUrl() {
         return url;
     }
@@ -54,7 +50,7 @@ public class Source extends AbstractEntity {
         this.url = url;
     }
 
-    @Column(name="NAME", nullable=false, length=Constants.NAME_MAXLEN)
+    @Column(nullable=false, length=Constants.NAME_MAXLEN)
     public String getName() {
         return name;
     }
@@ -63,7 +59,7 @@ public class Source extends AbstractEntity {
         this.name = name;
     }
 
-    @Column(name="TITLE", length=Constants.TITLE_MAXLEN)
+    @Column(length=Constants.TITLE_MAXLEN)
     public String getTitle() {
         return title;
     }
@@ -72,7 +68,7 @@ public class Source extends AbstractEntity {
         this.title = title;
     }
 
-    @Column(name="DESCRIPTION", length=Constants.DESCRIPTION_MAXLEN)
+    @Column(length=Constants.DESCRIPTION_MAXLEN)
     public String getDescription() {
         return description;
     }
@@ -81,7 +77,7 @@ public class Source extends AbstractEntity {
         this.description = description;
     }
 
-    @Column(name="STATUS", nullable=false, length=Constants.ENUM_MAXLEN)
+    @Column(nullable=false, length=Constants.ENUM_MAXLEN)
     @Enumerated(EnumType.STRING)
     public StatusEnum getStatus() {
         return status;

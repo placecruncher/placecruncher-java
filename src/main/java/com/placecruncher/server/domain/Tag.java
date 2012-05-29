@@ -7,26 +7,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.placecruncher.server.application.Constants;
 
-
 @Entity
-@Table(name=Tag.DB_TABLE)
-@SequenceGenerator(name = Tag.DB_SEQ, sequenceName = Tag.DB_SEQ)
-public class Tag extends AbstractEntity {
-
-    public static final String DB_TABLE = "TAG";
-    public static final String DB_SEQ = DB_TABLE + "_SEQ";
+@Table(name="TAG")
+public class Tag extends SuperEntity {
 
     private Integer id;
     private String name;
     private Member member;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID", nullable=false)
     public Integer getId() {
         return id;
@@ -36,7 +30,7 @@ public class Tag extends AbstractEntity {
         this.id = id;
     }
 
-    @Column(name="NAME", nullable=false, length=Constants.NAME_MAXLEN)
+    @Column(nullable=false, length=Constants.NAME_MAXLEN)
     public String getName() {
         return name;
     }
@@ -46,7 +40,7 @@ public class Tag extends AbstractEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "MEMBER_ID", nullable = true)
+    @JoinColumn(name = "memberId", nullable = true)
     public Member getMember() {
         return member;
     }

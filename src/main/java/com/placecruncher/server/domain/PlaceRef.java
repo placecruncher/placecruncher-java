@@ -9,29 +9,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.placecruncher.server.application.Constants;
 
 
 @Entity
-@Table(name=PlaceRef.DB_TABLE)
-@SequenceGenerator(name = PlaceRef.DB_SEQ, sequenceName = PlaceRef.DB_SEQ)
-public class PlaceRef extends AbstractEntity {
-
-    public static final String DB_TABLE = "PLACE_REF";
-    public static final String DB_SEQ = DB_TABLE + "_SEQ";
-
+public class PlaceRef extends SuperEntity {
     private Integer id;
     private Member member;
     private PrivacyEnum privacy = PrivacyEnum.PRIVATE;
     private int rating;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = DB_SEQ)
-    @Column(name="ID", nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable=false)
     public Integer getId() {
         return id;
     }
@@ -41,7 +33,7 @@ public class PlaceRef extends AbstractEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "MEMBER_ID", nullable = false)
+    @JoinColumn(name = "memberId", nullable = false)
     public Member getMember() {
         return member;
     }
@@ -50,7 +42,7 @@ public class PlaceRef extends AbstractEntity {
     }
 
 
-    @Column(name="PRIVACY", nullable=false, length=Constants.ENUM_MAXLEN)
+    @Column(nullable=false, length=Constants.ENUM_MAXLEN)
     @Enumerated(EnumType.STRING)
     private PrivacyEnum getPrivacy() {
         return privacy;
@@ -76,7 +68,7 @@ public class PlaceRef extends AbstractEntity {
         privacy = PrivacyEnum.PRIVATE;
     }
 
-    @Column(name="RATING", nullable=false)
+    @Column(nullable=false)
     public int getRating() {
         return rating;
     }

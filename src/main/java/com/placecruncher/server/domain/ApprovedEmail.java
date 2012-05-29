@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.FetchType;
+import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -16,9 +16,9 @@ import org.springframework.beans.factory.annotation.Configurable;
 import com.placecruncher.server.dao.ApprovedEmailDao;
 
 @Entity
-@Table(name = "APPROVED_EMAIL")
+@Table(name="APPROVED_EMAIL")
 @Configurable(dependencyCheck = true)
-public class ApprovedEmail extends AbstractEntity {
+public class ApprovedEmail extends SuperEntity {
     private Integer id;
     private String email;
     private Member member;
@@ -28,7 +28,7 @@ public class ApprovedEmail extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
+    @Column(nullable=false)
     public Integer getId() {
         return id;
     }
@@ -46,7 +46,7 @@ public class ApprovedEmail extends AbstractEntity {
     }
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="MEMBER_ID")
+    @JoinColumn(name="memberId")
     public Member getMember() {
         return member;
     }

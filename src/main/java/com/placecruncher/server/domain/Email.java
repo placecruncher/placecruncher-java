@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +21,7 @@ import com.placecruncher.server.dao.EmailDao;
 // Standard change
 
 @Entity
+@Table(name="EMAIL")
 @Configurable(dependencyCheck = true)
 public class Email extends SuperEntity {
 
