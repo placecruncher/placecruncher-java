@@ -36,9 +36,9 @@ public class Place extends AbstractEntity {
     private String city;
     private String state;
     private String country;
+    private String zipcode;
     private String phone;
     private String url;
-    // TODO zipcode
 
     private List<Source> sources = new ArrayList<Source>();
 
@@ -134,6 +134,14 @@ public class Place extends AbstractEntity {
         this.url = url;
     }
 
+    @Column(name="zipcode", length = Constants.ZIPCODE_MAXLEN)
+    public String getZipcode() {
+        return zipcode;
+    }
+     public void setZipcode(String zipcode) {
+         this.zipcode = zipcode;
+     }
+
     @ManyToMany
     @JoinTable(name = "PLACE_SOURCE",
         joinColumns = {@JoinColumn(name = "PLACE_ID")},
@@ -146,5 +154,6 @@ public class Place extends AbstractEntity {
     private void setSources(List<Source> sources) {
         this.sources = sources;
     }
+
 
 }

@@ -1,7 +1,5 @@
 package com.placecruncher.server.dao;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +16,9 @@ public class MemberFactory extends AbstractEntityFactory<Member> {
     }
     
     @Override
-    public Member build(Map<String, Object> properties) {
+    public Member buildDefaultObject(String key) {
         Member member = new Member();
-        populate(member, properties);
+        member.setUsername(key);
         return member;
     }
 }

@@ -1,7 +1,5 @@
 package com.placecruncher.server.dao;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +8,6 @@ import com.placecruncher.server.domain.Source;
 
 @Component
 public class SourceFactory extends AbstractEntityFactory<Source> {
-    private static int COUNTER = 0;
 
     @Autowired
     private SourceDao sourceDao;
@@ -19,15 +16,12 @@ public class SourceFactory extends AbstractEntityFactory<Source> {
         return sourceDao;
     }
     
-    public Source build(Map<String, Object> properties) {
-    	int counter = COUNTER++;
-
+    public Source buildDefaultObject(String key) {
         Source source = new Source();
-        populate(source, properties);
-        source.setName("Source " + counter);
-        source.setUrl("http://places.google.com/" + counter);
-        source.setDescription("Description of Test Source #" + counter);
-        source.setTitle("Test Source " + counter);
+        source.setName("Source " + key);
+        source.setUrl("http://places.google.com/" + key);
+        source.setDescription("Description of Test Source #" + key);
+        source.setTitle("Test Source " + key);
         return source;
     }
 }

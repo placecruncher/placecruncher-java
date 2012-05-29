@@ -3,7 +3,6 @@ package com.placecruncher.server.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -39,9 +38,8 @@ public class AbstractObjectFactoryTest {
     class TestObjectFactory extends AbstractObjectFactory<TestObject> {
 
         @Override
-        public TestObject build(Map<String, Object> properties) {
+        public TestObject buildDefaultObject(String key) {
             TestObject object = new TestObject();
-            populate(object, properties);
             return object;
         }
     }

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.dao.SourceDao;
-import com.placecruncher.server.domain.PlaceModel;
 import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.domain.SourceModel;
 import com.placecruncher.server.service.SourceService;

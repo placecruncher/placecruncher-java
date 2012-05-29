@@ -17,10 +17,9 @@ public class PlaceFactory extends AbstractEntityFactory<Place> {
         return placeDao;
     }
 
-    public Place build(Map<String, Object> properties) {
+    public Place buildDefaultObject(String key) {
         Place place = new Place();
         place.setName("Some name");
-        populate(place, properties);
         return place;
     }
 }
