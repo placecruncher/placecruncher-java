@@ -391,7 +391,7 @@
 			<column name="enabled" type="BOOLEAN" defaultValueBoolean="true">
 				<constraints nullable="false" />
 			</column>
-			<column name="locked" type="BOOLEAN" defaultValueBoolean="false">
+			<column name="accountLocked" type="BOOLEAN" defaultValueBoolean="false">
 				<constraints nullable="false" />
 			</column>
         </createTable>
