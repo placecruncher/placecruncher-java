@@ -23,9 +23,9 @@ import org.springframework.security.core.GrantedAuthority;
 import com.placecruncher.server.dao.MemberDao;
 
 @Entity
-@Table( uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}) })
+@Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
 @Configurable(dependencyCheck = true)
-public class Member extends AbstractEntity {
+public class Member extends SuperEntity {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MAXLEN = 64;
@@ -46,7 +46,7 @@ public class Member extends AbstractEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
+    @Column(nullable=false)
     public Integer getId() {
         return id;
     }
@@ -56,7 +56,7 @@ public class Member extends AbstractEntity {
     }
 
     /** {@inheritDoc} */
-    @Column(name="USERNAME", nullable=false, unique=true, length=USERNAME_MAXLEN)
+    @Column(nullable=false, unique=true, length=USERNAME_MAXLEN)
     public String getUsername() {
         return username;
     }
@@ -66,7 +66,7 @@ public class Member extends AbstractEntity {
     }
     
     /** {@inheritDoc} */
-    @Column(name="EMAIL", nullable=false, unique=true)
+    @Column(nullable=false, unique=true)
     public String getEmail() {
         return email;
     }
@@ -76,7 +76,7 @@ public class Member extends AbstractEntity {
     }
 
     /** {@inheritDoc} */
-    @Column(name="PASSWORD", length=PASSWORD_MAXLEN)
+    @Column(length=PASSWORD_MAXLEN)
     public String getPassword() {
         return password;
     }
@@ -85,7 +85,7 @@ public class Member extends AbstractEntity {
         this.password = password;
     }
 
-    @Column(name="LOCKED", nullable=false)
+    @Column(nullable=false)
     public boolean isAccountLocked() {
         return locked;
     }
@@ -94,7 +94,7 @@ public class Member extends AbstractEntity {
         this.locked = accountLocked;
     }
 
-    @Column(name="TOKEN", nullable=false)
+    @Column(nullable=false)
     public String getToken() {
         return token;
     }
@@ -104,7 +104,7 @@ public class Member extends AbstractEntity {
     }
 
     /** {@inheritDoc} */
-    @Column(name="enabled", nullable=false)
+    @Column(nullable=false)
     public boolean isEnabled() {
         return enabled;
     }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 
 @Entity
+@Table(name="API_KEY")
 @Configurable(dependencyCheck = true)
 public class ApiKey extends SuperEntity {
     private static final Logger LOGGER = Logger.getLogger(ApiKey.class);
