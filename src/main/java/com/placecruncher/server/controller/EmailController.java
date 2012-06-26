@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.placecruncher.server.domain.Device;
 import com.placecruncher.server.domain.Email;
+import com.placecruncher.server.service.ApplePushNotificationService;
 import com.placecruncher.server.service.EmailService;
 
 // Email Controller
@@ -21,13 +23,13 @@ public class EmailController {
     
     @Autowired
     private EmailService emailService;
+    
+    @Autowired
+    private ApplePushNotificationService applePushNotificationService;
 
     @RequestMapping(value = "")
     public ModelAndView receiveEmail(HttpServletRequest httpServletRequest, HttpServletResponse response) {
         
-        Email email = new Email();
-        emailService.receviceEmail();
-        /*
         try {
             String timestamp = httpServletRequest.getParameter("timestamp");
             String token = httpServletRequest.getParameter("token");
@@ -48,9 +50,11 @@ public class EmailController {
             if (!verifyResult) {
                 throw new IllegalArgumentException("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
             }
+            
+            applePushNotificationService.sendMessage("davids", new Device());
         } catch (Exception e) {
         	LOGGER.error(e, e);
-        }*/
+        }
         return null;
     }
 }
