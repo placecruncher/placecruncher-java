@@ -59,13 +59,13 @@ public class EmailController {
                 member = emailService.findMember(sender);
             }
             
+            String from = httpServletRequest.getParameter("from");
             if (member == null) {
-                String from = httpServletRequest.getParameter("from");
                 if (LOGGER.isInfoEnabled()) {
                     LOGGER.info("From: " + from);
                 }
                 if (StringUtils.isNotEmpty(from)) {
-                    member = emailService.findMember(from);
+                    member = emailService.findMember(from);  
                 }
             }
             
@@ -74,6 +74,58 @@ public class EmailController {
             }
             
             if (member != null) {
+                String subject = httpServletRequest.getParameter("subject");
+                String bodyPlain = httpServletRequest.getParameter("body-plain");
+                String strippedText = httpServletRequest.getParameter("stripped-text");
+                String strippedSignature = httpServletRequest.getParameter("stripped-signature");
+                String bodyHtml = httpServletRequest.getParameter("body-html");
+                String strippedHtml = httpServletRequest.getParameter("stripped-html");
+                String attachmentCount = httpServletRequest.getParameter("attachment-count");
+                
+                if (StringUtils.isNotEmpty(sender)) {
+                    email.setSender(sender.trim());
+                }
+                if (StringUtils.isNotEmpty(from)) {
+                    email.setFrom(from.trim());
+                }
+                if (StringUtils.isNotEmpty(subject)) {
+                    email.setSubject(subject.trim());
+                }
+                if (StringUtils.isNotEmpty(bodyPlain)) {
+                    email.setBodyPlain(bodyPlain.trim());
+                }
+                if (StringUtils.isNotEmpty(strippedText)) {
+                    email.setStrippedText(strippedText.trim());
+                }
+                if (StringUtils.isNotEmpty(strippedSignature)) {
+                    email.setStrippedSignature(strippedSignature.trim());
+                }
+                if (StringUtils.isNotEmpty(bodyHtml)) {
+                    email.setBodyHtml(bodyHtml.trim());
+                }
+                if (StringUtils.isNotEmpty(strippedHtml)) {
+                    email.setStrippedHtml(strippedHtml.trim());
+                }
+                if (StringUtils.isNotEmpty(attachmentCount)) {
+                    try {
+                        email.setAttachementCount(Integer.parseInt(attachmentCount));
+                    } catch (Exception e) {
+                        LOGGER.error(e, e);
+                    }
+                }
+                
+                if (StringUtils.isNotEmpty(timestamp)) {
+                    try {
+                        email.setTimestamp(Integer.parseInt(timestamp));
+                    } catch (Exception e) {
+                        LOGGER.error(e, e);
+                    }
+                }
+                
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("Email: " + email);
+                }
+                
                 member.processEmail();
             }
         } catch (Exception e) {

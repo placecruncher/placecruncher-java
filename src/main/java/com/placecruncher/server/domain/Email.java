@@ -37,10 +37,9 @@ public class Email extends SuperEntity {
     protected void setId(Integer id) {
         this.id = id;
     }
-   // private String recipient;
     
     private String sender;
-    /*
+
     private String from;
     private String subject;
     private String bodyPlain;
@@ -49,8 +48,8 @@ public class Email extends SuperEntity {
     private String bodyHtml;
     private String strippedHtml;
     private long attachementCount;
-    private String timestamp;
-    */
+    private int timestamp;
+  
     
     @Value("${mailgun.api.key}")
     private String mailGunKey;
@@ -69,6 +68,78 @@ public class Email extends SuperEntity {
         this.sender = sender;
     }
     
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBodyPlain() {
+        return bodyPlain;
+    }
+
+    public void setBodyPlain(String bodyPlain) {
+        this.bodyPlain = bodyPlain;
+    }
+
+    public String getStrippedText() {
+        return strippedText;
+    }
+
+    public void setStrippedText(String strippedText) {
+        this.strippedText = strippedText;
+    }
+
+    public String getStrippedSignature() {
+        return strippedSignature;
+    }
+
+    public void setStrippedSignature(String strippedSignature) {
+        this.strippedSignature = strippedSignature;
+    }
+
+    public String getBodyHtml() {
+        return bodyHtml;
+    }
+
+    public void setBodyHtml(String bodyHtml) {
+        this.bodyHtml = bodyHtml;
+    }
+
+    public String getStrippedHtml() {
+        return strippedHtml;
+    }
+
+    public void setStrippedHtml(String strippedHtml) {
+        this.strippedHtml = strippedHtml;
+    }
+
+    public long getAttachementCount() {
+        return attachementCount;
+    }
+
+    public void setAttachementCount(long attachementCount) {
+        this.attachementCount = attachementCount;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public boolean verify(String token, String timestamp, String signature) throws Exception {
 
         if (LOGGER.isInfoEnabled()) {
@@ -100,4 +171,15 @@ public class Email extends SuperEntity {
         emailDao.saveOrUpdate(this);
     }
 
+    @Override
+    public String toString() {
+        return "Email [id=" + id + ", sender=" + sender + ", from=" + from
+                + ", subject=" + subject + ", bodyPlain=" + bodyPlain
+                + ", strippedText=" + strippedText + ", strippedSignature="
+                + strippedSignature + ", bodyHtml=" + bodyHtml
+                + ", strippedHtml=" + strippedHtml + ", attachementCount="
+                + attachementCount + ", timestamp=" + timestamp + "]";
+    }
+
+    
 }
