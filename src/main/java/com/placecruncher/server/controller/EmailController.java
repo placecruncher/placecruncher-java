@@ -3,15 +3,15 @@ package com.placecruncher.server.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.placecruncher.server.domain.Device;
 import com.placecruncher.server.domain.Email;
-import com.placecruncher.server.service.ApplePushNotificationService;
+import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.service.EmailService;
 
 // Email Controller
@@ -24,8 +24,6 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
     
-    @Autowired
-    private ApplePushNotificationService applePushNotificationService;
 
     @RequestMapping(value = "")
     public ModelAndView receiveEmail(HttpServletRequest httpServletRequest, HttpServletResponse response) {
@@ -50,8 +48,34 @@ public class EmailController {
             if (!verifyResult) {
                 throw new IllegalArgumentException("token:" + token + " timestamp: " + timestamp + " signature: " + signature);
             }
+            Member member = null;
             
-            applePushNotificationService.sendMessage("davids", new Device());
+            String sender = httpServletRequest.getParameter("sender");
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Sender: " + sender);
+            }
+            
+            if (StringUtils.isNotEmpty(sender)) {
+                member = emailService.findMember(sender);
+            }
+            
+            if (member == null) {
+                String from = httpServletRequest.getParameter("from");
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("From: " + from);
+                }
+                if (StringUtils.isNotEmpty(from)) {
+                    member = emailService.findMember(from);
+                }
+            }
+            
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Member: " + member);
+            }
+            
+            if (member != null) {
+                member.processEmail();
+            }
         } catch (Exception e) {
         	LOGGER.error(e, e);
         }

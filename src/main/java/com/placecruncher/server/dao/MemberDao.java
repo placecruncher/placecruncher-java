@@ -34,4 +34,10 @@ public class MemberDao extends AbstractDao<Integer, Member> {
         return (Member) query.uniqueResult();
     }
 
+    public Member findByEmail(String email) {
+        // This will need to be made much smarter.
+        Query query = createQuery("from Member m where m.email = :email");
+        query.setString("email", email);
+        return (Member) query.uniqueResult();
+    }
 }

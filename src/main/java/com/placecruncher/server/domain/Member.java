@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.placecruncher.server.dao.MemberDao;
+import com.placecruncher.server.service.ApplePushNotificationService;
 
 @Entity
 @Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
@@ -43,6 +44,9 @@ public class Member extends SuperEntity {
 
     @Autowired
     private MemberDao memberDao;
+    
+    @Autowired
+    private ApplePushNotificationService applePushNotificationService;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -168,5 +172,16 @@ public class Member extends SuperEntity {
 
     public void setApprovedEmails(List<ApprovedEmail> approvedEmails) {
         this.approvedEmails = approvedEmails;
+    }
+
+    public void processEmail() {
+        applePushNotificationService.sendMessage("davids", new Device());        
+    }
+
+    @Override
+    public String toString() {
+        return "Member [id=" + id + ", username=" + username + ", password="
+                + password + ", enabled=" + enabled + ", locked=" + locked
+                + ", token=" + token + ", email=" + email + "]";
     }
 }
