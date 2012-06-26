@@ -1,12 +1,9 @@
 package com.placecruncher.server.application;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.SmartLifecycle;
@@ -17,7 +14,8 @@ import com.placecruncher.server.service.SeedDataService;
 @Service
 public class Startup implements SmartLifecycle
 {
-    private final Log log = LogFactory.getLog(this.getClass());
+    private final Logger log = Logger.getLogger(this.getClass());
+    
     private boolean running;
 
     @Autowired

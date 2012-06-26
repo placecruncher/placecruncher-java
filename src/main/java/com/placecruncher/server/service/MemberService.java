@@ -11,6 +11,7 @@ import com.placecruncher.server.domain.Member;
 @Service
 public class MemberService {
     
+	
     @Transactional
     public String registerUser(String userName, String password, String email) {
         UUID token = UUID.randomUUID();

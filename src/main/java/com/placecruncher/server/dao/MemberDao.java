@@ -1,6 +1,7 @@
 package com.placecruncher.server.dao;
 
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.placecruncher.server.domain.Member;
@@ -10,6 +11,12 @@ public class MemberDao extends AbstractDao<Integer, Member> {
 
     public MemberDao() {
         super(Member.class);
+    }
+
+    public Member findByUserName(String userName) {
+        return (Member)createCriteria()
+            .add(Restrictions.eq("username", userName))
+            .uniqueResult();
     }
 
     public Member findByToken(String token) {

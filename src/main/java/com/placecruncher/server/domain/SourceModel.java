@@ -7,6 +7,7 @@ import org.apache.commons.collections.Transformer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.AutoPopulatingList;
 
+import com.placecruncher.server.controller.PlaceModel;
 import com.placecruncher.server.domain.Source.StatusEnum;
 import com.placecruncher.server.util.TransformUtils;
 

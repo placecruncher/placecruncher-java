@@ -44,10 +44,10 @@ public class PlaceRef extends SuperEntity {
 
     @Column(nullable=false, length=Constants.ENUM_MAXLEN)
     @Enumerated(EnumType.STRING)
-    private PrivacyEnum getPrivacy() {
+    public PrivacyEnum getPrivacy() {
         return privacy;
     }
-    private void setPrivacy(PrivacyEnum privacy) {
+    public void setPrivacy(PrivacyEnum privacy) {
         this.privacy = privacy;
     }
 

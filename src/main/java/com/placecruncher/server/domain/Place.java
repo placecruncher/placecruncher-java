@@ -1,6 +1,7 @@
 package com.placecruncher.server.domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -33,9 +34,9 @@ public class Place extends SuperEntity {
     private String country;
     private String phone;
     private String url;
-    // TODO zipcode
+    private String zipcode;
 
-    private Set<Source> sources = new HashSet<Source>();
+    private List<Source> sources = new ArrayList<Source>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -129,15 +130,24 @@ public class Place extends SuperEntity {
         this.url = url;
     }
 
+    @Column(length = Constants.ZIPCODE_MAXLEN)
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
     @ManyToMany
     @JoinTable(name = "PLACE_SOURCE",
         joinColumns = {@JoinColumn(name = "placeId")},
         inverseJoinColumns = {@JoinColumn(name = "sourceId")})
-    public Set<Source> getSources() {
+    public List<Source> getSources() {
         return sources;
     }
 
-    private void setSources(Set<Source> sources) {
+    private void setSources(List<Source> sources) {
         this.sources = sources;
     }
 

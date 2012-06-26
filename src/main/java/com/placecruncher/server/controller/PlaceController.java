@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.domain.Place;
-import com.placecruncher.server.domain.PlaceModel;
 import com.placecruncher.server.service.PlaceService;
 
 @Controller

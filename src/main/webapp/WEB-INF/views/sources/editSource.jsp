@@ -15,124 +15,124 @@
 
 <style scoped>
 body {
-	margin: auto; /* center in viewport */
-	width: 1440px;
+  margin: auto; /* center in viewport */
+  width: 1440px;
 }
 
 ol,ul {
-	list-style: none outside none;
+  list-style: none outside none;
 }
 
 #place-app {
-	margin: 1em;
+  margin: 1em;
 }
 
 #place-list,#place-stats {
-	margin: 1em auto;
-	text-align: left;
-	width: 450px;
+  margin: 1em auto;
+  text-align: left;
+  width: 450px;
 }
 
 #place-list {
-	list-style: none;
-	padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 #place-stats,.place-clear {
-	color: #777;
+  color: #777;
 }
 
 .place-clear {
-	float: right;
+  float: right;
 }
 
 .place-edit,.editing .place-view {
-	display: none;
+  display: none;
 }
 
 .editing .place-edit {
-	display: block;
+  display: block;
 }
 
 .place-form li {
-	padding-top: 15px;
+  padding-top: 15px;
 }
 
 .place-form-field { #
-	display: block;
-	font-family: Helvetica, sans-serif;
-	font-size: 20px;
-	line-height: normal;
-	margin: 5px auto 0;
-	padding: 6px;
-	width: 420px;
+  display: block;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: normal;
+  margin: 5px auto 0;
+  padding: 6px;
+  width: 420px;
 }
 
 .place-form-label {
-	float: none;
-	witdh: auto;
-	clear: left;
-	font-size: 13px;
-	font-weight: 700;
+  float: none;
+  witdh: auto;
+  clear: left;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .place-form-note {
-	color: #999999;
-	font-size: 13px;
-	font-style: normal;
+  color: #999999;
+  font-size: 13px;
+  font-style: normal;
 }
 
 .place-item {
-	border-bottom: 1px dotted #cfcfcf;
-	font-size: 20px;
-	padding: 6px;
-	position: relative;
+  border-bottom: 1px dotted #cfcfcf;
+  font-size: 20px;
+  padding: 6px;
+  position: relative;
 }
 
 .place-title {
-	color: #444;
-	font-size: 20px;
-	font-weight: bold;
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .place-remaining {
-	color: #333;
-	font-weight: bold;
+  color: #333;
+  font-weight: bold;
 }
 
 .place-remove {
-	position: absolute;
-	right: 0;
-	top: 12px;
+  position: absolute;
+  right: 0;
+  top: 12px;
 }
 
 .place-remove-icon { /*
     Delete icon courtesy of The Noun Project:
     http://thenounproject.com/noun/delete/
     */
-	background: url(../assets/app/remove.png) no-repeat;
-	display: block;
-	height: 16px;
-	opacity: 0.6;
-	visibility: hidden;
-	width: 23px;
+  background: url(../assets/app/remove.png) no-repeat;
+  display: block;
+  height: 16px;
+  opacity: 0.6;
+  visibility: hidden;
+  width: 23px;
 }
 
 .place-remove:hover .place-remove-icon {
-	opacity: 1.0;
+  opacity: 1.0;
 }
 
 .place-hover .place-remove-icon,.place-remove:focus .place-remove-icon {
-	visibility: visible;
+  visibility: visible;
 }
 
 .editing .place-remove-icon {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 .invisible {
-	display:none;
-	visibility: hidden;
+  display:none;
+  visibility: hidden;
 }
 </style>
 
@@ -146,40 +146,50 @@ ol,ul {
     <p class="place-title">Places</p>
 
     <div id="new-place">
-	    <button id="new-place-button" class="">Add Place</button>
+      <button id="new-place-button" class="">Add Place</button>
     </div>
 
-	<div id="place-form" class="invisible">
-	    <button id="save-new-place-button">Save</button>
-	    <button id="cancel-new-place-button">Cancel</button>
-		<ul>
-	    	<li>
-	    	<label class="place-form-label" for="name"> Name </label><em class="place-form-note">Nirvana Deli</em>
-	    	<div><input class="place-form-field" id="name" type="text"></div>
-	    	</li>
+  <div id="place-form" class="invisible">
+      <button id="save-new-place-button">Save</button>
+      <button id="cancel-new-place-button">Cancel</button>
+    <ul>
+        <li>
+        <label class="place-form-label" for="name"> Name </label><em class="place-form-note">Nirvana Deli</em>
+        <div><input class="place-form-field" id="name" type="text"></div>
+        </li>
 
-	    	<li>
-	    	<label class="place-form-label" for="address"> Address </label>
-	    	<div><input class="place-form-field" id="address" type="text"></div>
-	    	</li>
+        <li>
+        <label class="place-form-label" for="address"> Address </label>
+        <div><input class="place-form-field" id="address" type="text"></div>
+        </li>
 
-	    	<li>
-	    	<label class="place-form-label" for="location"> Location </label><em class="place-form-note">e.g. San Carlos, CA 94070</em>
-	    	<div><input class="place-form-field" id="location" name="location" type="text"></div>
-	    	</li>
+        <li>
+        <label class="place-form-label" for="city"> City </label>
+        <div><input class="place-form-field" id="city" name="city" type="text"></div>
+        </li>
 
-	    	<li>
-	    	<label class="place-form-label" for="phone"> Phone Number </label><em class="place-form-note">e.g. (555) 555-1212</em>
-	    	<div><input class="place-form-field" id="phone" type="text"></div>
-	    	</li>
+        <li>
+        <label class="place-form-label" for="state"> State </label>
+        <div><input class="place-form-field" id="state" name="state" type="text"></div>
+        </li>
 
-	    	<li>
-	    	<label class="place-form-label" for="url"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
-	    	<div><input class="place-form-field" id="url" type="text"></div>
-	    	</li>
+        <li>
+        <label class="place-form-label" for="zipcode"> Zipcode </label>
+        <div><input class="place-form-field" id="zipcode" name="zipcode" type="text"></div>
+        </li>
 
-	    </ul>
-	</div>
+        <li>
+        <label class="place-form-label" for="phone"> Phone Number </label><em class="place-form-note">e.g. (555) 555-1212</em>
+        <div><input class="place-form-field" id="phone" type="text"></div>
+        </li>
+
+        <li>
+        <label class="place-form-label" for="url"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
+        <div><input class="place-form-field" id="url" type="text"></div>
+        </li>
+
+      </ul>
+  </div>
 
     <ul id="place-list"></ul>
     <div id="place-stats"></div>
@@ -188,7 +198,7 @@ ol,ul {
     </div>
     <div class="yui3-u-2-3">
       <div id="preview">
-        <iframe style="width:100%;height:800px" src="${source.url}"></iframe>
+<%--         <iframe style="width:100%;height:800px" src="${source.url}"></iframe> --%>
        </div>
     </div>
 </div>
@@ -198,7 +208,7 @@ ol,ul {
 <!-- This template HTML will be used to render each place item. -->
 <script type="text/x-template" id="place-item-template">
     <div class="place-view">
-		<a href="{url}">{name}</a>, {address}, {location}
+    <a href="{url}">{name}</a>, {address} {location}
     </div>
 
     <a href="#" class="place-remove" title="Remove this place">
@@ -218,9 +228,9 @@ ol,ul {
 <script>
 
 var Y = YUI({
-	debug: true,
-	useBrowserConsole: false,
-	filter: 'debug',
+  debug: true,
+  useBrowserConsole: false,
+  filter: 'debug',
     modules: {
         'model-sync-rest': {
                 fullpath: "${pageContext.request.contextPath}/resources/js/model-sync-rest.js",
@@ -241,12 +251,12 @@ PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.RE
     root: 'places'
 }, {
     ATTRS: {
-    	id: {},
-    	name: {value: ''},
-    	address: {value: ''},
-    	location: {value: ''},
-    	url: {value: ''},
-    	phone: {value: ''}
+      id: {},
+      name: {value: ''},
+      address: {value: ''},
+      location: {value: ''},
+      url: {value: ''},
+      phone: {value: ''}
     }
 });
 
@@ -261,26 +271,6 @@ PlaceList = Y.PlaceList = Y.Base.create('placeList', Y.ModelList, [Y.ModelSync.R
 
     // This tells the list that it will hold instances of the PlaceModel class.
     model: PlaceModel,
-
-    // This tells the list to use a localStorage sync provider (which we'll
-    // create below) to load the list of place items.
-//    sync : LocalStorageSync('place')
-
-//     // Returns an array of all models in this list with the `done` attribute
-//     // set to `true`.
-//     done: function () {
-//         return Y.Array.filter(this.toArray(), function (model) {
-//             return model.get('done');
-//         });
-//     },
-
-//     // Returns an array of all models in this list with the `done` attribute
-//     // set to `false`.
-//     remaining: function () {
-//         return Y.Array.filter(this.toArray(), function (model) {
-//             return !model.get('done');
-//         });
-//     }
 
 });
 
@@ -302,9 +292,6 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
 
     placeForm: Y.one('#place-form'),
 
-//     // This is a custom property that we'll use to hold a reference to the new place form
-//     inputNode: Y.one('#new-place'),
-
     // The `template` property is a convenience property for holding a template
     // for this view. In this case, we'll use it to store the contents of the
     // #place-stats-template element, which will serve as the template for the
@@ -315,9 +302,9 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
     // mapping of selectors to an object containing` one or more events to attach
     // to the node(s) matching each selector.
     events: {
-    	'#new-place-button': {click: 'createNewPlace'},
-    	'#save-new-place-button': {click: 'saveNewPlace'},
-    	'#cancel-new-place-button' : {click: 'cancelNewPlace'}
+      '#new-place-button': {click: 'createNewPlace'},
+      '#save-new-place-button': {click: 'saveNewPlace'},
+      '#cancel-new-place-button' : {click: 'cancelNewPlace'}
     },
 
     // The initializer runs when a PlaceAppView instance is created, and gives
@@ -354,8 +341,8 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
 
         // Update the statistics.
         stats.setContent(Y.Lang.sub(this.template, {
-        	count : placeList.size(),
-        	label : placeList.size() === 1 ? 'place' : 'places'
+          count : placeList.size(),
+          label : placeList.size() === 1 ? 'place' : 'places'
         }));
 
         return this;
@@ -363,56 +350,37 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
 
     // -- Event Handlers -------------------------------------------------------
 
-    // Creates a new PlaceView instance and renders it into the list whenever a
-    // place item is added to the list.
+    // Creates a new PlaceView instance and renders it into the list whenever a place item is added to the list.
     add: function (e) {
         var view = new PlaceView({model: e.model});
         this.container.one('#place-list').append(view.render().container);
     },
 
     createNewPlace: function (e) {
-    	this.container.one('#place-form').removeClass('invisible');
-    	this.container.one('#new-place').addClass('invisible')
-//         var name, address;
-
-//         if (e.keyCode === 13) { // enter key
-//             name = Y.Lang.trim(this.inputNode.get('value'));
-//            	address = 'need to define the address field'
-
-//             if (!name) { return; }
-
-//             // This tells the list to create a new PlaceModel instance with the
-//             // specified text and automatically save it to localStorage in a
-//             // single step.
-//             this.placeList.create({name: name, address: address});
-
-//             this.inputNode.set('value', '');
-//             // DSDXXX need to create the address field
-//         }
+        this.container.one('#place-form').removeClass('invisible');
+        this.container.one('#new-place').addClass('invisible')
     },
 
     saveNewPlace: function(e) {
-    	this.container.one('#place-form').addClass('invisible');
-    	this.container.one('#new-place').removeClass('invisible')
+       this.container.one('#place-form').addClass('invisible');
+       this.container.one('#new-place').removeClass('invisible')
 
-    	var name = Y.Lang.trim(this.placeForm.one('#name').get('value'));
-    	var address = Y.Lang.trim(this.placeForm.one('#address').get('value'));
-    	var location = Y.Lang.trim(this.placeForm.one('#location').get('value'));
-    	var phone = Y.Lang.trim(this.placeForm.one('#phone').get('value'));
-    	var url = Y.Lang.trim(this.placeForm.one('#url').get('value'));
+       var place = {
+            name: Y.Lang.trim(this.placeForm.one('#name').get('value')),
+            address: Y.Lang.trim(this.placeForm.one('#address').get('value')),
+            city: Y.Lang.trim(this.placeForm.one('#city').get('value')),
+            state: Y.Lang.trim(this.placeForm.one('#state').get('value')),
+            zipcode: Y.Lang.trim(this.placeForm.one('#zipcode').get('value')),
+            phone: Y.Lang.trim(this.placeForm.one('#phone').get('value')),
+            url: Y.Lang.trim(this.placeForm.one('#url').get('value'))
+       }
 
-    	this.placeList.create({
-    		name: name,
-    		address: address,
-    		location: location,
-    		phone: phone,
-    		url: url});
-
+      this.placeList.create(place);
     },
 
     cancelNewPlace: function(e) {
-    	Y.one('#place-form').addClass('invisible');
-    	Y.one('#new-place').removeClass('invisible')
+      Y.one('#place-form').addClass('invisible');
+      Y.one('#new-place').removeClass('invisible')
     },
 
     // Turns off the hover state on a place item.
@@ -491,16 +459,30 @@ PlaceView = Y.PlaceView = Y.Base.create('placeView', Y.View, [], {
         var container = this.container,
             model     = this.model;
 
-        container.setContent(Y.Lang.sub(this.template, {
-        	name     : model.getAsHTML('name'),
-        	address  : model.getAsHTML('address'),
-        	location : model.getAsHTML('location'),
-        	url      : model.getAsHTML('url'),
-        	phone    : model.getAsHTML('phone'),
-        	id       : model.getAsHTML('id')
-        }));
+        var location = model.getAsHTML('address');
 
-//        this.inputNode = container.one('.place-input');
+        if (model.city) {
+          location = location + ', ' + model.getAsHTML('city');
+        }
+        if (model.state) {
+          location = location + ', ' + model.getAsHTML('state');
+        }
+        if (model.zipcode) {
+          location = location + ', ' + model.getAsHTML('zipcode');
+        }
+        if (model.country) {
+          location = location + ', ' + model.getAsHTML('country');
+        }
+
+
+        container.setContent(Y.Lang.sub(this.template, {
+          name     : model.getAsHTML('name'),
+          address  : model.getAsHTML('address'),
+          location : model.getAsHTML('location'),
+          url      : model.getAsHTML('url'),
+          phone    : model.getAsHTML('phone'),
+          id       : model.getAsHTML('id')
+        }));
 
         return this;
     },
@@ -516,7 +498,6 @@ PlaceView = Y.PlaceView = Y.Base.create('placeView', Y.View, [], {
     // Removes this item from the list.
     remove: function (e) {
         e.preventDefault();
-
         this.constructor.superclass.remove.call(this);
         this.model.destroy({'delete': true});
     },

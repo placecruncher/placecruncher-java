@@ -13,7 +13,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.placecruncher.server.dao.ApiKeyDao;
 import com.placecruncher.server.domain.ApiKey;
-import com.placecruncher.server.exception.ExceptionCode;
 import com.placecruncher.server.exception.PlacecruncherRuntimeException;
 
 public class ApiSecurityHandler extends HandlerInterceptorAdapter {
@@ -52,7 +51,7 @@ public class ApiSecurityHandler extends HandlerInterceptorAdapter {
                 sendErrorResponse(response, "{ \"meta\": {  \"code\": 401, \"errorCode\":0, \"errorMessage\":\"Invalid Api Check\" }, \"response\": { } }");
             }
         } catch (Exception e) {
-            throw new PlacecruncherRuntimeException(ExceptionCode.UNKNOWN_ERROR, e);
+            throw new PlacecruncherRuntimeException(e);
         }
         return result;
     }

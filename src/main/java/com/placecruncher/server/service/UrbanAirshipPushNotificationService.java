@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -40,7 +39,7 @@ public class UrbanAirshipPushNotificationService {
      */
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private final Log log = LogFactory.getLog(this.getClass());
+    private final Logger log = Logger.getLogger(this.getClass());
 
     /**
      * The 'Basic' tag for basic authorization

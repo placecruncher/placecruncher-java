@@ -16,6 +16,7 @@ public final class Constants
     public static final int CITY_MAXLEN = 128;
     public static final int STATE_MAXLEN = 2;
     public static final int COUNTRY_MAXLEN = 2;
+    public static final int ZIPCODE_MAXLEN = 10;
     public static final int PHONE_MAXLEN = 15;
 
     public static final String JSON_CONTENT = "application/json";
