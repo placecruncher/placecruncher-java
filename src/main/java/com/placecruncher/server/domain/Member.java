@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -41,6 +44,7 @@ public class Member extends SuperEntity {
     private String email;
     
     private List<ApprovedEmail> approvedEmails;
+    private List<Device> devices;
 
     @Autowired
     private MemberDao memberDao;
@@ -178,10 +182,22 @@ public class Member extends SuperEntity {
         applePushNotificationService.sendMessage("davids", new Device());        
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy="member", fetch=FetchType.LAZY)
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
     @Override
     public String toString() {
         return "Member [id=" + id + ", username=" + username + ", password="
                 + password + ", enabled=" + enabled + ", locked=" + locked
                 + ", token=" + token + ", email=" + email + "]";
     }
+
+
 }

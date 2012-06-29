@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.placecruncher.server.application.InvokerContext;
 import com.placecruncher.server.dao.MemberDao;
+import com.placecruncher.server.domain.Device;
+import com.placecruncher.server.domain.DeviceType;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.service.MemberService;
 
@@ -37,8 +39,17 @@ public class MemberController {
         SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
         String token = "";
         
+        Device device = null;
         if (registerPayload.validate()) {
-            token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail());
+            if (registerPayload.getDevice() != null) {
+                device = new Device();
+                device.setDeviceType(DeviceType.getType(registerPayload.getDevice().getDeviceType()));
+                device.setToken(registerPayload.getDevice().getToken());
+                
+            }
+            token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail(), device);
+        } else {
+            throw new IllegalArgumentException();
         }
         
         sessionTokenWrapper.setToken(token);      
