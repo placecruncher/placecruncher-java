@@ -274,4 +274,18 @@
             referencedTableName="MEMBER" referencedColumnNames="id" />
     </changeSet>
 
+    <changeSet id="20120628_device" author="davidjones">
+        <createTable tableName="DEVICE">
+            <column name="id" type="BIGINT" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="updated" type="TIMESTAMP"></column>
+            <column name="version" type="BIGINT"></column>
+            <column name="token" type="VARCHAR(256)"><constraints unique="true" nullable="false" /></column>
+            <column name="deviceType" type="VARCHAR(256)"><constraints unique="false" nullable="false" /></column>
+            <column name="memberId" type="BIGINT"><constraints unique="false" nullable="false" /></column>
+        </createTable>
+        <addAutoIncrement tableName="DEVICE" columnName="id" columnDataType="bigint" />
+    </changeSet>
 </databaseChangeLog>
