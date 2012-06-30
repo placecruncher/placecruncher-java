@@ -53,7 +53,7 @@ public abstract class SuperEntity implements Entity<Integer>
             return false;
         if (obj == this)
             return true;
-        if (obj.getClass() != getClass())
+        if (!getClass().isAssignableFrom(obj.getClass()))
             return false;
 
         Integer thatId = ((SuperEntity) obj).getId();

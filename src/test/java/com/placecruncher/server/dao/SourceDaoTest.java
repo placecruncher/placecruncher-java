@@ -1,23 +1,36 @@
 package com.placecruncher.server.dao;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Assert;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.placecruncher.server.domain.Member;
+import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.PropertyBuilder;
 import com.placecruncher.server.domain.Source;
 
 public class SourceDaoTest extends DaoTestCase {
+    private final Logger log = Logger.getLogger(this.getClass());
+
     @Autowired
     private SourceDao sourceDao;
 
     @Autowired
     private SourceFactory sourceFactory;
+
+    @Autowired
+    private MemberFactory memberFactory;
+
+    @Autowired
+    private PlaceFactory placeFactory;
 
     @Before
     public void setUp() {
@@ -34,15 +47,15 @@ public class SourceDaoTest extends DaoTestCase {
         Source open = sourceFactory.create(new PropertyBuilder()
             .put("status", Source.StatusEnum.OPEN)
             .build());
-        
+
         Source inProgress = sourceFactory.create(new PropertyBuilder()
             .put("status", Source.StatusEnum.IN_PROGRESS)
             .build());
-        
+
         Source closed = sourceFactory.create(new PropertyBuilder()
             .put("status", Source.StatusEnum.CLOSED)
             .build());
-        
+
         List<Source> sources = sourceDao.findByStatus(Source.StatusEnum.OPEN);
         Assert.assertEquals(Collections.singletonList(open), sources);
 
@@ -56,12 +69,32 @@ public class SourceDaoTest extends DaoTestCase {
 
     @Test
     public void findByUrl() {
-        Source s1 = sourceFactory.create();
-        Source s2 = sourceFactory.create();
+        Source source1 = sourceFactory.create();
+        Source source2 = sourceFactory.create();
 
-        Assert.assertFalse(s1.getUrl().equals(s2.getUrl()));
+        Assert.assertFalse(source1.getUrl().equals(source2.getUrl()));
 
-        Assert.assertEquals(s1, sourceDao.findByUrl(s1.getUrl()));
-        Assert.assertEquals(s2, sourceDao.findByUrl(s2.getUrl()));
+        Assert.assertEquals(source1, sourceDao.findByUrl(source1.getUrl()));
+        Assert.assertEquals(source2, sourceDao.findByUrl(source2.getUrl()));
     }
+
+    @Test
+    public void addReference() {
+        Source source1 = sourceFactory.create();
+        Source source2 = sourceFactory.create();
+        Source source3 = sourceFactory.create();
+
+        Member member1 = memberFactory.create();
+        Member member2 = memberFactory.create();
+
+        sourceDao.addReference(source2, member1);
+
+        sourceDao.addReference(source3, member1);
+        sourceDao.addReference(source3, member2);
+
+        Assert.assertTrue(sourceDao.findReferences(source1).isEmpty());
+        Assert.assertTrue(sourceDao.findReferences(source2).containsAll(Arrays.asList(member1)));
+        Assert.assertTrue(sourceDao.findReferences(source3).containsAll(Arrays.asList(member1, member2)));
+    }
+
 }

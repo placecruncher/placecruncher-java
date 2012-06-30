@@ -18,6 +18,7 @@ import com.placecruncher.server.application.Constants;
 public class PlaceRef extends SuperEntity {
     private Integer id;
     private Member member;
+    private Place place;
     private PrivacyEnum privacy = PrivacyEnum.PRIVATE;
     private int rating;
 
@@ -41,6 +42,15 @@ public class PlaceRef extends SuperEntity {
         this.member = member;
     }
 
+
+    @OneToOne
+    @JoinColumn(name = "placeId", nullable = false)
+    public Place getPlace() {
+        return place;
+    }
+    public void setPlace(Place place) {
+        this.place = place;
+    }
 
     @Column(nullable=false, length=Constants.ENUM_MAXLEN)
     @Enumerated(EnumType.STRING)

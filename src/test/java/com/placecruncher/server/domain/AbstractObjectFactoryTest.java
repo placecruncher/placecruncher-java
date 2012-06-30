@@ -32,9 +32,12 @@ public class AbstractObjectFactoryTest {
         public void setListProperty(List<String> listProperty) {
             this.listProperty = listProperty;
         }
+        public void addListValue(String value) {
+            this.listProperty.add(value);
+        }
 
     }
-    
+
     class TestObjectFactory extends AbstractObjectFactory<TestObject> {
 
         @Override
@@ -43,47 +46,46 @@ public class AbstractObjectFactoryTest {
             return object;
         }
     }
-    
+
     private TestObjectFactory factory;
-    
+
     @Before
     public void setUp() {
         factory = new TestObjectFactory();
     }
-    
+
     @Test
     public void setStringProperty() {
         String stringValue = "stringValue";
         TestObject o = factory.build(new PropertyBuilder()
         .put("stringProperty", stringValue)
         .build());
-        
+
         Assert.assertEquals(stringValue, o.getStringProperty());
     }
-    
+
     @Test
     public void setDateProperty() {
         Date value = new Date();
         TestObject o = factory.build(new PropertyBuilder()
         .put("dateProperty", value)
         .build());
-        
+
         Assert.assertEquals(value, o.getDateProperty());
     }
-    
+
     @Test
     public void setListProperty() {
         String value1 = "value1";
         String value2 = "value2";
-        
+
         TestObject o = factory.build(new PropertyBuilder()
         .put("listProperty[0]", value1)
         .put("listProperty[2]", value2)
         .build());
-        
+
         Assert.assertEquals(value1, o.getListProperty().get(0));
         Assert.assertEquals(value2, o.getListProperty().get(2));
-        
-    }
 
+    }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.hibernate.Session;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -87,5 +88,21 @@ public class PlaceDaoTest extends DaoTestCase {
         Assert.assertNull(placeDao.get(place.getId()));
     }
 
+    @Test
+    public void removeSource() {
+        Source source = sourceFactory.create();
+        Place place = placeFactory.create(new PropertyBuilder()
+        .put("sources[0]", source)
+        .build());
+
+        flush();
+
+        Assert.assertTrue(placeDao.load(place.getId()).getSources().contains(source));
+        place.getSources().remove(source);
+        Session session = flushAndGetNewSession();
+        Place updatedPlace = (Place)session.load(Place.class, place.getId());
+        Assert.assertNotSame(place, updatedPlace);
+        Assert.assertFalse(updatedPlace.getSources().contains(source));
+    }
 
 }

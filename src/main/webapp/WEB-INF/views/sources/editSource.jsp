@@ -61,7 +61,7 @@ ol,ul {
 .place-form-field { #
   display: block;
   font-family: Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   line-height: normal;
   margin: 5px auto 0;
   padding: 6px;
@@ -72,19 +72,19 @@ ol,ul {
   float: none;
   witdh: auto;
   clear: left;
-  font-size: 13px;
+  font-size: 8px;
   font-weight: 700;
 }
 
 .place-form-note {
   color: #999999;
-  font-size: 13px;
+  font-size: 8px;
   font-style: normal;
 }
 
 .place-item {
   border-bottom: 1px dotted #cfcfcf;
-  font-size: 20px;
+  font-size: 15px;
   padding: 6px;
   position: relative;
 }
@@ -110,7 +110,7 @@ ol,ul {
     Delete icon courtesy of The Noun Project:
     http://thenounproject.com/noun/delete/
     */
-  background: url(../assets/app/remove.png) no-repeat;
+  background: url(${pageContext.request.contextPath}/resources/images/remove.png) no-repeat;
   display: block;
   height: 16px;
   opacity: 0.6;
@@ -141,64 +141,71 @@ ol,ul {
 <body>
 
 <div class="yui3-g">
-    <div class="yui3-u-1-3">
-<div id="place-app">
-    <p class="place-title">Places</p>
-
-    <div id="new-place">
-      <button id="new-place-button" class="">Add Place</button>
+  <div id="place-app">
+    <div class="yui3-u-1">
+      <div id="header">
+        <a href="../list.html">View Sources</a>
+        <button id="submit-source-button">Submit Source</button>
+      </div>
     </div>
+      <div class="yui3-u-1-3">
+            <p class="place-title">Places</p>
 
-  <div id="place-form" class="invisible">
-      <button id="save-new-place-button">Save</button>
-      <button id="cancel-new-place-button">Cancel</button>
-    <ul>
-        <li>
-        <label class="place-form-label" for="name"> Name </label><em class="place-form-note">Nirvana Deli</em>
-        <div><input class="place-form-field" id="name" type="text"></div>
-        </li>
+            <div id="new-place">
+              <button id="new-place-button" class="">Add Place</button>
+            </div>
 
-        <li>
-        <label class="place-form-label" for="address"> Address </label>
-        <div><input class="place-form-field" id="address" type="text"></div>
-        </li>
+          <div id="place-form" class="invisible">
+              <button id="save-new-place-button">Save</button>
+              <button id="cancel-new-place-button">Cancel</button>
+            <ul>
+                <li>
+                <label class="place-form-label" for="name"> Name </label><em class="place-form-note">Nirvana Deli</em>
+                <div><input class="place-form-field" id="name" type="text"></div>
+                </li>
 
-        <li>
-        <label class="place-form-label" for="city"> City </label>
-        <div><input class="place-form-field" id="city" name="city" type="text"></div>
-        </li>
+                <li>
+                <label class="place-form-label" for="address"> Address </label>
+                <div><input class="place-form-field" id="address" type="text"></div>
+                </li>
 
-        <li>
-        <label class="place-form-label" for="state"> State </label>
-        <div><input class="place-form-field" id="state" name="state" type="text"></div>
-        </li>
+                <li>
+                <label class="place-form-label" for="city"> City </label>
+                <div><input class="place-form-field" id="city" name="city" type="text"></div>
+                </li>
 
-        <li>
-        <label class="place-form-label" for="zipcode"> Zipcode </label>
-        <div><input class="place-form-field" id="zipcode" name="zipcode" type="text"></div>
-        </li>
+                <li>
+                <label class="place-form-label" for="state"> State </label>
+                <div><input class="place-form-field" id="state" name="state" type="text"></div>
+                </li>
 
-        <li>
-        <label class="place-form-label" for="phone"> Phone Number </label><em class="place-form-note">e.g. (555) 555-1212</em>
-        <div><input class="place-form-field" id="phone" type="text"></div>
-        </li>
+                <li>
+                <label class="place-form-label" for="zipcode"> Zipcode </label>
+                <div><input class="place-form-field" id="zipcode" name="zipcode" type="text"></div>
+                </li>
 
-        <li>
-        <label class="place-form-label" for="url"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
-        <div><input class="place-form-field" id="url" type="text"></div>
-        </li>
+                <li>
+                <label class="place-form-label" for="phone"> Phone Number </label><em class="place-form-note">e.g. (555) 555-1212</em>
+                <div><input class="place-form-field" id="phone" type="text"></div>
+                </li>
 
-      </ul>
-  </div>
+                <li>
+                <label class="place-form-label" for="url"> Website </label><em class="place-form-note">e.g. http://www.nirvanadeli.com</em>
+                <div><input class="place-form-field" id="url" type="text"></div>
+                </li>
 
-    <ul id="place-list"></ul>
-    <div id="place-stats"></div>
-</div>
+              </ul>
+          </div>
 
+          <ul id="place-list"></ul>
+          <div id="place-stats"></div>
+      </div>
+
+      </div>
     </div>
     <div class="yui3-u-2-3">
       <div id="preview">
-<%--         <iframe style="width:100%;height:800px" src="${source.url}"></iframe> --%>
+         <iframe style="width:100%;height:800px" src="${source.url}"></iframe>
        </div>
     </div>
 </div>
@@ -254,7 +261,9 @@ PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.RE
       id: {},
       name: {value: ''},
       address: {value: ''},
-      location: {value: ''},
+      city: {value: ''},
+      state: {value: ''},
+      zipcode: {value: ''},
       url: {value: ''},
       phone: {value: ''}
     }
@@ -304,7 +313,12 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
     events: {
       '#new-place-button': {click: 'createNewPlace'},
       '#save-new-place-button': {click: 'saveNewPlace'},
-      '#cancel-new-place-button' : {click: 'cancelNewPlace'}
+      '#cancel-new-place-button' : {click: 'cancelNewPlace'},
+      '#submit-source-button' : {click: 'submitSource'},
+      '.place-item': {
+          mouseover: 'hoverOn',
+          mouseout : 'hoverOff'
+      }
     },
 
     // The initializer runs when a PlaceAppView instance is created, and gives
@@ -381,6 +395,17 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
     cancelNewPlace: function(e) {
       Y.one('#place-form').addClass('invisible');
       Y.one('#new-place').removeClass('invisible')
+    },
+
+    submitSource: function(e) {
+        Y.io('.', {
+            method : 'POST',
+            on : {
+              success : function (tx, r) {
+                window.location = "../list.html";
+             }
+            }
+          });
     },
 
     // Turns off the hover state on a place item.

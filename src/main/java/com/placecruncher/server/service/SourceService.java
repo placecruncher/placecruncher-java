@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.placecruncher.server.controller.PlaceModel;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.dao.SourceDao;
-import com.placecruncher.server.domain.ApiKey;
+import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.domain.Source.StatusEnum;
@@ -36,6 +36,24 @@ public class SourceService {
         source.setUrl(url);
         source.setStatus(StatusEnum.OPEN);
         return sourceDao.load(sourceDao.persist(source));
+    }
+
+    @Transactional
+    public Source submitSource(Source source) {
+        // Update the status
+        source.setStatus(StatusEnum.CLOSED);
+
+        // TODO Notify the submitter that the source has been crunched
+
+        // Share the source (from submitter to submitter)
+        Member submitter = null;
+        shareSource(source, submitter, submitter);
+
+        return source;
+    }
+
+    @Transactional
+    public void shareSource(Source source, Member from, Member to) {
     }
 
     @Transactional
@@ -70,8 +88,15 @@ public class SourceService {
         } else {
             place = placeService.createPlace(model);
         }
-        source.getPlaces().add(place);
         place.getSources().add(source);
         return place;
+    }
+
+    @Transactional
+    public Source removePlace(Source source, Place place) {
+        if (!place.getSources().remove(source)) {
+            log.info("Source " + source + " was not referenced by place " + place);
+        }
+        return source;
     }
 }

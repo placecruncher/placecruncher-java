@@ -87,16 +87,6 @@ public class Source extends SuperEntity {
         this.status = status;
     }
 
-    @ManyToMany(mappedBy="sources")
-    public Collection<Place> getPlaces() {
-    	return places;
-    }
-    @SuppressWarnings("unused")  // Hide the setter
-    private void setPlaces(Collection<Place> places) {
-    	this.places = places;
-    }
-    
-
     public enum StatusEnum {
         OPEN,
         IN_PROGRESS,

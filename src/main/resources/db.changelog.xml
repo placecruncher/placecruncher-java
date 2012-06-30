@@ -251,4 +251,27 @@
           <column name="zipcode" type="varchar(10)"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="20120621_create_source_ref" author="placecruncher">
+        <createTable tableName="SOURCE_REF">
+            <column name="id" type="BIGINT" ><constraints primaryKey="true" nullable="false" /></column>
+            <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="updated" type="TIMESTAMP"></column>
+            <column name="version" type="BIGINT"></column>
+            <column name="sourceId" type="BIGINT"><constraints nullable="false" /></column>
+            <column name="memberId" type="BIGINT"><constraints nullable="false"/></column>
+            <column name="rating" type="BIGINT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="privacy" type="VARCHAR(64)"></column>
+        </createTable>
+        <addAutoIncrement tableName="SOURCE_REF" columnName="id" columnDataType="bigint" />
+
+        <addForeignKeyConstraint constraintName="FkSourceRefSource"
+            baseTableName="SOURCE_REF" baseColumnNames="sourceId"
+            referencedTableName="SOURCE" referencedColumnNames="id" />
+
+        <addForeignKeyConstraint constraintName="FKSourceRefMember"
+            baseTableName="SOURCE_REF" baseColumnNames="memberId"
+            referencedTableName="MEMBER" referencedColumnNames="id" />
+    </changeSet>
+
 </databaseChangeLog>
