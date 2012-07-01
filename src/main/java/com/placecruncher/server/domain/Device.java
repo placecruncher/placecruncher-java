@@ -3,6 +3,8 @@ package com.placecruncher.server.domain;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,8 @@ import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import com.placecruncher.server.service.ApplePushNotificationService;
+
 
 import com.placecruncher.server.dao.DeviceDao;
 
@@ -27,6 +31,9 @@ public class Device extends SuperEntity {
     
     @Autowired
     private DeviceDao deviceDao;
+    
+    @Autowired
+    private ApplePushNotificationService applePushNotificationService;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,6 +54,7 @@ public class Device extends SuperEntity {
         this.token = token;
     }
     
+    @Enumerated(EnumType.STRING)
     public DeviceType getDeviceType() {
         return deviceType;
     }
@@ -69,8 +77,16 @@ public class Device extends SuperEntity {
         this.deviceDao.saveOrUpdate(this);
     }
     
+    public void delete() {
+        this.deviceDao.delete(this);
+    }
+    
     @Override
     public String toString() {
         return "Device [token=" + token + ", deviceType=" + deviceType + ", member=" + member + "]";
+    }
+
+    public void sendMessage(String message) {
+        applePushNotificationService.sendMessage("test", this.getToken()); 
     }
 }

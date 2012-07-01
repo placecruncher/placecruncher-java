@@ -2,8 +2,6 @@ package com.placecruncher.server.controller;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.placecruncher.server.domain.DeviceType;
-
 public class RegisterPayload {
     private String userName;
     private String password;
@@ -26,15 +24,14 @@ public class RegisterPayload {
         this.password = password;
     }
     
-    public boolean validate() {
+    public void validate() {
         if (device != null) {
-            DeviceType deviceType = DeviceType.getType(device.getDeviceType());
-            if (StringUtils.isEmpty(device.getToken()) || deviceType==null) {
-                return false;
-            }
+            device.validate();
         }
             
-        return !(StringUtils.isEmpty(password) || StringUtils.isEmpty(userName) || StringUtils.isEmpty(email));
+        if (StringUtils.isEmpty(password) || StringUtils.isEmpty(userName) || StringUtils.isEmpty(email)) {
+            throw new IllegalArgumentException();
+        }
     }
     
     public String getEmail() {

@@ -19,12 +19,10 @@ public class ApplePushNotificationService {
     private String p12Password;
     
     
-    public void sendMessage(String message, Device device) {
+    public void sendMessage(String message, String token) {
         try {
         String simplePayload = APNS.newPayload().alertBody(message).badge(12).sound("default").build();
 
-            String client ="1300564c6f8b8227c57c6e5c6c911fed1ca59a4b4fa5955fa6502ef8553e2163";
-            
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("p12FileLocation: " + p12FileLocation + " p12Password: " + p12Password);
             }
@@ -34,7 +32,7 @@ public class ApplePushNotificationService {
                 .withSandboxDestination()
                 .build();
 
-            service.push(client, simplePayload);
+            service.push(token, simplePayload);
         } catch (Exception e) {
             LOGGER.error(e, e);
         }

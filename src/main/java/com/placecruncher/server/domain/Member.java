@@ -11,26 +11,27 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.placecruncher.server.dao.MemberDao;
-import com.placecruncher.server.service.ApplePushNotificationService;
 
 @Entity
 @Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
 @Configurable(dependencyCheck = true)
 public class Member extends SuperEntity {
     private static final long serialVersionUID = 1L;
+    
+    private static final Logger LOGGER = Logger.getLogger(Member.class);
 
     public static final int USERNAME_MAXLEN = 64;
     public static final int PASSWORD_MAXLEN = 32;
@@ -48,9 +49,6 @@ public class Member extends SuperEntity {
 
     @Autowired
     private MemberDao memberDao;
-    
-    @Autowired
-    private ApplePushNotificationService applePushNotificationService;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -169,7 +167,7 @@ public class Member extends SuperEntity {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy="member", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade = { CascadeType.ALL})
     public List<ApprovedEmail> getApprovedEmails() {
         return approvedEmails;
     }
@@ -179,11 +177,23 @@ public class Member extends SuperEntity {
     }
 
     public void processEmail() {
-        applePushNotificationService.sendMessage("davids", new Device());        
+        List<Device> devices = this.getDevices();
+        
+        if (devices != null && !devices.isEmpty()) {
+            Device device = devices.get(0);
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("device:" + device);
+            }
+            device.sendMessage("test");     
+        } else {
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("member: " + this + "device + is null");
+            }
+        }
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy="member", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="member", fetch=FetchType.EAGER, cascade = { CascadeType.ALL} )
     public List<Device> getDevices() {
         return devices;
     }
@@ -197,6 +207,28 @@ public class Member extends SuperEntity {
         return "Member [id=" + id + ", username=" + username + ", password="
                 + password + ", enabled=" + enabled + ", locked=" + locked
                 + ", token=" + token + ", email=" + email + "]";
+    }
+
+    public void registerDevice(Device device) {
+        
+       List<Device> savedDevices = getDevices();
+       
+       if (savedDevices == null) {
+           savedDevices = new ArrayList<Device>();
+       }
+       
+       if (!savedDevices.isEmpty()) { 
+           Device sd = savedDevices.get(0);  
+           if (StringUtils.equals(sd.getToken(), device.getToken())) {
+               return;
+           }
+           
+           savedDevices.remove(0);
+           sd.delete();  
+       }
+       
+       device.setMember(this);
+       savedDevices.add(device);       
     }
 
 

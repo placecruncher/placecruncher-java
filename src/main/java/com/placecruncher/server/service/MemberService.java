@@ -36,5 +36,10 @@ public class MemberService {
         
         return token.toString();
     }
+    
+    @Transactional
+    public void registerDevice(Member member, Device device) {
+        member.registerDevice(device);
+    }
 
 }
