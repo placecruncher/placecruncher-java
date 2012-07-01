@@ -92,9 +92,9 @@ public class Device extends SuperEntity {
 
     public void sendMessage(String message) {
         if (DeviceType.IPHONE.equals(deviceType)) {
-            applePushNotificationService.sendMessage("test", this.getToken()); 
+            applePushNotificationService.sendMessage(message, this.getToken()); 
         } else {
-            this.c2DMPushNotificationService.sendMessage(message, message);
+            this.c2DMPushNotificationService.sendMessage(message, this.getToken());
         }
     }
 }

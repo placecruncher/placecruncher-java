@@ -188,7 +188,7 @@ public class Member extends SuperEntity {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("device:" + device);
             }
-            device.sendMessage(crunchMessage);     
+            device.sendMessage(crunchMessage.trim());     
         } else {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("member: " + this + "device + is null");
