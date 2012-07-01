@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.placecruncher.server.dao.MemberDao;
@@ -47,6 +48,9 @@ public class Member extends SuperEntity {
     private List<ApprovedEmail> approvedEmails;
     private List<Device> devices;
 
+    @Value("${crunch.message}")
+    private String crunchMessage;
+    
     @Autowired
     private MemberDao memberDao;
     
@@ -184,7 +188,7 @@ public class Member extends SuperEntity {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("device:" + device);
             }
-            device.sendMessage("test");     
+            device.sendMessage(crunchMessage);     
         } else {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("member: " + this + "device + is null");

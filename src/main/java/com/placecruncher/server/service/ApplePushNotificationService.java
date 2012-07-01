@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
-import com.placecruncher.server.domain.Device;
+import com.placecruncher.server.exception.PlacecruncherRuntimeException;
 
 @Service
 public class ApplePushNotificationService {
@@ -21,7 +21,7 @@ public class ApplePushNotificationService {
     
     public void sendMessage(String message, String token) {
         try {
-        String simplePayload = APNS.newPayload().alertBody(message).badge(12).sound("default").build();
+            String simplePayload = APNS.newPayload().alertBody(message).badge(1).sound("default").build();
 
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("p12FileLocation: " + p12FileLocation + " p12Password: " + p12Password);
@@ -34,7 +34,7 @@ public class ApplePushNotificationService {
 
             service.push(token, simplePayload);
         } catch (Exception e) {
-            LOGGER.error(e, e);
+            throw new PlacecruncherRuntimeException("", e);
         }
     }
 
