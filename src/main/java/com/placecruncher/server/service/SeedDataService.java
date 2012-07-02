@@ -28,35 +28,35 @@ public class SeedDataService {
 
     @Transactional
     public void loadSeedData(Collection<String> configurations) {
-        
+
         // Sort the list
         Collections.sort(seedDataSet, new OrderComparator());
-        
+
         if (log.isInfoEnabled()) {
             log.info("Processing seed data for configurations: " + StringUtils.join(configurations, ','));
         }
         for (SeedData seedData : seedDataSet) {
             if (seedData.getConfigurations().isEmpty() || CollectionUtils.containsAny(seedData.getConfigurations(), configurations)) {
-            	SeedDataLog seedDataLog = seedDataDao.getByName(seedData.getName());
-            	if ( seedDataLog == null || seedData.isRepeatable()) {
+                SeedDataLog seedDataLog = seedDataDao.getByName(seedData.getName());
+                if ( seedDataLog == null || seedData.isRepeatable()) {
                     if (log.isInfoEnabled()) {
                         log.info("Populating seed data " + seedData.getName());
                     }
                     seedData.populate();
 
-            		if (seedDataLog == null) {
-            			seedDataLog = new SeedDataLog();
-            			seedDataLog.setName(seedData.getName());
-            			seedDataDao.persist(seedDataLog);
-            		}
-            	} else {
-            		if (log.isInfoEnabled()) {
+                    if (seedDataLog == null) {
+                        seedDataLog = new SeedDataLog();
+                        seedDataLog.setName(seedData.getName());
+                        seedDataDao.persist(seedDataLog);
+                    }
+                } else {
+                    if (log.isInfoEnabled()) {
                         log.info("Seed data " + seedData.getName() + " has already been loaded");
                     }
                 }
             } else {
                 if (log.isDebugEnabled()) {
-                    log.debug("Seed data " + seedData.getName() + " is not enabled for this configuration");
+                    log.debug("Seed data " + seedData.getName() + " is only enabled for the following configurations [" + StringUtils.join(seedData.getConfigurations(),", ") + "]");
                 }
             }
         }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -16,11 +17,11 @@ import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.domain.Member;
 
 public class MemberHandlerInterceptor extends HandlerInterceptorAdapter {
-    protected static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ApiSecurityHandler.class);
+    private final Logger log = Logger.getLogger(this.getClass());
 
     @Autowired
     private MemberDao memberDao;
-    
+
     @Autowired
     private InvokerContext invokerContext;
 
@@ -35,15 +36,15 @@ public class MemberHandlerInterceptor extends HandlerInterceptorAdapter {
 
             if (StringUtils.isNotEmpty(token)) {
 
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.info("token: " + token);
+                if (log.isInfoEnabled()) {
+                    log.info("token: " + token);
                 }
 
                 Member member = memberDao.findByToken(token);
                 invokerContext.setMember(member);
             }
         } catch (Exception e) {
-            LOGGER.error(e, e);
+            log.error(e, e);
         }
         return result;
     }

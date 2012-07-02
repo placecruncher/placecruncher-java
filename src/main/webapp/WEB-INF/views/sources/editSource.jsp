@@ -9,6 +9,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0/build/rollups/sha256.js"></script>
 <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-debug.js"></script>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssgrids/grids-min.css">
@@ -205,7 +206,7 @@ ol,ul {
     </div>
     <div class="yui3-u-2-3">
       <div id="preview">
-         <iframe style="width:100%;height:800px" src="${source.url}"></iframe>
+<%--          <iframe style="width:100%;height:800px" src="${source.url}"></iframe> --%>
        </div>
     </div>
 </div>
@@ -241,7 +242,7 @@ var Y = YUI({
     modules: {
         'model-sync-rest': {
                 fullpath: "${pageContext.request.contextPath}/resources/js/model-sync-rest.js",
-                requires: ['io-base', 'json-stringify']
+                requires: ['io-base', 'json-stringify', 'datatype']
         },
     }
 }).use('io-base', 'event-focus', 'json', 'model', 'model-list', 'view', 'model-sync-rest', function (Y) {
@@ -255,7 +256,7 @@ var PlaceAppView, PlaceList, SourceModel, PlaceView;
 // attributes and methods useful for place items.
 
 PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.REST], {
-    root: 'places'
+    root: '${pageContext.request.contextPath}/api/private/v1/sources/${source.id}/places'
 }, {
     ATTRS: {
       id: {},
@@ -276,7 +277,7 @@ PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.RE
 // information about the place items in the list.
 
 PlaceList = Y.PlaceList = Y.Base.create('placeList', Y.ModelList, [Y.ModelSync.REST], {
-    root: 'places',
+    root: '${pageContext.request.contextPath}/api/private/v1/sources/${source.id}/places',
 
     // This tells the list that it will hold instances of the PlaceModel class.
     model: PlaceModel,

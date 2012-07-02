@@ -2,6 +2,7 @@ package com.placecruncher.server.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.service.ApplePushNotificationService;
@@ -29,7 +32,7 @@ import com.placecruncher.server.service.ApplePushNotificationService;
 @Entity
 @Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
 @Configurable(dependencyCheck = true)
-public class Member extends SuperEntity {
+public class Member extends SuperEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MAXLEN = 64;
@@ -38,20 +41,20 @@ public class Member extends SuperEntity {
     private Integer id;
     private String username;
     private String password;
-    private boolean enabled;
+    private boolean enabled = true;
     private boolean locked;
     private String token;
     private String email;
-    
+
     private List<ApprovedEmail> approvedEmails;
     private List<Device> devices;
 
     @Autowired
     private MemberDao memberDao;
-    
+
     @Autowired
     private ApplePushNotificationService applePushNotificationService;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable=false)
@@ -72,7 +75,7 @@ public class Member extends SuperEntity {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     /** {@inheritDoc} */
     @Column(nullable=false, unique=true)
     public String getEmail() {
@@ -124,10 +127,13 @@ public class Member extends SuperEntity {
     @Transient
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new PrincipalAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if(username.equals("root"))
         {
-            authorities.add(new PrincipalAuthority("ROOT"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ROOT"));
+        }
+        else if (username.equals("admin")) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         return authorities;
     }
@@ -149,21 +155,6 @@ public class Member extends SuperEntity {
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
-    private final class PrincipalAuthority implements GrantedAuthority {
-        private static final long serialVersionUID = 1L;
-        private String authority;
-
-        private PrincipalAuthority(String authority) {
-            this.authority = authority;
-        }
-
-        /** {@inheritDoc} */
-        public String getAuthority() {
-            return authority;
-        }
-    }
-
     public void saveOrUpdate() {
         this.memberDao.saveOrUpdate(this);
     }
@@ -179,7 +170,7 @@ public class Member extends SuperEntity {
     }
 
     public void processEmail() {
-        applePushNotificationService.sendMessage("davids", new Device());        
+        applePushNotificationService.sendMessage("davids", new Device());
     }
 
     @JsonIgnore

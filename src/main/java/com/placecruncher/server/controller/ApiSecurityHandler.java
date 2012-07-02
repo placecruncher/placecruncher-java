@@ -37,13 +37,15 @@ public class ApiSecurityHandler extends HandlerInterceptorAdapter {
             if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(signature) && StringUtils.isNotEmpty(timeStamp)) {
 
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("key: " + key + " signature: " + signature + "timeStamp: " + timeStamp);
+                    LOGGER.debug("key: " + key + " signature: " + signature + " timeStamp: " + timeStamp);
                 }
 
                 ApiKey apiKey = apiKeyDao.findByApiKey(key);
 
                 if (apiKey != null) {
                     result = apiKey.validate(key, signature, timeStamp, timestampLeniencySeconds);
+                } else {
+                    LOGGER.debug("key " + key + " NOT FOUND");
                 }
             }
 

@@ -1,5 +1,6 @@
 package com.placecruncher.server.application;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -15,17 +16,23 @@ import com.placecruncher.server.service.SeedDataService;
 public class Startup implements SmartLifecycle
 {
     private final Logger log = Logger.getLogger(this.getClass());
-    
+
     private boolean running;
+    private Collection<String> defaultConfigurations;
+    private Collection<String> customConfigurations;
 
     @Autowired
     private SeedDataService seedDataService;
 
     @Value("${default.seed.data.configurations}")
-    private Collection<String> defaultConfigurations;
+    public void setDefaultConfigurations(String defaultConfigurations) {
+        this.defaultConfigurations = Arrays.asList(defaultConfigurations.split(", "));
+    }
 
     @Value("${custom.seed.data.configurations:}")
-    private Collection<String> customConfigurations;
+    public void setCustomConfigurations(String customConfigurations) {
+        this.customConfigurations = Arrays.asList(customConfigurations.split(", "));
+    }
 
     /** {@inheritDoc} */
     public boolean isAutoStartup()
@@ -46,8 +53,13 @@ public class Startup implements SmartLifecycle
 
         if (log.isInfoEnabled()) log.info("Loading seed data...");
         @SuppressWarnings("unchecked")
-		Collection<String> collections = CollectionUtils.union(defaultConfigurations, customConfigurations);
-        seedDataService.loadSeedData(collections);
+        Collection<String> configurations = CollectionUtils.union(defaultConfigurations, customConfigurations);
+        if (log.isDebugEnabled()) {
+            for (String configuration : configurations) {
+                log.debug("Configuration ENABLED: " + configuration);
+            }
+        }
+        seedDataService.loadSeedData(configurations);
 
         if (log.isInfoEnabled()) log.info("Application startup complete.");
         running = true;

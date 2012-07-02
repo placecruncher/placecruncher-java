@@ -296,6 +296,16 @@ RESTSync.prototype = {
             method = 'POST';
         }
 
+      var key = "cloud_key";
+      var secret = "cloud_secret";
+      var timestamp = Y.DataType.Date.format(new Date(), {format:"%Y%m%dT%H%M%S%z"});
+      var message =  timestamp + "." + secret;
+      var digest =  CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
+
+      Y.io.header("X-API-Key", key);
+      Y.io.header("X-API-Timestamp", timestamp);
+      Y.io.header("X-API-Signature", digest);
+
         // Setup and send the XHR.
         Y.io(restUrl, {
             method : method,

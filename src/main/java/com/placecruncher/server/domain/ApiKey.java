@@ -27,6 +27,14 @@ public class ApiKey extends SuperEntity {
     private String key;
     private String secret;
 
+    protected ApiKey() {
+    }
+
+    public ApiKey(String key, String secret) {
+        this.key = key;
+        this.secret = secret;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable=false)
@@ -56,11 +64,6 @@ public class ApiKey extends SuperEntity {
 
     public boolean validate(String requestKey, String signature, String timeStamp, int timestampLeniencySeconds) {
         boolean result = false;
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("key: " + requestKey + " signature: " + signature
-                    + " timeStamp: " + timeStamp
-                    + " timestampLeniencySeconds: " + timestampLeniencySeconds);
-        }
         if (StringUtils.isNotEmpty(requestKey) && StringUtils.isNotEmpty(signature)
                 && StringUtils.isNotEmpty(timeStamp)) {
             try {
@@ -68,15 +71,19 @@ public class ApiKey extends SuperEntity {
 
                 String expectedSignature = DigestUtils.sha256Hex(digest);
 
+                boolean validSignature = StringUtils.startsWith(signature,  expectedSignature);
+
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("key: " + requestKey + " signature: " + signature
+                    LOGGER.debug( " key: " + requestKey
                             + " timeStamp: " + timeStamp
-                            + " timestampLeniencySeconds: "
-                            + timestampLeniencySeconds + " digest: " + digest
-                            + " expectedSignature: " + expectedSignature);
+                            + " digest: " + digest
+                            + " timestampLeniencySeconds: " + timestampLeniencySeconds
+                            + " signature: " + signature
+                            + " expected: " + expectedSignature
+                            + " valid : " + validSignature );
                 }
 
-                if (StringUtils.startsWith(signature,  expectedSignature)) {
+                if (validSignature) {
                     DateTime passedInDateTime = null;
 
                     DateTimeFormatter parser = ISODateTimeFormat.basicDateTimeNoMillis();
@@ -89,17 +96,10 @@ public class ApiKey extends SuperEntity {
 
                     int diff = Math.abs(gap.getSeconds());
 
-                    if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("key: " + requestKey + " signature: " + signature
-                                + " timeStamp: " + timeStamp
-                                + " timestampLeniencySeconds: "
-                                + timestampLeniencySeconds + " digest: "
-                                + digest + " newSignature: " + expectedSignature
-                                + " diff: " + diff);
-                    }
-
                     if (diff <= timestampLeniencySeconds) {
                         result = true;
+                    } else {
+                        LOGGER.debug("Invalid timestamp " + timeStamp + " expected " + parser.print(currentTime) + "+/- " + timestampLeniencySeconds);
                     }
                 }
             //CHECKSTYLE:OFF IllegalCatch
@@ -107,12 +107,6 @@ public class ApiKey extends SuperEntity {
                 LOGGER.error(e, e);
             }
             //CHECKSTYLE:ON IllegalCatch
-        }
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("key: " + requestKey + " signature: " + signature
-                    + " timeStamp: " + timeStamp
-                    + " timestampLeniencySeconds: " + timestampLeniencySeconds
-                    + " result: " + result);
         }
         return result;
     }

@@ -6,16 +6,33 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+    <bean id="cookieAuthenticationFilter" class="com.placecruncher.server.security.CookieAuthenticationFilter"/>
+    <bean id="cookieRememberMeService" class="com.placecruncher.server.security.CookieRememberMeService"/>
+    <bean id="customAuthenticationEntryPoint" class="com.placecruncher.server.security.CustomAuthenticationEntryPoint"/>
+
+    <security:http auto-config='false' create-session="never" use-expressions="true"
+        entry-point-ref="customAuthenticationEntryPoint" pattern="/api/private/**">
+        <security:remember-me services-ref="cookieRememberMeService"/>
+<!--         <security:custom-filter position="PRE_AUTH_FILTER" ref="cookieAuthenticationFilter" /> -->
+    </security:http>
+
     <security:http auto-config='true'>
-        <security:intercept-url pattern="/site/**" access="ROLE_USER" />
+<!--         <security:custom-filter position="PRE_AUTH_FILTER" ref="cookieAuthenticationFilter" /> -->
+        <security:intercept-url pattern='/site/**' access='ROLE_ADMIN' />
+        <security:intercept-url pattern='login.html' access='IS_AUTHENTICATED_ANONYMOUSLY' />
+        <security:remember-me services-ref="cookieRememberMeService"/>
+
+<!--  Uncomment the following line when we add a custom login page -->
+<!--         <security:form-login login-page='/login.html' /> -->
+        <security:logout logout-url="/logout.html" delete-cookies="X-app-authorize"/>
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin" password="secret" authorities="ROLE_USER, ROLE_ADMIN" />
-                <security:user name="user" password="secret" authorities="ROLE_USER" />
-            </security:user-service>
+        <security:authentication-provider user-service-ref='memberDetailsService'>
+<!-- Uncomment the follow section when we encrypt passwords in the database -->
+<!--           <security:password-encoder hash="sha"> -->
+<!--             <security:salt-source user-property="username"/> -->
+<!--           </security:password-encoder> -->
         </security:authentication-provider>
     </security:authentication-manager>
 
