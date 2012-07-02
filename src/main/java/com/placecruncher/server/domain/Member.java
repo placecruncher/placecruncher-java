@@ -2,7 +2,6 @@ package com.placecruncher.server.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,28 +11,30 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.placecruncher.server.dao.MemberDao;
-import com.placecruncher.server.service.ApplePushNotificationService;
 
 @Entity
 @Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
 @Configurable(dependencyCheck = true)
 public class Member extends SuperEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
+
+    private static final Logger LOGGER = Logger.getLogger(Member.class);
 
     public static final int USERNAME_MAXLEN = 64;
     public static final int PASSWORD_MAXLEN = 32;
@@ -49,11 +50,11 @@ public class Member extends SuperEntity implements UserDetails {
     private List<ApprovedEmail> approvedEmails;
     private List<Device> devices;
 
-    @Autowired
-    private MemberDao memberDao;
+    @Value("${crunch.message}")
+    private String crunchMessage;
 
     @Autowired
-    private ApplePushNotificationService applePushNotificationService;
+    private MemberDao memberDao;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -160,7 +161,7 @@ public class Member extends SuperEntity implements UserDetails {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy="member", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade = { CascadeType.ALL})
     public List<ApprovedEmail> getApprovedEmails() {
         return approvedEmails;
     }
@@ -170,11 +171,23 @@ public class Member extends SuperEntity implements UserDetails {
     }
 
     public void processEmail() {
-        applePushNotificationService.sendMessage("davids", new Device());
+        List<Device> devices = this.getDevices();
+
+        if (devices != null && !devices.isEmpty()) {
+            Device device = devices.get(0);
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("device:" + device);
+            }
+            device.sendMessage(crunchMessage.trim());
+        } else {
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("member: " + this + "device + is null");
+            }
+        }
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy="member", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="member", fetch=FetchType.EAGER, cascade = { CascadeType.ALL} )
     public List<Device> getDevices() {
         return devices;
     }
@@ -188,6 +201,28 @@ public class Member extends SuperEntity implements UserDetails {
         return "Member [id=" + id + ", username=" + username + ", password="
                 + password + ", enabled=" + enabled + ", locked=" + locked
                 + ", token=" + token + ", email=" + email + "]";
+    }
+
+    public void registerDevice(Device device) {
+
+       List<Device> savedDevices = getDevices();
+
+       if (savedDevices == null) {
+           savedDevices = new ArrayList<Device>();
+       }
+
+       if (!savedDevices.isEmpty()) {
+           Device sd = savedDevices.get(0);
+           if (StringUtils.equals(sd.getToken(), device.getToken())) {
+               return;
+           }
+
+           savedDevices.remove(0);
+           sd.delete();
+       }
+
+       device.setMember(this);
+       savedDevices.add(device);
     }
 
 

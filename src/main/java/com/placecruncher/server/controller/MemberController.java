@@ -1,5 +1,7 @@
 package com.placecruncher.server.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,20 +42,41 @@ public class MemberController {
         String token = "";
         
         Device device = null;
-        if (registerPayload.validate()) {
-            if (registerPayload.getDevice() != null) {
-                device = new Device();
-                device.setDeviceType(DeviceType.getType(registerPayload.getDevice().getDeviceType()));
-                device.setToken(registerPayload.getDevice().getToken());
-                
-            }
-            token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail(), device);
-        } else {
-            throw new IllegalArgumentException();
+        registerPayload.validate();
+        
+        if (registerPayload.getDevice() != null) {
+            device = new Device();
+            device.setDeviceType(DeviceType.getType(registerPayload.getDevice().getDeviceType()));
+            device.setToken(registerPayload.getDevice().getToken());    
         }
+        token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail(), device);
         
         sessionTokenWrapper.setToken(token);      
         responsePayload.setResponse(sessionTokenWrapper);       
+        return responsePayload;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "self/device")
+    @ResponseBody
+    public ResponsePayload registerDevice(@RequestBody DevicePayload devicePayload) {
+
+        Meta meta = new Meta();
+        ResponsePayload responsePayload = new ResponsePayload(meta);
+        
+        Device device = null;
+        devicePayload.validate();
+        
+        Member member = invokerContext.getMember();
+        if (member != null) {
+            device = new Device();
+            device.setDeviceType(DeviceType.getType(devicePayload.getDeviceType()));
+            device.setToken(devicePayload.getToken());
+            memberService.registerDevice(member, device);
+        } else {
+            meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+        
+        
         return responsePayload;
     }
     
@@ -73,6 +96,8 @@ public class MemberController {
         
         if (member != null) {
             token = member.getToken();
+        } else {
+            meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
         
         sessionTokenWrapper.setToken(token);      
@@ -86,15 +111,17 @@ public class MemberController {
 
         Meta meta = new Meta();
         ResponsePayload responsePayload = new ResponsePayload(meta);
-        MemberWrapper memberWrapper = new MemberWrapper();
       
         Member member = invokerContext.getMember();
         
         if (member !=null) {
+            MemberWrapper memberWrapper = new MemberWrapper();
             memberWrapper.setMember(member);
+            responsePayload.setResponse(memberWrapper); 
+        } else {
+            meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
-        
-        responsePayload.setResponse(memberWrapper);       
+              
         return responsePayload;
     }
 }

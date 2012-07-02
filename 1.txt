@@ -1,0 +1,1301 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.placecruncher.server:placecruncher:war:0.0.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework:spring-test:jar -> duplicate declaration of version ${springframework.version} @ line 105, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building placecruncher 0.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ placecruncher ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 3 resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ placecruncher ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- aspectj-maven-plugin:1.4:compile (default) @ placecruncher ---
+[INFO] No modifications found skipping aspectJ compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ placecruncher ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ placecruncher ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- aspectj-maven-plugin:1.4:test-compile (default) @ placecruncher ---
+[INFO] No modifications found skipping aspectJ compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.7.2:test (default-test) @ placecruncher ---
+[INFO] Surefire report directory: /Users/djones/projects/placecruncher/placecruncher-java/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.placecruncher.server.dao.MemberDaoTest
+228 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+441 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+543 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+1050 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6bffc686: startup date [Thu Jun 28 20:00:10 PDT 2012]; root of context hierarchy
+1284 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+1285 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+1285 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+1286 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+1286 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+1286 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+1363 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@73367e28: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+1908 [main] INFO org.hibernate.annotations.common.Version - Hibernate Commons Annotations 3.2.0.Final
+1913 [main] INFO org.hibernate.cfg.Environment - Hibernate 3.6.10.Final
+1915 [main] INFO org.hibernate.cfg.Environment - hibernate.properties not found
+1918 [main] INFO org.hibernate.cfg.Environment - Bytecode provider name : javassist
+1922 [main] INFO org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling
+2088 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+2117 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+2161 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+2161 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+2171 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+2172 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+2177 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+2177 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+2185 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+2186 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+2226 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+2226 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+2235 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+2235 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+2240 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+2241 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+2242 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+2242 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+2246 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+2247 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+2249 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+2249 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+2261 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+2266 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+2289 [main] INFO org.hibernate.validator.util.Version - Hibernate Validator 4.2.0.Final
+2390 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+2456 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+2462 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@73367e28: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+2469 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@20823c6d] to prepare test instance [com.placecruncher.server.dao.MemberDaoTest@464d28c7]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+2486 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+2533 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+2669 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+2826 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@4fc64ed8: startup date [Thu Jun 28 20:00:11 PDT 2012]; root of context hierarchy
+2845 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+2845 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+2846 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+2846 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+2846 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+2846 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+2853 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@193a83cc: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+2892 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+2893 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+2895 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+2895 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+2896 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+2897 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+2900 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+2900 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+2902 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+2902 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+2906 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+2906 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+2911 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+2911 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+2913 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+2913 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+2914 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+2914 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+2917 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+2918 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+2919 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+2919 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+2922 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+2923 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+2962 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+2988 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+2989 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@193a83cc: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+2989 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@20823c6d] to prepare test instance [com.placecruncher.server.dao.MemberDaoTest@1c2d5534]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 3.029 sec <<< FAILURE!
+Running com.placecruncher.server.dao.PlaceDaoTest
+3024 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+3048 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+3098 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+3241 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@7371b4ca: startup date [Thu Jun 28 20:00:12 PDT 2012]; root of context hierarchy
+3314 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+3314 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+3315 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+3315 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+3315 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+3315 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+3322 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2dd5b883: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+3433 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+3433 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+3435 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+3435 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+3437 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+3437 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+3440 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+3440 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+3442 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+3442 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+3446 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+3446 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+3450 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+3451 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+3453 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+3453 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+3455 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+3455 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+3458 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+3458 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+3460 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+3460 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+3462 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+3463 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+3492 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+3523 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+3523 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2dd5b883: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+3524 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@15f7dbd8] to prepare test instance [com.placecruncher.server.dao.PlaceDaoTest@43824d2c]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+3535 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+3606 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+3710 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+3844 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@5ecfe500: startup date [Thu Jun 28 20:00:12 PDT 2012]; root of context hierarchy
+3863 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+3864 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+3864 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+3864 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+3864 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+3864 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+3870 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@55444319: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+4009 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+4010 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+4011 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+4011 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+4013 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+4013 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+4016 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+4016 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+4020 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+4020 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+4025 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+4025 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+4028 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+4029 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+4031 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+4031 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+4032 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+4032 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+4035 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+4036 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+4037 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+4037 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+4039 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+4040 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+4081 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+4113 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+4114 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@55444319: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+4115 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@15f7dbd8] to prepare test instance [com.placecruncher.server.dao.PlaceDaoTest@24226649]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+4149 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+4200 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+4215 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+4338 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@7bcf6f61: startup date [Thu Jun 28 20:00:13 PDT 2012]; root of context hierarchy
+4368 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+4368 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+4368 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+4368 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+4368 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+4369 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+4379 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2ca2e19e: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+4514 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+4515 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+4516 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+4517 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+4518 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+4519 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+4525 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+4525 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+4527 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+4527 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+4531 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+4531 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+4535 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+4535 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+4537 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+4537 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+4538 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+4538 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+4540 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+4541 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+4542 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+4542 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+4545 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+4545 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+4566 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+4595 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+4595 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2ca2e19e: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+4596 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@15f7dbd8] to prepare test instance [com.placecruncher.server.dao.PlaceDaoTest@6e818805]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+4614 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+4648 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+4680 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+5057 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@7a0938f0: startup date [Thu Jun 28 20:00:14 PDT 2012]; root of context hierarchy
+5162 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+5162 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+5163 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+5163 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+5163 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+5163 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+5169 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4f6de641: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+5210 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+5210 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+5212 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+5212 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+5214 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+5214 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+5244 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+5244 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+5245 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+5246 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+5273 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+5273 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+5292 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+5293 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+5294 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+5295 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+5296 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+5296 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+5298 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+5299 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+5300 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+5300 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+5309 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+5310 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+5330 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+5357 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+5357 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4f6de641: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+5358 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@15f7dbd8] to prepare test instance [com.placecruncher.server.dao.PlaceDaoTest@53adceb8]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+5389 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+5466 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+5485 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+5555 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@37debcf3: startup date [Thu Jun 28 20:00:14 PDT 2012]; root of context hierarchy
+5621 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+5634 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+5634 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+5634 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+5634 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+5634 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+5640 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@27d08e21: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+5677 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+5677 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+5691 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+5691 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+5693 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+5693 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+5696 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+5696 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+5697 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+5698 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+5701 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+5701 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+5705 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+5706 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+5708 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+5708 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+5709 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+5709 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+5713 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+5713 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+5714 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+5715 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+5717 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+5717 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+5747 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+5788 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+5789 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@27d08e21: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+5789 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@15f7dbd8] to prepare test instance [com.placecruncher.server.dao.PlaceDaoTest@3c9076d]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 2.817 sec <<< FAILURE!
+Running com.placecruncher.server.dao.SourceDaoTest
+5847 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+5861 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+5873 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+5995 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@782bbb7b: startup date [Thu Jun 28 20:00:15 PDT 2012]; root of context hierarchy
+6047 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+6048 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+6048 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+6048 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+6048 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+6048 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+6054 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@6406c7e: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+6105 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+6106 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+6109 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+6109 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+6111 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+6111 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+6114 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+6114 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+6115 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+6115 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+6130 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+6131 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+6142 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+6142 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+6144 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+6144 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+6146 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+6147 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+6149 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+6149 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+6150 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+6151 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+6153 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+6154 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+6189 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+6252 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+6258 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@6406c7e: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+6259 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@4bc0bec5] to prepare test instance [com.placecruncher.server.dao.SourceDaoTest@5b2c9e5d]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+6266 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+6328 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+6351 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+6412 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@4e511a6e: startup date [Thu Jun 28 20:00:15 PDT 2012]; root of context hierarchy
+6444 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+6445 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+6445 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+6445 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+6445 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+6445 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+6450 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@642423ad: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+6486 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+6487 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+6489 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+6489 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+6490 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+6491 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+6498 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+6498 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+6499 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+6499 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+6502 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+6503 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+6505 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+6506 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+6507 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+6507 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+6510 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+6510 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+6512 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+6518 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+6520 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+6520 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+6522 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+6523 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+6545 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+6621 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+6621 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@642423ad: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+6622 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@4bc0bec5] to prepare test instance [com.placecruncher.server.dao.SourceDaoTest@4ad25538]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+6626 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/test/resources/appContext-dao-test.xml]
+6638 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-core.xml]
+6681 [main] INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]
+6738 [main] INFO org.springframework.context.support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@36d8f5e8: startup date [Thu Jun 28 20:00:15 PDT 2012]; root of context hierarchy
+6752 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from class path resource [placecruncher.properties]
+6753 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./environment.properties]
+6753 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./${placecruncher.environment}.properties]
+6753 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./${placecruncher.environment}.properties]: ./${placecruncher.environment}.properties (No such file or directory)
+6753 [main] INFO org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Loading properties file from URL [file:./local.properties]
+6753 [main] WARN org.springframework.context.support.PropertySourcesPlaceholderConfigurer - Could not load properties from URL [file:./local.properties]: ./local.properties (No such file or directory)
+6758 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@403525a2: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+6779 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApiKey
+6780 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApiKey on table API_KEY
+6781 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.ApprovedEmail
+6781 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.ApprovedEmail on table APPROVED_EMAIL
+6782 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Email
+6782 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Email on table EMAIL
+6784 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.FriendRef
+6785 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.FriendRef on table FRIEND_REF
+6786 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Member
+6786 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Member on table MEMBER
+6789 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Place
+6789 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Place on table PLACE
+6792 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.PlaceRef
+6792 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.PlaceRef on table PlaceRef
+6794 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.SeedDataLog
+6794 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.SeedDataLog on table SEED_DATA_LOG
+6795 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Source
+6795 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Source on table SOURCE
+6797 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.Tag
+6797 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.Tag on table TAG
+6798 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: com.placecruncher.server.domain.TagRef
+6798 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity com.placecruncher.server.domain.TagRef on table TAG_REF
+6801 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: com.placecruncher.server.domain.Member.approvedEmails -> APPROVED_EMAIL
+6802 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+6825 [main] INFO org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 1.008 sec <<< FAILURE!
+6847 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+Running com.placecruncher.server.domain.AbstractObjectFactoryTest
+6848 [main] INFO org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@403525a2: defining beans [invokerContext,invokerContextTarget,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,org.springframework.beans.factory.config.PropertyPlaceholderConfigurer#0,apiKeyDao,approvedEmailDao,emailDao,memberDao,placeDao,seedDataLogDao,sourceDao,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,dataSource,entityListener,sessionFactory,transactionManager,liquibase,memberFactory,placeFactory,sourceFactory,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+6848 [main] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@4bc0bec5] to prepare test instance [com.placecruncher.server.dao.SourceDaoTest@e85b4c5]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'apiKeyDao': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:585)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void com.placecruncher.server.dao.AbstractDao.setSessionFactory(org.hibernate.SessionFactory); nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 45 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in URL [file:src/main/webapp/WEB-INF/spring/appContext-persistence.xml]: Invocation of init method failed; nested exception is org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:519)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:294)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:225)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:193)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:848)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:790)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:551)
+	... 47 more
+Caused by: org.hibernate.MappingException: Could not determine type for: com.placecruncher.server.domain.Device, at table: MEMBER, for columns: [org.hibernate.mapping.Column(device)]
+	at org.hibernate.mapping.SimpleValue.getType(SimpleValue.java:306)
+	at org.hibernate.mapping.SimpleValue.isValid(SimpleValue.java:290)
+	at org.hibernate.mapping.Property.isValid(Property.java:243)
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:464)
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:235)
+	at org.hibernate.cfg.Configuration.validate(Configuration.java:1362)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1865)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:860)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:779)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1452)
+	... 57 more
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec
+
+Results :
+
+Tests in error: 
+  create(com.placecruncher.server.dao.MemberDaoTest): Failed to load ApplicationContext
+  findByUserName(com.placecruncher.server.dao.MemberDaoTest): Failed to load ApplicationContext
+  delete(com.placecruncher.server.dao.PlaceDaoTest): Failed to load ApplicationContext
+  create(com.placecruncher.server.dao.PlaceDaoTest): Failed to load ApplicationContext
+  createWithSource(com.placecruncher.server.dao.PlaceDaoTest): Failed to load ApplicationContext
+  findBySource(com.placecruncher.server.dao.PlaceDaoTest): Failed to load ApplicationContext
+  deleteWithSources(com.placecruncher.server.dao.PlaceDaoTest): Failed to load ApplicationContext
+  create(com.placecruncher.server.dao.SourceDaoTest): Failed to load ApplicationContext
+  findByStatus(com.placecruncher.server.dao.SourceDaoTest): Failed to load ApplicationContext
+  findByUrl(com.placecruncher.server.dao.SourceDaoTest): Failed to load ApplicationContext
+
+Tests run: 13, Failures: 0, Errors: 10, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 11.057s
+[INFO] Finished at: Thu Jun 28 20:00:15 PDT 2012
+[INFO] Final Memory: 7M/81M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.7.2:test (default-test) on project placecruncher: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /Users/djones/projects/placecruncher/placecruncher-java/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

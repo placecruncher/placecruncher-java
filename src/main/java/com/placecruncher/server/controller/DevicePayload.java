@@ -1,5 +1,9 @@
 package com.placecruncher.server.controller;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.placecruncher.server.domain.DeviceType;
+
 public class DevicePayload {
     public String deviceType;
     public String token;
@@ -20,6 +24,13 @@ public class DevicePayload {
         this.token = token;
     }
 
+    public void validate() {
+        DeviceType deviceType = DeviceType.getType(this.getDeviceType());
+        if (StringUtils.isEmpty(this.getToken()) || deviceType==null) {
+            throw new IllegalArgumentException();
+        }
+    }
+    
     @Override
     public String toString() {
         return "DevicePayload [deviceType=" + deviceType + ", token=" + token + "]";
