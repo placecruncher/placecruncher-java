@@ -154,7 +154,10 @@ public class Member extends SuperEntity {
         this.approvedEmails = approvedEmails;
     }
 
-    public void processEmail() {
+    public void processEmail(Email email) {
+        
+        email.processEmail();
+        
         List<Device> devices = this.getDevices();
 
         if (devices != null && !devices.isEmpty()) {

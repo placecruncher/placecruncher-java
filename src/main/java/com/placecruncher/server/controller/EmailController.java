@@ -126,7 +126,7 @@ public class EmailController {
                     LOGGER.info("Email: " + email);
                 }
                 
-                member.processEmail();
+                member.processEmail(email);
             }
         } catch (Exception e) {
         	LOGGER.error(e, e);

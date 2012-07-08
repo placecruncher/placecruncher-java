@@ -1,5 +1,10 @@
 package com.placecruncher.server.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.Column;
@@ -8,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
@@ -50,6 +56,18 @@ public class Email extends SuperEntity {
     private long attachementCount;
     private int timestamp;
   
+    @Transient
+    private Pattern pattern = Pattern.compile(
+            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
+            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" + 
+            "|mil|biz|info|mobi|name|aero|jobs|museum" + 
+            "|travel|[a-z]{2}))(:[\\d]{1,5})?" + 
+            "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" + 
+            "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
+            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" + 
+            "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
+            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" + 
+            "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
     
     @Value("${mailgun.api.key}")
     private String mailGunKey;
@@ -170,7 +188,57 @@ public class Email extends SuperEntity {
     public void store() {
         emailDao.saveOrUpdate(this);
     }
+    
+    public void processEmail() {
+        List<String> results = new ArrayList<String>();
+        if (StringUtils.isNotEmpty(this.bodyPlain)) {
+            results = extractUrls(this.bodyPlain);
+        } else if (StringUtils.isNotEmpty(this.strippedText)) {
+            results = extractUrls(this.strippedText);
+        }
+        
+        for (String result : results) {
+            if  (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Url found in email: " + result);
+            }
+        }
+        
+    }
 
+    private List<String> extractUrls(String input) {
+        List<String> result = new ArrayList<String>();
+        
+        Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            String url = matcher.group();
+            if (url.contains("?")) {
+                String parts[] = url.split("\\?");
+                url = parts[0];
+            }
+            
+            if (!checkForImage(url)) {
+                result.add(url);
+            }
+        }
+
+        return result;
+    }
+    
+    private boolean checkForImage(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return false;
+        }
+        
+        if (StringUtils.endsWithIgnoreCase(url, ".jpeg") || StringUtils.endsWithIgnoreCase(url, ".jpg") ||
+            StringUtils.endsWithIgnoreCase(url, ".gif") || StringUtils.endsWithIgnoreCase(url, ".giff") ||
+            StringUtils.endsWithIgnoreCase(url, ".png")) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
     @Override
     public String toString() {
         return "Email [id=" + id + ", sender=" + sender + ", from=" + from
