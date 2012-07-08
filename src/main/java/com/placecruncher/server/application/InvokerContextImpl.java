@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.placecruncher.server.domain.ApiKey;
 import com.placecruncher.server.domain.Member;
@@ -11,12 +12,12 @@ import com.placecruncher.server.domain.Member;
 /**
  * Dummy InvokerContext that basically shows the user 1 is always logged in on
  * this thread at the moment
- * 
+ *
  * @author djones
- * 
+ *
  */
 public class InvokerContextImpl implements InvokerContext {
-    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(InvokerContextImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(InvokerContextImpl.class);
 
     protected ApiKey apiKey;
     protected String os;
@@ -32,7 +33,7 @@ public class InvokerContextImpl implements InvokerContext {
         }
         this.clear();
 
-        String appClientString = request.getHeader("X-App-Client");
+        String appClientString = request.getHeader(Constants.X_APP_CLIENT);
 
         if (StringUtils.isNotEmpty(appClientString)) {
             parseAppClientString(appClientString.trim());

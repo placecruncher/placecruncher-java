@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.util.WebUtils;
 
 import com.placecruncher.server.domain.Member;
+import com.placecruncher.server.domain.MemberDetails;
 
 public class CookieRememberMeService implements RememberMeServices, LogoutHandler {
     private static final String COOKIE = "X-app-authorize";
@@ -19,7 +20,9 @@ public class CookieRememberMeService implements RememberMeServices, LogoutHandle
     @Override
     public Authentication autoLogin(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = WebUtils.getCookie((HttpServletRequest) request, COOKIE);
-        log.info("Auto Login " + cookie);
+        if (cookie != null) {
+            log.info("Auto Login not implemented " + cookie);
+        }
         return null;
     }
 
@@ -35,8 +38,8 @@ public class CookieRememberMeService implements RememberMeServices, LogoutHandle
     @Override
     public void loginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         log.info("Login Success");
-        Member member = (Member)authentication.getPrincipal();
-        Cookie cookie = new Cookie(COOKIE, member.getToken());
+        MemberDetails memberDetails = (MemberDetails)authentication.getPrincipal();
+        Cookie cookie = new Cookie(COOKIE, memberDetails.getToken());
         cookie.setPath(request.getContextPath());
         response.addCookie(cookie);
     }

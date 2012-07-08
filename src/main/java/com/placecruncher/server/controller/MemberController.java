@@ -25,13 +25,13 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
-    
+
     @Autowired
     private MemberDao memberDao;
-    
+
     @Autowired
     private InvokerContext invokerContext;
-    
+
     @RequestMapping(method = RequestMethod.POST, value = "self/register")
     @ResponseBody
     public ResponsePayload registerUser(@RequestBody RegisterPayload registerPayload) {
@@ -40,32 +40,32 @@ public class MemberController {
         ResponsePayload responsePayload = new ResponsePayload(meta);
         SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
         String token = "";
-        
+
         Device device = null;
         registerPayload.validate();
-        
+
         if (registerPayload.getDevice() != null) {
             device = new Device();
             device.setDeviceType(DeviceType.getType(registerPayload.getDevice().getDeviceType()));
-            device.setToken(registerPayload.getDevice().getToken());    
+            device.setToken(registerPayload.getDevice().getToken());
         }
         token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail(), device);
-        
-        sessionTokenWrapper.setToken(token);      
-        responsePayload.setResponse(sessionTokenWrapper);       
+
+        sessionTokenWrapper.setToken(token);
+        responsePayload.setResponse(sessionTokenWrapper);
         return responsePayload;
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, value = "self/device")
     @ResponseBody
     public ResponsePayload registerDevice(@RequestBody DevicePayload devicePayload) {
 
         Meta meta = new Meta();
         ResponsePayload responsePayload = new ResponsePayload(meta);
-        
+
         Device device = null;
         devicePayload.validate();
-        
+
         Member member = invokerContext.getMember();
         if (member != null) {
             device = new Device();
@@ -75,11 +75,11 @@ public class MemberController {
         } else {
             meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
-        
-        
+
+
         return responsePayload;
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, value = "self/token")
     @ResponseBody
     public ResponsePayload token(@RequestBody AuthenticationPayload authenticationPayload) {
@@ -88,40 +88,40 @@ public class MemberController {
         ResponsePayload responsePayload = new ResponsePayload(meta);
         SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
         String token = "";
-        
+
         Member member = null;
         if (authenticationPayload.validate()) {
             member = this.memberDao.findByUserNameAndPassword(authenticationPayload.getUserName(), authenticationPayload.getPassword());
         }
-        
+
         if (member != null) {
             token = member.getToken();
         } else {
             meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
-        
-        sessionTokenWrapper.setToken(token);      
-        responsePayload.setResponse(sessionTokenWrapper);       
+
+        sessionTokenWrapper.setToken(token);
+        responsePayload.setResponse(sessionTokenWrapper);
         return responsePayload;
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = "self")
     @ResponseBody
     public ResponsePayload self() {
 
         Meta meta = new Meta();
         ResponsePayload responsePayload = new ResponsePayload(meta);
-      
+
         Member member = invokerContext.getMember();
-        
+
         if (member !=null) {
             MemberWrapper memberWrapper = new MemberWrapper();
             memberWrapper.setMember(member);
-            responsePayload.setResponse(memberWrapper); 
+            responsePayload.setResponse(memberWrapper);
         } else {
             meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
-              
+
         return responsePayload;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.domain.Member;
+import com.placecruncher.server.domain.MemberDetails;
 
 @Service
 public class MemberDetailsService implements UserDetailsService {
@@ -20,10 +21,13 @@ public class MemberDetailsService implements UserDetailsService {
 
 
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException, DataAccessException {
+        if (log.isDebugEnabled()) {
+            log.debug("loadByUsername(" + userName + ")");
+        }
         Member member = memberDao.findByUserName(userName);
         if (member != null) {
             log.info("Found user " + userName + ", " + member);
-            return member;
+            return new MemberDetails(member);
         } else {
             log.info("Unable to locate user " + userName);
             throw new UsernameNotFoundException("User does not exist: " + userName);

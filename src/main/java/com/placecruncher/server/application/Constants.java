@@ -22,5 +22,11 @@ public final class Constants
     public static final String JSON_CONTENT = "application/json";
     public static final String HTML_CONTENT = "text/html";
 
+    public static final String X_API_SIGNATURE = "X-API-Signature";
+    public static final String X_API_TIMESTAMP = "X-API-Timestamp";
+    public static final String X_API_KEY = "X-API-Key";
+    public static final String X_APP_CLIENT = "X-App-Client"; // <OS>:<OS Version>:<Push Notification ID>:<UUID>:<Phone Model>
+    public static final String AUTHENTICATION = "Authentication";
+
     private Constants() {}
 }

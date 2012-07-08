@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,14 +26,14 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.MemberDao;
 
 @Entity
 @Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
 @Configurable(dependencyCheck = true)
-public class Member extends SuperEntity implements UserDetails {
+public class Member extends SuperEntity {
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = Logger.getLogger(Member.class);
@@ -46,6 +48,7 @@ public class Member extends SuperEntity implements UserDetails {
     private boolean locked;
     private String token;
     private String email;
+    private MemberRole memberRole = MemberRole.ROLE_USER;
 
     private List<ApprovedEmail> approvedEmails;
     private List<Device> devices;
@@ -55,6 +58,14 @@ public class Member extends SuperEntity implements UserDetails {
 
     @Autowired
     private MemberDao memberDao;
+
+    public void saveOrUpdate() {
+        this.memberDao.saveOrUpdate(this);
+    }
+
+    public Integer persist() {
+        return memberDao.persist(this);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -102,6 +113,15 @@ public class Member extends SuperEntity implements UserDetails {
         return locked;
     }
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(length=Constants.ENUM_MAXLEN)
+    public MemberRole getMemberRole() {
+        return memberRole;
+    }
+    public void setMemberRole(MemberRole memberRole) {
+        this.memberRole = memberRole;
+    }
+
     public void setAccountLocked(boolean accountLocked) {
         this.locked = accountLocked;
     }
@@ -122,42 +142,6 @@ public class Member extends SuperEntity implements UserDetails {
     }
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    /** {@inheritDoc} */
-    @Transient
-    public Collection<GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if(username.equals("root"))
-        {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ROOT"));
-        }
-        else if (username.equals("admin")) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-        return authorities;
-    }
-
-    /** {@inheritDoc} */
-    @Transient
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    /** {@inheritDoc} */
-    @Transient
-    public boolean isAccountNonLocked() {
-        return !locked;
-    }
-
-    /** {@inheritDoc} */
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    public void saveOrUpdate() {
-        this.memberDao.saveOrUpdate(this);
     }
 
     @JsonIgnore

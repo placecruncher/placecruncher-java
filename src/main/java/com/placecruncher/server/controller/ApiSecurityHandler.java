@@ -8,15 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.ApiKeyDao;
 import com.placecruncher.server.domain.ApiKey;
 import com.placecruncher.server.exception.PlacecruncherRuntimeException;
 
 public class ApiSecurityHandler extends HandlerInterceptorAdapter {
-    protected static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ApiSecurityHandler.class);
+    protected static final Logger LOGGER = Logger.getLogger(ApiSecurityHandler.class);
 
     private int timestampLeniencySeconds = 60 * 60;
 
@@ -30,9 +32,9 @@ public class ApiSecurityHandler extends HandlerInterceptorAdapter {
 
         try {
 
-            String key = request.getHeader("X-API-Key");
-            String timeStamp = request.getHeader("X-API-Timestamp");
-            String signature = request.getHeader("X-API-Signature");
+            String key = request.getHeader(Constants.X_API_KEY);
+            String timeStamp = request.getHeader(Constants.X_API_TIMESTAMP);
+            String signature = request.getHeader(Constants.X_API_SIGNATURE);
 
             if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(signature) && StringUtils.isNotEmpty(timeStamp)) {
 

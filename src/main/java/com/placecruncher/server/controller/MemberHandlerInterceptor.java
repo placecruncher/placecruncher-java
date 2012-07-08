@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.application.InvokerContext;
 import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.domain.Member;
@@ -32,7 +33,7 @@ public class MemberHandlerInterceptor extends HandlerInterceptorAdapter {
 
         try {
 
-            String token = request.getHeader("Authentication");
+            String token = request.getHeader(Constants.AUTHENTICATION);
 
             if (StringUtils.isNotEmpty(token)) {
 

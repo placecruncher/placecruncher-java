@@ -288,4 +288,15 @@
         </createTable>
         <addAutoIncrement tableName="DEVICE" columnName="id" columnDataType="bigint" />
     </changeSet>
+
+    <changeSet id="20120070_add_role" author="ddieckman">
+      <addColumn tableName="MEMBER">
+          <column name="memberRole" type="varchar(64)" value="ROLE_USER"><constraints nullable="false"/></column>
+        </addColumn>
+        <update tableName="MEMBER">
+          <column name="memberRole" value="ROLE_ADMIN"/>
+          <where>username='admin'</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>
