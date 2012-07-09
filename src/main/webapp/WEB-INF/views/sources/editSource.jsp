@@ -256,8 +256,10 @@ var PlaceAppView, PlaceList, SourceModel, PlaceView;
 // attributes and methods useful for place items.
 
 PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.REST], {
-    root: '${pageContext.request.contextPath}/api/private/v1/sources/${source.id}/places'
-}, {
+    root: '${pageContext.request.contextPath}/api/private/v1/sources/${source.id}/places',
+    apiKey: '${apiKey.key}',
+    apiSecret: '${apiKey.secret}'
+  } , {
     ATTRS: {
       id: {},
       name: {value: ''},
@@ -278,6 +280,8 @@ PlaceModel = Y.PlaceModel = Y.Base.create('placeModel', Y.Model, [Y.ModelSync.RE
 
 PlaceList = Y.PlaceList = Y.Base.create('placeList', Y.ModelList, [Y.ModelSync.REST], {
     root: '${pageContext.request.contextPath}/api/private/v1/sources/${source.id}/places',
+    apiKey: '${apiKey.key}',
+    apiSecret: '${apiKey.secret}',
 
     // This tells the list that it will hold instances of the PlaceModel class.
     model: PlaceModel,

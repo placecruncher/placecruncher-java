@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +63,7 @@ public class SourceController {
         return new PlaceModel(sourceService.createOrAddPlace(source, model));
     }
 
+    @PreAuthorize("isAuthenticated")
     @RequestMapping(value="{sourceId}/places/{placeId}", method=RequestMethod.DELETE)
     public void deletePlace(Principal principal, @PathVariable("sourceId") int sourceId, @PathVariable("placeId") int placeId) {
         Source source = sourceDao.load(sourceId);

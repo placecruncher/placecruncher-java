@@ -163,6 +163,22 @@ RESTSync.prototype = {
     root: '',
 
     /**
+    The API key.
+    @property apiKey
+    @type String
+    @default ""
+    **/
+    apiKey: '',
+
+    /**
+    The API secret.
+    @property apiSecret
+    @type String
+    @default ""
+    **/
+    apiSecret: '',
+
+    /**
     A Function or String which is used to generate or specify the URL for the
     XHRs. While, this property can be defined for each Model/ModelList instance,
     usually you'll want to use a Function or String-pattern instead.
@@ -296,13 +312,11 @@ RESTSync.prototype = {
             method = 'POST';
         }
 
-      var key = "cloud_key";
-      var secret = "cloud_secret";
       var timestamp = Y.DataType.Date.format(new Date(), {format:"%Y%m%dT%H%M%S%z"});
-      var message =  timestamp + "." + secret;
+      var message =  timestamp + "." + this.apiSecret;
       var digest =  CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
 
-      Y.io.header("X-API-Key", key);
+      Y.io.header("X-API-Key", this.apiKey);
       Y.io.header("X-API-Timestamp", timestamp);
       Y.io.header("X-API-Signature", digest);
 
