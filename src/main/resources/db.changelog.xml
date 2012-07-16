@@ -299,4 +299,11 @@
         </update>
     </changeSet>
 
+    <changeSet id="20120715_update_members" author="ddieckman">
+        <update tableName="MEMBER">
+          <column name="accountLocked" valueBoolean="false"/>
+          <column name="enabled" valueBoolean="true"/>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>
