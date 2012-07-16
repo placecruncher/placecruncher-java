@@ -46,6 +46,7 @@ public class ApiKey extends SuperEntity {
         this.id = id;
     }
 
+    @Column(name="\"KEY\"")
     public String getKey() {
         return key;
     }
