@@ -1,7 +1,7 @@
 package com.placecruncher.server.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,8 +19,8 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.placecruncher.server.dao.EmailDao;
 
@@ -43,7 +43,7 @@ public class Email extends SuperEntity {
     protected void setId(Integer id) {
         this.id = id;
     }
-    
+
     private String sender;
 
     private String from;
@@ -55,28 +55,28 @@ public class Email extends SuperEntity {
     private String strippedHtml;
     private long attachementCount;
     private int timestamp;
-  
+
     @Transient
     private Pattern pattern = Pattern.compile(
-            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
-            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" + 
-            "|mil|biz|info|mobi|name|aero|jobs|museum" + 
-            "|travel|[a-z]{2}))(:[\\d]{1,5})?" + 
-            "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" + 
-            "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
-            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" + 
-            "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
-            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" + 
+            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" +
+            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" +
+            "|mil|biz|info|mobi|name|aero|jobs|museum" +
+            "|travel|[a-z]{2}))(:[\\d]{1,5})?" +
+            "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" +
+            "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" +
+            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" +
+            "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" +
+            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" +
             "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
-    
+
     @Value("${mailgun.api.key}")
     private String mailGunKey;
-    
+
     @Autowired
     private EmailDao emailDao;
-    
+
     private static final Logger LOGGER = Logger.getLogger(Email.class);
-    
+
     @Column(nullable=false)
     public String getSender() {
         return sender;
@@ -85,7 +85,7 @@ public class Email extends SuperEntity {
     public void setSender(String sender) {
         this.sender = sender;
     }
-    
+
     public String getFrom() {
         return from;
     }
@@ -161,9 +161,9 @@ public class Email extends SuperEntity {
     public boolean verify(String token, String timestamp, String signature) throws Exception {
 
         if (LOGGER.isInfoEnabled()) {
-    		LOGGER.info("verify:apiKey: " + mailGunKey + " token:" + token + " timestamp: " + timestamp + " signature: " + signature);
-    	}
-    	
+            LOGGER.info("verify:apiKey: " + mailGunKey + " token:" + token + " timestamp: " + timestamp + " signature: " + signature);
+        }
+
         String key = mailGunKey;
         byte[] keyBytes = key.getBytes();
 
@@ -172,42 +172,43 @@ public class Email extends SuperEntity {
         mac.init(keySpec);
 
         String encode = timestamp + token;
-        
+
         byte[] hmacBytes = mac.doFinal(encode.getBytes());
 
         String newSignature = new String(Hex.encodeHex(hmacBytes));
-        
+
         if (LOGGER.isInfoEnabled()) {
-        	LOGGER.info("newSignature: " + newSignature + " old signature: " + signature);
+            LOGGER.info("newSignature: " + newSignature + " old signature: " + signature);
         }
-        
+
         boolean result = StringUtils.equals(newSignature, signature);
         return result;
     }
-    
+
     public void store() {
         emailDao.saveOrUpdate(this);
     }
-    
-    public void processEmail() {
-        List<String> results = new ArrayList<String>();
+
+    public Set<String> extractUrls() {
+        Set<String> results = new HashSet<String>();
         if (StringUtils.isNotEmpty(this.bodyPlain)) {
             results = extractUrls(this.bodyPlain);
         } else if (StringUtils.isNotEmpty(this.strippedText)) {
             results = extractUrls(this.strippedText);
         }
-        
+
         for (String result : results) {
             if  (LOGGER.isInfoEnabled()) {
                 LOGGER.info("Url found in email: " + result);
             }
         }
-        
+
+        return results;
     }
 
-    private List<String> extractUrls(String input) {
-        List<String> result = new ArrayList<String>();
-        
+    private Set<String> extractUrls(String input) {
+        Set<String> result = new HashSet<String>();
+
         Matcher matcher = pattern.matcher(input);
         while (matcher.find()) {
             String url = matcher.group();
@@ -215,7 +216,7 @@ public class Email extends SuperEntity {
                 String parts[] = url.split("\\?");
                 url = parts[0];
             }
-            
+
             if (!checkForImage(url)) {
                 result.add(url);
             }
@@ -223,22 +224,22 @@ public class Email extends SuperEntity {
 
         return result;
     }
-    
+
     private boolean checkForImage(String url) {
         if (StringUtils.isEmpty(url)) {
             return false;
         }
-        
+
         if (StringUtils.endsWithIgnoreCase(url, ".jpeg") || StringUtils.endsWithIgnoreCase(url, ".jpg") ||
             StringUtils.endsWithIgnoreCase(url, ".gif") || StringUtils.endsWithIgnoreCase(url, ".giff") ||
             StringUtils.endsWithIgnoreCase(url, ".png")) {
             return true;
         }
-        
+
         return false;
     }
-    
-    
+
+
     @Override
     public String toString() {
         return "Email [id=" + id + ", sender=" + sender + ", from=" + from
@@ -249,5 +250,5 @@ public class Email extends SuperEntity {
                 + attachementCount + ", timestamp=" + timestamp + "]";
     }
 
-    
+
 }

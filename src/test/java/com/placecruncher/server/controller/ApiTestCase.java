@@ -4,6 +4,7 @@ import junit.framework.Assert;
 
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.placecruncher.server.test.ApiClientRequestContext;
@@ -25,6 +26,10 @@ public class ApiTestCase extends IntegrationTestCase {
             Assert.assertEquals(HttpStatus.SC_OK, container.getMeta().getCode());
             return container.getResponse(responseType);
         }
+    }
+
+    protected <T> HttpEntity<T> postForEntity(String url, Object request, Class<T> responseType, Object... uriVariables) {
+        return restTemplate.postForEntity(getBaseUrl() + url, request, responseType, uriVariables);
     }
 
     protected <T> T postForObject(String url, Object request, Class<T> responseType, Object... uriVariables) {

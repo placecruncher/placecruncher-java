@@ -9,6 +9,26 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="order" value="999"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+               <!--
+                 Properties defined in later files will override properties defined in earlier files,
+                 in case of overlapping keys. Hence, make sure that the most specific files are the
+                 last ones in the given list of locations.
+
+                 System properties (defined by -D on the command line) will take highest precedence.
+                -->
+                <value>classpath:/placecruncher.properties</value>
+                <value>${placecruncher.base:file:.}/environment.properties</value>
+                <value>${placecruncher.base:file:.}/${placecruncher.environment}.properties</value>
+                <value>${placecruncher.base:file:.}/local.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <context:annotation-config />
     <context:spring-configured/>
 
