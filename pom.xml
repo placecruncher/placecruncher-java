@@ -454,6 +454,7 @@
                     <systemProperties>
                         <log4j.configuration>${log4j.configuration}</log4j.configuration>
                         <log4j.debug>true</log4j.debug>
+                        <custom.seed.data.configurations>demo</custom.seed.data.configurations>
                     </systemProperties>
 
                 </configuration>
