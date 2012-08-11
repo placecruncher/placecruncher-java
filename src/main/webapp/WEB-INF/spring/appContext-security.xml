@@ -6,18 +6,31 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <bean id="cookieAuthenticationFilter" class="com.placecruncher.server.security.CookieAuthenticationFilter"/>
+    <bean id="tokenAuthenticationFilter" class="com.placecruncher.server.security.TokenAuthenticationFilter">
+      <property name="authenticationManager" ref="authenticationManager" />
+    </bean>
     <bean id="cookieRememberMeService" class="com.placecruncher.server.security.CookieRememberMeService"/>
     <bean id="customAuthenticationEntryPoint" class="com.placecruncher.server.security.CustomAuthenticationEntryPoint"/>
 
-    <security:global-method-security pre-post-annotations="enabled">
-    </security:global-method-security>
+    <!--  NOTE: there is also one of these in the servlet context (apparently global is only global in the context) -->
+    <security:global-method-security pre-post-annotations="enabled"/>
 
+
+    <bean id="tokenAuthenticationProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+      <property name="preAuthenticatedUserDetailsService">
+        <bean id="userDetailsServiceWrapper" class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+          <property name="userDetailsService" ref="memberDetailsService"/>
+        </bean>
+      </property>
+    </bean>
+
+    <bean name="apiAccessDeniedHandler" class="com.placecruncher.server.security.ApiAccessDeniedHandler"/>
 
     <security:http auto-config='false' create-session="never" use-expressions="true"
         entry-point-ref="customAuthenticationEntryPoint" pattern="/api/private/**">
         <security:remember-me services-ref="cookieRememberMeService"/>
-<!--         <security:custom-filter position="PRE_AUTH_FILTER" ref="cookieAuthenticationFilter" /> -->
+        <security:custom-filter position="PRE_AUTH_FILTER" ref="tokenAuthenticationFilter" />
+        <security:access-denied-handler ref="apiAccessDeniedHandler"/>
     </security:http>
 
     <security:http auto-config='true'>
@@ -31,13 +44,14 @@
         <security:logout delete-cookies="X-app-authorize"/>
     </security:http>
 
-    <security:authentication-manager>
+    <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref='memberDetailsService'>
 <!-- Uncomment the follow section when we encrypt passwords in the database -->
 <!--           <security:password-encoder hash="sha"> -->
 <!--             <security:salt-source user-property="username"/> -->
 <!--           </security:password-encoder> -->
         </security:authentication-provider>
-    </security:authentication-manager>
+        <security:authentication-provider ref="tokenAuthenticationProvider" />
+      </security:authentication-manager>
 
 </beans>

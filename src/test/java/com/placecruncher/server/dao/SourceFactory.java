@@ -15,11 +15,11 @@ public class SourceFactory extends AbstractEntityFactory<Source> {
     public SourceDao getDao() {
         return sourceDao;
     }
-    
+
     public Source buildDefaultObject(String key) {
         Source source = new Source();
         source.setName("Source " + key);
-        source.setUrl("http://places.google.com/" + key);
+        source.setUrl("https://www.google.com/search?btnI=I%27m+Feeling+Lucky&q=" + key);
         source.setDescription("Description of Test Source #" + key);
         source.setTitle("Test Source " + key);
         return source;

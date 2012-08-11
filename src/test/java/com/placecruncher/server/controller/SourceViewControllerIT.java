@@ -11,11 +11,8 @@ public class SourceViewControllerIT extends ViewTestCase {
 
     @Test
     public void listSources() throws Exception {
-        String username = SecurityTestData.TEST_USERNAME;
-        String password = SecurityTestData.TEST_PASSWORD;
-
-//        String username = "admin";
-//        String password = "secret";
+        String username = SecurityTestData.ADMIN_USERNAME;
+        String password = SecurityTestData.ADMIN_PASSWORD;
 
         HtmlPage page = navigateToSecurePage("site/sources/list.html", username, password);
 

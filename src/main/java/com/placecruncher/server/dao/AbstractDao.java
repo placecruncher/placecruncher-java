@@ -10,9 +10,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import com.placecruncher.server.domain.Entity;
 
@@ -67,39 +67,55 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
         return getSessionFactory().getCurrentSession();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Delete the given entity.
+     * @param entity the entity to delete.
+     */
     public final void delete(T entity) {
         getCurrentSession().delete(entity);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Get the entity with the given identifier returning null if not found.
+     * @param identifier The identifier.
+     * @return The entity or null if not found.
+     */
     public final T get(I identifier) {
         @SuppressWarnings("unchecked")
         T entity = (T) getCurrentSession().get(clazz, identifier);
         return entity;
     }
 
-    /** {@inheritDoc} */
-    public final T get(String code) {
+    /**
+     * Fetch the entity with the given identifier throwing an exception immediately
+     * if the entity cannot be found.
+     * @param identifier The identifier.
+     * @return The entity
+     * @throws ObjectRetrievalFailureException if the entity does not exist.
+     */
+    public final T fetch(I identifier) {
         @SuppressWarnings("unchecked")
-        T entity = (T) createCriteria().add(Restrictions.eq("code", code)).uniqueResult();
+        T entity = (T) getCurrentSession().get(clazz, identifier);
+        if (entity == null) {
+            throw new ObjectRetrievalFailureException(clazz, identifier);
+        }
         return entity;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Load the entity with the given identifier assuming that it exists, an
+     * exception will be thrown if the entity does not exist, however this
+     * exception may not be thrown until an attempt is made to access the
+     * object.
+     * @param identifier the identifier.
+     * @return The entity or a proxy to the entity.
+     * @throws ObjectRetrievalFailureException Might be thrown if a proxy cannot be
+     * returned immediately, otherwise the proxy might throw this exception
+     * when accessed.
+     */
     public final T load(I identifier) {
         @SuppressWarnings("unchecked")
         T entity = (T) getCurrentSession().load(clazz, identifier);
-        return entity;
-    }
-
-    /** {@inheritDoc} */
-    public final T load(String code) {
-        @SuppressWarnings("unchecked")
-        T entity = (T) createCriteria().add(Restrictions.eq("code", code)).uniqueResult();
-        if (entity == null) {
-            throw new ObjectNotFoundException(code, clazz.getName());
-        }
         return entity;
     }
 
@@ -126,14 +142,14 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
     public final void update(T detachedEntity) {
         getCurrentSession().update(detachedEntity);
     }
-    
+
     /** {@inheritDoc} */
     public final void saveOrUpdate(T detachedEntity) {
         getCurrentSession().saveOrUpdate(detachedEntity);
     }
 
     /** {@inheritDoc} */
-    public Collection<T> findAll() {
+    public List<T> findAll() {
         @SuppressWarnings("unchecked")
         List<T> entities = (List<T>) createCriteria().list();
         return entities;

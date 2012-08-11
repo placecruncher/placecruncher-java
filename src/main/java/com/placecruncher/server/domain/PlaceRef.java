@@ -9,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import com.placecruncher.server.application.Constants;
 
 
 @Entity
+@Table(name="PLACE_REF", uniqueConstraints = {@UniqueConstraint(columnNames={"placeId", "memberId"})})
 public class PlaceRef extends SuperEntity {
     private Integer id;
     private Member member;

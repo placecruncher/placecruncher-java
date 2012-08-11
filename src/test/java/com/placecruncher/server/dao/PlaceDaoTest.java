@@ -1,5 +1,6 @@
 package com.placecruncher.server.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -8,6 +9,7 @@ import org.hibernate.Session;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.PropertyBuilder;
 import com.placecruncher.server.domain.Source;
@@ -21,6 +23,9 @@ public class PlaceDaoTest extends DaoTestCase {
 
     @Autowired
     private PlaceFactory placeFactory;
+
+    @Autowired
+    private MemberFactory memberFactory;
 
     @Test
     public void create() {
@@ -103,6 +108,23 @@ public class PlaceDaoTest extends DaoTestCase {
         Place updatedPlace = (Place)session.load(Place.class, place.getId());
         Assert.assertNotSame(place, updatedPlace);
         Assert.assertFalse(updatedPlace.getSources().contains(source));
+    }
+
+    @Test
+    public void findByMember() {
+        Member m1 = memberFactory.create();
+        Member m2 = memberFactory.create();
+
+        Place p1 = placeFactory.create();
+        Place p2 = placeFactory.create();
+
+        placeDao.linkPlace(p1, m1);
+        placeDao.linkPlace(p2, m2);
+
+        Assert.assertEquals(Collections.singletonList(p1), placeDao.findByMember(m1));
+        Assert.assertEquals(Collections.singletonList(p2), placeDao.findByMember(m2));
+
+
     }
 
 }

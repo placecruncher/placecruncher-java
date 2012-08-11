@@ -1,14 +1,18 @@
 package com.placecruncher.server.controller;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.collections.Transformer;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.BeanUtils;
 
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.util.TransformUtils;
 
 public class PlaceModel {
+    public static final TypeReference<List<PlaceModel>> LIST_TYPE = new TypeReference<List<PlaceModel>>(){};
+
     private Integer id;
     private String name;
     private String address;
@@ -19,12 +23,12 @@ public class PlaceModel {
     private String phone;
     private String url;
 
-    public static Collection<PlaceModel> transform(Collection<Place> places) {
+    public static List<PlaceModel> transform(List<Place> places) {
         return TransformUtils.transform(places, new Transformer() {
             public Object transform(Object input) {
                 return new PlaceModel((Place) input);
             }
-        });
+        }, new ArrayList<PlaceModel>());
     }
 
     public PlaceModel() {

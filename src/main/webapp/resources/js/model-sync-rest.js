@@ -346,6 +346,28 @@ RESTSync.prototype = {
         });
     },
 
+
+    parse: function (response) {
+        if (typeof response === 'string') {
+            try {
+              // DSDXXX Need to figure out error handling at some point.
+                var payload = Y.JSON.parse(response);
+                return payload.response;
+            } catch (ex) {
+                this.fire(EVT_ERROR, {
+                    error   : ex,
+                    response: response,
+                    src     : 'parse'
+                });
+
+                return null;
+            }
+        }
+
+        return response;
+    },
+
+
     // -- Protected Methods ----------------------------------------------------
 
     /**

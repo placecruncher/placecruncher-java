@@ -403,8 +403,20 @@ PlaceAppView = Y.PlaceAppView = Y.Base.create('placeAppView', Y.View, [], {
     },
 
     submitSource: function(e) {
-        Y.io('.', {
+      // DSDXXX This should be moved into some sort of JS library
+        var url = "${pageContext.request.contextPath}/api/private/v1/sources/${source.id}";
+        var timestamp = Y.DataType.Date.format(new Date(), {format:"%Y%m%dT%H%M%S%z"});
+        var message =  timestamp + "." + "${apiKey.secret}";
+        var digest =  CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
+
+
+        Y.io(url, {
             method : 'POST',
+            headers : {
+                "X-API-Key" : "${apiKey.key}",
+                "X-API-Timestamp" : timestamp,
+                "X-API-Signature" : digest,
+            },
             on : {
               success : function (tx, r) {
                 window.location = "../list.html";

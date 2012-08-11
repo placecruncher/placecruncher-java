@@ -22,6 +22,7 @@ public class MemberDetails implements UserDetails {
     private boolean enabled;
     private boolean locked;
     private Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    transient private Member member;
 
     public MemberDetails(Member member) {
         this.id = member.getId();
@@ -31,6 +32,7 @@ public class MemberDetails implements UserDetails {
         this.locked = member.isAccountLocked();
         this.token = member.getToken();
         this.authorities.add(new SimpleGrantedAuthority(member.getMemberRole().getName()));
+        this.member = member;
     }
 
     public Integer getMemberId() {
@@ -67,6 +69,10 @@ public class MemberDetails implements UserDetails {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public Member getMember() {
+        return member;
     }
 
 }

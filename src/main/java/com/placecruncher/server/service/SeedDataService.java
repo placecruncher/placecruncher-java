@@ -56,7 +56,7 @@ public class SeedDataService {
                 }
             } else {
                 if (log.isDebugEnabled()) {
-                    log.debug("Seed data " + seedData.getName() + " is only enabled for the following configurations [" + StringUtils.join(seedData.getConfigurations(),", ") + "]");
+                    log.debug("Skipping seed data " + seedData.getName() + ", only enabled for the following configurations [" + StringUtils.join(seedData.getConfigurations(),", ") + "]");
                 }
             }
         }

@@ -30,7 +30,6 @@
     </bean>
 
     <context:annotation-config />
-    <context:spring-configured/>
 
     <bean class="org.springframework.web.client.RestTemplate">
       <property name="requestFactory" ref="requestFactory"/>

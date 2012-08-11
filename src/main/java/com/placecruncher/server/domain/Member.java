@@ -1,7 +1,6 @@
 package com.placecruncher.server.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,8 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.dao.MemberDao;
@@ -208,6 +205,19 @@ public class Member extends SuperEntity {
 
        device.setMember(this);
        savedDevices.add(device);
+    }
+
+    public static Member currentMember() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof MemberDetails) {
+            return ((MemberDetails)principal).getMember();
+        }
+        return null;
+    }
+
+    public static boolean isAuthenticated() {
+      return SecurityContextHolder.getContext().getAuthentication() != null;
     }
 
 

@@ -16,6 +16,9 @@ public enum MemberRole {
         }
     }
 
+    public boolean isAdmin() {
+        return this == ROLE_ADMIN;
+    }
 
     private String name;
 

@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.placecruncher.server.application.data.SecurityTestData;
+import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.test.ApiClientRequestContext;
 
 
@@ -23,8 +24,6 @@ public class MemberControllerIT extends ApiTestCase {
 
     private String key = SecurityTestData.TEST_KEY;
     private String secret = SecurityTestData.TEST_SECRET;
-    private String username = SecurityTestData.TEST_USERNAME;
-    private String password = SecurityTestData.TEST_PASSWORD;
 
     @Before
     public void setupRequestContext() {
@@ -35,16 +34,6 @@ public class MemberControllerIT extends ApiTestCase {
     @After
     public void teardownReqeustContext() {
         requestContext.clear();
-    }
-
-    private String login() {
-        AuthenticationPayload request = new AuthenticationPayload();
-        request.setUserName(username);
-        request.setPassword(password);
-
-        String token = postForObject("/api/private/v1/members/self/token", request, SessionTokenWrapper.class).getToken();
-        requestContext.setToken(token);
-        return token;
     }
 
     @Test
@@ -60,20 +49,35 @@ public class MemberControllerIT extends ApiTestCase {
         request.setEmail("ethan@placecruncher.com");
         request.setDevice(device);
 
-        String token = postForObject("/api/private/v1/members/self/register", request, SessionTokenWrapper.class).getToken();
+        String token = postForObject(MemberController.BASE_URL + "/self/register", request, SessionTokenWrapper.class).getToken();
         Assert.assertNotNull(token);
     }
 
     @Test
     public void registerDevice() {
-        login();
+        loginAsAdmin();
 
         DevicePayload device = new DevicePayload();
         device.setToken("1300564c6f8b8227c57c6e5c6c911fed1ca59a4b4fa5955fa6502ef8553e2163");
         device.setDeviceType("iphone");
 
-        Assert.assertEquals(HttpServletResponse.SC_OK, postForObject("/api/private/v1/members/self/device", device, Meta.class).getCode());
+        Assert.assertEquals(HttpServletResponse.SC_OK, postForObject(MemberController.BASE_URL + "/self/device", device, Meta.class).getCode());
     }
+
+    @Test
+    public void self() {
+        String username = SecurityTestData.ADMIN_USERNAME;
+        String password = SecurityTestData.ADMIN_PASSWORD;
+
+        login(username, password);
+
+        MemberWrapper wrapper = getForObject(MemberController.BASE_URL + "/self", MemberWrapper.class);
+        Member member = wrapper.getMember();
+        Assert.assertEquals(username, member.getUsername());
+
+
+    }
+
 
 //    private static void registerDevice() {
 //        HttpClient httpclient = new DefaultHttpClient();

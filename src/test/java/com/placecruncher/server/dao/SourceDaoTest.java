@@ -97,4 +97,61 @@ public class SourceDaoTest extends DaoTestCase {
         Assert.assertTrue(sourceDao.findReferences(source3).containsAll(Arrays.asList(member1, member2)));
     }
 
+    @Test
+    public void removeReference() {
+        Source source1 = sourceFactory.create();
+
+        Member member1 = memberFactory.create();
+        Member member2 = memberFactory.create();
+
+        sourceDao.addReference(source1, member1);
+        sourceDao.addReference(source1, member2);
+
+        Assert.assertTrue(sourceDao.findReferences(source1).containsAll(Arrays.asList(member1, member2)));
+        sourceDao.removeReference(source1, member1);
+        Assert.assertFalse(sourceDao.findReferences(source1).contains(member1));
+        Assert.assertTrue(sourceDao.findReferences(source1).contains(member2));
+    }
+
+    @Test
+    public void getByMember() {
+        Source source1 = sourceFactory.create();
+        Source source2 = sourceFactory.create();
+
+        Member member1 = memberFactory.create();
+
+        sourceDao.addReference(source1, member1);
+
+        Assert.assertEquals(source1, sourceDao.get(source1.getId(), member1));
+        Assert.assertNull(sourceDao.get(source2.getId(), member1));
+
+    }
+
+    @Test
+    public void findByMember() {
+        Source source1 = sourceFactory.create();
+        Source source2 = sourceFactory.create();
+
+        Member member1 = memberFactory.create();
+
+        sourceDao.addReference(source1, member1);
+        sourceDao.addReference(source2, member1);
+
+
+        Assert.assertEquals(Arrays.asList(source1, source2), sourceDao.findByMember(member1));
+    }
+
+    @Test
+    public void findByMemberAndUrl() {
+        Source source1 = sourceFactory.create();
+        Source source2 = sourceFactory.create();
+
+        Member member1 = memberFactory.create();
+
+        sourceDao.addReference(source1, member1);
+        sourceDao.addReference(source2, member1);
+
+        Assert.assertEquals(Arrays.asList(source1), sourceDao.findByMember(member1, source1.getUrl()));
+    }
+
 }

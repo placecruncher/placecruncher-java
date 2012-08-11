@@ -16,8 +16,8 @@
     </context-param>
 
     <filter>
-        <filter-name>hibernateFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+      <filter-name>hibernateFilter</filter-name>
+      <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
     </filter>
 
     <filter-mapping>

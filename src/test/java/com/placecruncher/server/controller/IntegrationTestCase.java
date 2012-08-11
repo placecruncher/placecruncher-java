@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public abstract class IntegrationTestCase {
     protected String baseUrl;
 
-    @Value("#{ systemProperties['base.url']?:'http://localhost:8080/placecruncher/' }")
+    @Value("#{ systemProperties['base.url']?:'http://localhost:8080/placecruncher' }")
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
