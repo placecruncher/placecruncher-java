@@ -22,19 +22,6 @@ public class MemberControllerIT extends ApiTestCase {
     private ApiClientRequestContext requestContext;
 
 
-    private String key = SecurityTestData.TEST_KEY;
-    private String secret = SecurityTestData.TEST_SECRET;
-
-    @Before
-    public void setupRequestContext() {
-        requestContext.setKey(key);
-        requestContext.setSecret(secret);
-        requestContext.setClient("IPHONE:3,1:pnid:1:3");
-    }
-    @After
-    public void teardownReqeustContext() {
-        requestContext.clear();
-    }
 
     @Test
     public void registerUser() {

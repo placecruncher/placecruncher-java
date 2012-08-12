@@ -33,7 +33,12 @@ public class SeedDataService {
         Collections.sort(seedDataSet, new OrderComparator());
 
         if (log.isInfoEnabled()) {
-            log.info("Processing seed data for configurations: " + StringUtils.join(configurations, ','));
+            StringBuilder sb = new StringBuilder("Processing seed data for configurations: [");
+            for (String config : configurations) {
+                sb.append('"').append(config).append("\" ");
+            }
+            sb.append(']');
+            log.info(sb.toString());
         }
         for (SeedData seedData : seedDataSet) {
             if (seedData.getConfigurations().isEmpty() || CollectionUtils.containsAny(seedData.getConfigurations(), configurations)) {

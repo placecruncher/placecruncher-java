@@ -92,7 +92,7 @@ public class ViewTestCase extends IntegrationTestCase {
     }
 
     protected HtmlPage navigateToSecurePage(String url, String username, String password) throws Exception {
-        URL loginUrl = new URL(getBaseUrl() + "spring_security_login");
+        URL loginUrl = new URL(getBaseUrl() + "/spring_security_login");
         URL secureUrl = new URL(getBaseUrl() + url);
         HtmlPage page = (HtmlPage)client.getPage(secureUrl);
         log.debug("Requested page " + secureUrl.toString() + ", actual page is " + page.getUrl().toString());

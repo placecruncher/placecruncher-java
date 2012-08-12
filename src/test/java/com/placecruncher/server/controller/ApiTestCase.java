@@ -5,6 +5,8 @@ import junit.framework.Assert;
 import org.apache.http.HttpStatus;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.junit.After;
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +16,10 @@ import com.placecruncher.server.test.ApiClientRequestContext;
 
 public class ApiTestCase extends IntegrationTestCase {
     protected static final String PRIVATE_API = "/api/private/v1";
+
+    private String key = SecurityTestData.TEST_KEY;
+    private String secret = SecurityTestData.TEST_SECRET;
+
     @Autowired
     protected RestTemplate restTemplate;
 
@@ -22,6 +28,17 @@ public class ApiTestCase extends IntegrationTestCase {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Before
+    public void setupRequestContext() {
+        requestContext.setKey(key);
+        requestContext.setSecret(secret);
+        requestContext.setClient("IPHONE:3,1:pnid:1:3");
+    }
+    @After
+    public void teardownReqeustContext() {
+        requestContext.clear();
+    }
 
     @SuppressWarnings("unchecked")
     private <T> T handleResponse(ResponseContainer container, TypeReference<T> responseType) {

@@ -14,7 +14,7 @@ public class SourceViewControllerIT extends ViewTestCase {
         String username = SecurityTestData.ADMIN_USERNAME;
         String password = SecurityTestData.ADMIN_PASSWORD;
 
-        HtmlPage page = navigateToSecurePage("site/sources/list.html", username, password);
+        HtmlPage page = navigateToSecurePage("/site/sources/list.html", username, password);
 
 
         log.debug(page.asXml());
