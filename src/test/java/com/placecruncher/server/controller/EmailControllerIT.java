@@ -4,7 +4,6 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Hex;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +11,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 public class EmailControllerIT extends ApiTestCase {
-    private final Logger log = Logger.getLogger(getClass());
+//    private final Logger log = Logger.getLogger(getClass());
 
     @Value("${mailgun.api.key}")
     private String mailGunKey;

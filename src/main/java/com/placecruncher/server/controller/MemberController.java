@@ -1,14 +1,13 @@
 package com.placecruncher.server.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,15 +28,14 @@ import com.placecruncher.server.domain.DeviceType;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.domain.SourceModel;
+import com.placecruncher.server.domain.SourcePlaceList;
 import com.placecruncher.server.exception.ResourceNotFoundException;
 import com.placecruncher.server.service.MemberService;
 
 @Controller
-@RequestMapping(MemberController.BASE_URL)
+@RequestMapping("/api/private/v1/members")
 public class MemberController {
-    public static final String BASE_URL = "/api/private/v1/members";
-
-    private static final Logger LOGGER = Logger.getLogger(MemberController.class);
+//  private final Logger log = Logger.getLogger(getClass());
 
     @Autowired
     private MemberService memberService;
@@ -145,31 +143,30 @@ public class MemberController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(method = RequestMethod.POST, value = "{memberId}/places/{placeId}")
-    public @ResponseBody ResponsePayload sharePlace(@RequestParam("memberId") int memberId, @RequestParam("placeId") int placeId) {
-        Member self = Member.currentMember();
-        Member member = memberDao.load(memberId);
-
-        // DSDXXX Need to check if the member is a friend
-
-        return null;
-    }
-
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value="self/sources", method=RequestMethod.GET, produces=Constants.JSON_CONTENT)
     public @ResponseBody ResponseWrapper<List<SourceModel>> getSources(
             @RequestParam(value="url", required=false) String url) {
         Member self = Member.currentMember();
-        return new ResponseWrapper<List<SourceModel>>(SourceModel.transform(sourceDao.findByMember(self, url)));
+
+        Source source = null;
+        if (url != null) {
+            source = sourceDao.findByUrl(url);
+        }
+
+        List<Source> sources = new ArrayList<Source>();
+        for( SourcePlaceList list : placeDao.findSourcePlaceList(self, source)) {
+            sources.add(list.getSource());
+        }
+        return new ResponseWrapper<List<SourceModel>>(SourceModel.transform(sources));
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value="self/sources/{id}", method=RequestMethod.GET, produces=Constants.JSON_CONTENT)
     public @ResponseBody ResponseWrapper<SourceModel> getSource(@PathVariable("id") int id) {
         Member self = Member.currentMember();
-        Source source = sourceDao.get(id, self);
-        if (source == null) {
-            throw new ResourceNotFoundException("Source " + id + " not found for member " + self.getUsername());
+        Source source = sourceDao.fetch(id);
+        if (placeDao.findSourcePlaceList(self, source).isEmpty()) {
+            throw new ResourceNotFoundException("Source " + id + " not associated with member " + self.getUsername());
 
         }
         return new ResponseWrapper<SourceModel>(new SourceModel(source));
@@ -184,7 +181,7 @@ public class MemberController {
             // DSDXXX this is a new source, need to handle this
             throw new RuntimeException("addSource not implemented for new sources");
         } else {
-            memberService.addSourceReference(self, source);
+            memberService.addSource(self, source);
         }
         return new ResponseWrapper<SourceModel>(new SourceModel(source));
     }
@@ -195,7 +192,7 @@ public class MemberController {
     public void deleteSource(@PathVariable("id") int id) {
         Member self = Member.currentMember();
         Source source = sourceDao.fetch(id);
-        memberService.removeSourceReference(self, source);
+        memberService.removeSource(self, source);
     }
 
 

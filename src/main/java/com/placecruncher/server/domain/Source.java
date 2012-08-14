@@ -1,8 +1,5 @@
 package com.placecruncher.server.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,7 +7,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Configurable;
@@ -28,7 +24,6 @@ public class Source extends SuperEntity {
     private String title;
     private String description;
     private StatusEnum status = StatusEnum.OPEN;
-    private Collection<Place> places = new ArrayList<Place>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +32,8 @@ public class Source extends SuperEntity {
         return id;
     }
 
-    protected void setId(Integer id) {
+    // DSDXXX I wonder if this always needs to be public for the bean property copy
+    public void setId(Integer id) {
         this.id = id;
     }
 

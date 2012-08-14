@@ -10,19 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 import com.placecruncher.server.application.Constants;
 
 
 @Entity
-@Table(name="PLACE_REF", uniqueConstraints = {@UniqueConstraint(columnNames={"placeId", "memberId"})})
+@Table(name="PLACE_REF")
 public class PlaceRef extends SuperEntity {
     private Integer id;
     private Member member;
     private Place place;
-    private PrivacyEnum privacy = PrivacyEnum.PRIVATE;
+    private PlaceList placeList;
+    private Privacy privacy = Privacy.PRIVATE;
     private int rating;
 
     @Id
@@ -57,28 +56,11 @@ public class PlaceRef extends SuperEntity {
 
     @Column(nullable=false, length=Constants.ENUM_MAXLEN)
     @Enumerated(EnumType.STRING)
-    public PrivacyEnum getPrivacy() {
+    public Privacy getPrivacy() {
         return privacy;
     }
-    public void setPrivacy(PrivacyEnum privacy) {
+    public void setPrivacy(Privacy privacy) {
         this.privacy = privacy;
-    }
-
-    @Transient
-    public boolean isPublic() {
-        return PrivacyEnum.PUBLIC.equals(privacy);
-    }
-    @Transient
-    public boolean isPrivate() {
-        return PrivacyEnum.PRIVATE.equals(privacy);
-    }
-    @Transient
-    public void setPublic() {
-        privacy = PrivacyEnum.PUBLIC;
-    }
-    @Transient
-    public void setPrivate() {
-        privacy = PrivacyEnum.PRIVATE;
     }
 
     @Column(nullable=false)
@@ -89,9 +71,13 @@ public class PlaceRef extends SuperEntity {
         this.rating = rating;
     }
 
-    protected enum PrivacyEnum {
-        PUBLIC,
-        PRIVATE
+    @OneToOne
+    @JoinColumn(name = "placeListId", nullable = true)
+    public PlaceList getPlaceList() {
+        return placeList;
+    }
+    public void setPlaceList(PlaceList placeList) {
+        this.placeList = placeList;
     }
 
 }

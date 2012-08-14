@@ -10,7 +10,7 @@ import org.springframework.beans.BeanUtils;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.util.TransformUtils;
 
-public class PlaceModel {
+public class PlaceModel extends EntityModel {
     public static final TypeReference<List<PlaceModel>> LIST_TYPE = new TypeReference<List<PlaceModel>>(){};
 
     private Integer id;

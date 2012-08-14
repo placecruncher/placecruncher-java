@@ -1,20 +1,17 @@
 package com.placecruncher.server.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import org.apache.commons.collections.Transformer;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.BeanUtils;
 
+import com.placecruncher.server.controller.EntityModel;
 import com.placecruncher.server.domain.Source.StatusEnum;
 import com.placecruncher.server.util.TransformUtils;
 
-public class SourceModel {
+public class SourceModel  extends EntityModel {
     public static final TypeReference<List<SourceModel>> LIST_TYPE = new TypeReference<List<SourceModel>>(){};
 
     private Integer id;
@@ -27,7 +24,12 @@ public class SourceModel {
     public static List<SourceModel> transform(List<Source> sources) {
         return TransformUtils.transform(sources, new Transformer() {
             public Object transform(Object input) {
-                return new SourceModel((Source)input);
+                SourceModel model = new SourceModel((Source)input);
+                // DSDXXX debug debug
+                if (model.getId() == null) {
+                    throw new RuntimeException("model id is " + model.getId() + " sourcd id is " + ((Source)input).getId());
+                }
+                return model;
             }
         }, new ArrayList<SourceModel>());
     }

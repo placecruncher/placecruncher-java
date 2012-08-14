@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.dao.MemberDao;
-import com.placecruncher.server.dao.SourceDao;
+import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Device;
 import com.placecruncher.server.domain.Member;
@@ -23,7 +23,10 @@ public class MemberService {
     private MemberDao memberDao;
 
     @Autowired
-    private SourceDao sourceDao;
+    private PlaceDao placeDao;
+
+    @Autowired
+    private PlaceService placeService;
 
     @Transactional
     public String registerUser(String userName, String password, String email, Device device) {
@@ -70,16 +73,16 @@ public class MemberService {
 
 
     @Transactional
-    public boolean removeSourceReference(Member member, Source source) {
-        return sourceDao.removeReference(source, member);
+    public void removeSource(Member member, Source source) {
+        placeDao.removePlaceList(member, source);
     }
 
     @Transactional
-    public boolean addSourceReference(Member member, Source source) {
-        if (sourceDao.hasReference(source, member)) {
+    public boolean addSource(Member member, Source source) {
+        if (!placeDao.findSourcePlaceList(member, source).isEmpty()) {
             return false;
         }
-        sourceDao.addReference(source, member);
+        placeService.createPlaceList(source, member);
 
         return true;
     }

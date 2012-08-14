@@ -1,11 +1,9 @@
 package com.placecruncher.server.dao;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

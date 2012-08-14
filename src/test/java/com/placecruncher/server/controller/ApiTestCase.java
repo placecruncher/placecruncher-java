@@ -102,7 +102,7 @@ public class ApiTestCase extends IntegrationTestCase {
 
     protected String login(String username, String password) {
         AuthenticationPayload request = new AuthenticationPayload(username, password);
-        String token = postForObject(MemberController.BASE_URL + "/self/token", request, SessionTokenWrapper.class).getToken();
+        String token = postForObject(PRIVATE_API + "/members/self/token", request, SessionTokenWrapper.class).getToken();
         // DSDXXX Need to decide how to handle error codes for failed login attempts and how to set the request context
         requestContext.setToken(token);
         return token;

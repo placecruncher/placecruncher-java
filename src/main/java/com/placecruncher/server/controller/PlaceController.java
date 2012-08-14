@@ -2,7 +2,6 @@ package com.placecruncher.server.controller;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,7 @@ import com.placecruncher.server.service.PlaceService;
 @Controller
 @RequestMapping("/site")
 public class PlaceController {
-    private static final Logger LOG = Logger.getLogger(PlaceController.class);
+//  private final Logger log = Logger.getLogger(getClass());
 
     @Autowired
     private PlaceService placeService;

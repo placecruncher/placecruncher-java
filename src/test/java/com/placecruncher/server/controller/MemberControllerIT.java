@@ -4,24 +4,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.Assert;
 
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.placecruncher.server.application.data.SecurityTestData;
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.test.ApiClientRequestContext;
 
 
 public class MemberControllerIT extends ApiTestCase {
-    private final Logger log = Logger.getLogger(getClass());
-
-    @Autowired
-    private ApiClientRequestContext requestContext;
-
-
+//    private final Logger log = Logger.getLogger(getClass());
 
     @Test
     public void registerUser() {
@@ -36,7 +26,7 @@ public class MemberControllerIT extends ApiTestCase {
         request.setEmail("ethan@placecruncher.com");
         request.setDevice(device);
 
-        String token = postForObject(MemberController.BASE_URL + "/self/register", request, SessionTokenWrapper.class).getToken();
+        String token = postForObject(PRIVATE_API + "/members/self/register", request, SessionTokenWrapper.class).getToken();
         Assert.assertNotNull(token);
     }
 
@@ -48,7 +38,7 @@ public class MemberControllerIT extends ApiTestCase {
         device.setToken("1300564c6f8b8227c57c6e5c6c911fed1ca59a4b4fa5955fa6502ef8553e2163");
         device.setDeviceType("iphone");
 
-        Assert.assertEquals(HttpServletResponse.SC_OK, postForObject(MemberController.BASE_URL + "/self/device", device, Meta.class).getCode());
+        Assert.assertEquals(HttpServletResponse.SC_OK, postForObject(PRIVATE_API + "/members/self/device", device, Meta.class).getCode());
     }
 
     @Test
@@ -58,7 +48,7 @@ public class MemberControllerIT extends ApiTestCase {
 
         login(username, password);
 
-        MemberWrapper wrapper = getForObject(MemberController.BASE_URL + "/self", MemberWrapper.class);
+        MemberWrapper wrapper = getForObject(PRIVATE_API + "/members/self", MemberWrapper.class);
         Member member = wrapper.getMember();
         Assert.assertEquals(username, member.getUsername());
 

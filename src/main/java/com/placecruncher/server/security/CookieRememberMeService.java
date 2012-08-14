@@ -10,7 +10,6 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.util.WebUtils;
 
-import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.MemberDetails;
 
 public class CookieRememberMeService implements RememberMeServices, LogoutHandler {

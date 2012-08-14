@@ -13,6 +13,7 @@ import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.Source;
+import com.placecruncher.server.service.MemberService;
 import com.placecruncher.server.service.SourceService;
 
 /**
@@ -26,6 +27,9 @@ public class SourceTestData extends AbstractSeedData {
 
   @Autowired
   private SourceService sourceService;
+
+  @Autowired
+  private MemberService memberService;
 
   @Autowired
   private SourceDao sourceDao;
@@ -70,11 +74,7 @@ public class SourceTestData extends AbstractSeedData {
 
     // Link the test member to the source
     Member member = memberDao.findByUserName(SecurityTestData.MEMBER_USERNAME);
-    if (!sourceDao.findByMember(member).contains(source)) {
-      // DSDXXX I bet this needs to go through the service layer
-      log.debug("Linking " + member.getUsername() + " to " + source.getUrl());
-      sourceDao.addReference(source, member);
-    }
+    memberService.addSource(member,  source);
 
   }
 }

@@ -1,22 +1,30 @@
 package com.placecruncher.server.domain;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
+import com.placecruncher.server.application.Constants;
 
 @Entity
-@Table(name="SOURCE_REF", uniqueConstraints = {@UniqueConstraint(columnNames={"sourceId", "memberId"})})
-public class SourceRef extends SuperEntity {
+@Table(name="PLACE_LIST")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="placeListType", discriminatorType = DiscriminatorType.STRING)
+public abstract class PlaceList extends SuperEntity {
     private Integer id;
     private Member member;
-    private Source source;
+    private Privacy privacy = Privacy.PRIVATE;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,14 +46,13 @@ public class SourceRef extends SuperEntity {
         this.member = member;
     }
 
-    @OneToOne
-    @JoinColumn(name = "sourceId", nullable = false)
-    public Source getSource() {
-        return source;
+    @Column(nullable=false, length=Constants.ENUM_MAXLEN)
+    @Enumerated(EnumType.STRING)
+    public Privacy getPrivacy() {
+        return privacy;
     }
-
-    public void setSource(Source source) {
-        this.source = source;
+    public void setPrivacy(Privacy privacy) {
+        this.privacy = privacy;
     }
 
 }

@@ -3,7 +3,6 @@ package com.placecruncher.server.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -147,7 +146,7 @@ public class Place extends SuperEntity {
         return sources;
     }
 
-    private void setSources(List<Source> sources) {
+    protected void setSources(List<Source> sources) {
         this.sources = sources;
     }
 

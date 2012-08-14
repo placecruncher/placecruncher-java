@@ -291,12 +291,12 @@
 
     <changeSet id="20120070_add_role" author="ddieckman">
       <addColumn tableName="MEMBER">
-          <column name="memberRole" type="varchar(64)" value="ROLE_USER"><constraints nullable="false"/></column>
-        </addColumn>
-        <update tableName="MEMBER">
-          <column name="memberRole" value="ROLE_ADMIN"/>
-          <where>username='admin'</where>
-        </update>
+        <column name="memberRole" type="varchar(64)" value="ROLE_USER"><constraints nullable="false" /></column>
+      </addColumn>
+      <update tableName="MEMBER">
+        <column name="memberRole" value="ROLE_ADMIN" />
+        <where>username='admin'</where>
+      </update>
     </changeSet>
 
     <changeSet id="20120715_update_members" author="ddieckman">
@@ -305,5 +305,39 @@
           <column name="enabled" valueBoolean="true"/>
         </update>
     </changeSet>
+
+    <changeSet id="20120812_place_list" author="ddieckman">
+      <addColumn tableName="PLACE_REF">
+        <column name="placeListId" type="BIGINT"><constraints nullable="true" /></column>
+      </addColumn>
+
+      <createTable tableName="PLACE_LIST">
+          <column name="id" type="BIGINT" ><constraints primaryKey="true" nullable="false" /></column>
+          <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+          <column name="updated" type="TIMESTAMP"></column>
+          <column name="placeListType" type="varchar(64)"><constraints nullable="false"/></column>
+          <column name="version" type="BIGINT"></column>
+          <column name="memberId" type="BIGINT"><constraints nullable="false"/></column>
+          <column name="privacy" type="VARCHAR(64)"></column>
+          <!-- SourcePlaceList columns -->
+          <column name="sourceId" type="BIGINT"><constraints nullable="true" /></column>
+      </createTable>
+      <addAutoIncrement tableName="PLACE_LIST" columnName="id" columnDataType="bigint" />
+
+      <addForeignKeyConstraint constraintName="FkPlaceRefPlaceList"
+          baseTableName="PLACE_REF" baseColumnNames="placeListId"
+          referencedTableName="PLACE_LIST" referencedColumnNames="id" />
+
+      <addForeignKeyConstraint constraintName="FkPlaceListMember"
+          baseTableName="PLACE_LIST" baseColumnNames="memberId"
+          referencedTableName="MEMBER" referencedColumnNames="id" />
+
+        <addForeignKeyConstraint constraintName="FkPlaceListSource"
+            baseTableName="PLACE_LIST" baseColumnNames="sourceId"
+            referencedTableName="SOURCE" referencedColumnNames="id" />
+
+      <dropTable tableName="SOURCE_REF"/>
+    </changeSet>
+
 
 </databaseChangeLog>

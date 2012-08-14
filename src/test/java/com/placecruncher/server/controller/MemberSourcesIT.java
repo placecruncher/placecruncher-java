@@ -1,12 +1,10 @@
 package com.placecruncher.server.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +15,7 @@ import com.placecruncher.server.domain.SourceModel;
  * Test case for members and their sources.
  */
 public class MemberSourcesIT extends ApiTestCase {
-    private final Logger log = Logger.getLogger(getClass());
+//    private final Logger log = Logger.getLogger(getClass());
 
     private SourceModel testSource;
     private List<PlaceModel> testPlaces;
@@ -83,7 +81,7 @@ public class MemberSourcesIT extends ApiTestCase {
         Assert.assertNotNull(getSource(sourceUrl));
 
         // Member has places associated with source
-        //Assert.assertTrue(CollectionUtils.isSubCollection(testPlaces, getPlaces()));
+        Assert.assertTrue(CollectionUtils.isSubCollection(testPlaces, getPlaces()));
 
     }
 
