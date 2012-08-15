@@ -206,7 +206,7 @@ ol,ul {
     </div>
     <div class="yui3-u-2-3">
       <div id="preview">
-<%--          <iframe style="width:100%;height:800px" src="${source.url}"></iframe> --%>
+          <iframe style="width:100%;height:800px" src="${source.url}"></iframe>
        </div>
     </div>
 </div>
