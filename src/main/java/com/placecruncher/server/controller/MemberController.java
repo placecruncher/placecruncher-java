@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,7 +36,7 @@ import com.placecruncher.server.service.MemberService;
 @Controller
 @RequestMapping("/api/private/v1/members")
 public class MemberController {
-//  private final Logger log = Logger.getLogger(getClass());
+    private static final Logger LOGGER = Logger.getLogger(MemberController.class);
 
     @Autowired
     private MemberService memberService;
