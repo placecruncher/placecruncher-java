@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.placecruncher.server.application.Constants;
+import com.placecruncher.server.controller.MemberController;
 import com.placecruncher.server.dao.MemberDao;
 
 @Entity
@@ -33,7 +34,7 @@ import com.placecruncher.server.dao.MemberDao;
 public class Member extends SuperEntity {
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOGGER = Logger.getLogger(Member.class);
+    private static final Logger LOGGER = Logger.getLogger(MemberController.class);
 
     public static final int USERNAME_MAXLEN = 64;
     public static final int PASSWORD_MAXLEN = 32;
@@ -186,10 +187,20 @@ public class Member extends SuperEntity {
     }
 
     public void registerDevice(Device device) {
-
+       if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Registering : " + device + " for member: " + this);
+       }
+      
        List<Device> savedDevices = getDevices();
-
-       if (savedDevices == null) {
+       
+       if (savedDevices != null) {
+           if (LOGGER.isInfoEnabled()) {
+               LOGGER.info("savedDevices : " + savedDevices + " for member: " + this);
+           }
+       } else {
+           if (LOGGER.isInfoEnabled()) {
+               LOGGER.info("savedDevices : is null for member: " + this);
+           }
            savedDevices = new ArrayList<Device>();
        }
 
@@ -205,6 +216,9 @@ public class Member extends SuperEntity {
 
        device.setMember(this);
        savedDevices.add(device);
+       
+       device.saveOrUpdate();
+       this.saveOrUpdate();
     }
 
     public static Member currentMember() {
