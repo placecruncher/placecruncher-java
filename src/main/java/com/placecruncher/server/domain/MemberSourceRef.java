@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.placecruncher.server.dao.MemberSourceRefDao;
@@ -23,6 +24,7 @@ public class MemberSourceRef extends SuperEntity {
     private Member member;
     private Source source;
     
+    @Autowired
     private MemberSourceRefDao memberSourceRefDao;
     
     @Id
