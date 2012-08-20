@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Configurable;
@@ -24,6 +25,7 @@ public class Source extends SuperEntity {
     private String title;
     private String description;
     private StatusEnum status = StatusEnum.OPEN;
+    private MemberSourceRef memberSourceRef;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,4 +91,12 @@ public class Source extends SuperEntity {
         CLOSED
     }
 
+    @OneToOne(mappedBy = "source")
+    public MemberSourceRef getMemberSourceRef() {
+        return memberSourceRef;
+    }
+
+    public void setMemberSourceRef(MemberSourceRef memberSourceRef) {
+        this.memberSourceRef = memberSourceRef;
+    }
 }

@@ -100,6 +100,22 @@ public class MemberController {
 
         return responsePayload;
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "self/sendTestMessage")
+    @ResponseBody
+    public ResponsePayload sendTestMessage() {
+
+        Meta meta = new Meta();
+        ResponsePayload responsePayload = new ResponsePayload(meta);
+
+        Member member = invokerContext.getMember();
+        if (member != null) {
+            memberService.sendTestMessage(member);
+        } else {
+            meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+        return responsePayload;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "self/token")
     @ResponseBody

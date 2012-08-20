@@ -71,6 +71,12 @@ public class C2DMPushNotificationService {
             conn.setConnectTimeout(connectionTimeout);
             conn.setReadTimeout(readTimeout);
 
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("message: " + message + " connectionTimeout : " + connectionTimeout + " readTimeout: " + readTimeout + " googleC2dmUrl: " + googleC2dmUrl);
+                LOGGER.info("token: " + token);
+                LOGGER.info("authenticationToken: " + authenticationToken);
+            }
+            
             out = conn.getOutputStream();
             out.write(postData);
 
@@ -82,10 +88,11 @@ public class C2DMPushNotificationService {
                 throw new PlacecruncherRuntimeException(responseMessage);
             }
         } catch (Exception e) { // NOCHECKSTYLE // NOPMD
+            LOGGER.error(e, e);
             throw new PlacecruncherRuntimeException("", e);
         } finally {
             try {
-                out.close();
+                if (out!=null) { out.close(); }
             } catch (Exception e) { // NOCHECKSTYLE // NOPMD
                 LOGGER.error(e, e);
             }

@@ -15,6 +15,7 @@ import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Email;
 import com.placecruncher.server.domain.Member;
+import com.placecruncher.server.domain.MemberSourceRef;
 import com.placecruncher.server.domain.Source;
 
 @Service
@@ -55,10 +56,19 @@ public class EmailService {
                     sourceDao.persist(source);
                 }
                 sources.add(source);
+                
+             // Link member to sources
+                MemberSourceRef memberSourcRef = new MemberSourceRef();
+                memberSourcRef.setMember(member);
+                memberSourcRef.setSource(source);
+                
+                memberSourcRef.saveOrUpdate();
+                
             }
 
-            // Link member to sources
-
+            
+            
+            
             // Notify member
             member.processEmail(email);
 

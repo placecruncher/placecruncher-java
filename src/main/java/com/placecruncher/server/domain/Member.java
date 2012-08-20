@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -51,6 +52,8 @@ public class Member extends SuperEntity {
     private List<ApprovedEmail> approvedEmails;
     private List<Device> devices;
 
+    private MemberSourceRef memberSourceRef;
+    
     @Value("${crunch.message}")
     private String crunchMessage;
 
@@ -168,6 +171,22 @@ public class Member extends SuperEntity {
             }
         }
     }
+    
+    public void sendTestMessage() {
+        List<Device> devices = this.getDevices();
+
+        if (devices != null && !devices.isEmpty()) {
+            Device device = devices.get(0);
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("device:" + device);
+            }
+            device.sendMessage(crunchMessage.trim());
+        } else {
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("member: " + this + "device + is null");
+            }
+        }        
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy="member", fetch=FetchType.EAGER, cascade = { CascadeType.ALL} )
@@ -234,5 +253,13 @@ public class Member extends SuperEntity {
       return SecurityContextHolder.getContext().getAuthentication() != null;
     }
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "member")
+    public MemberSourceRef getMemberSourceRef() {
+        return memberSourceRef;
+    }
 
+    public void setMemberSourceRef(MemberSourceRef memberSourceRef) {
+        this.memberSourceRef = memberSourceRef;
+    }
 }

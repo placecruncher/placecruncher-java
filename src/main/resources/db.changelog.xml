@@ -339,5 +339,24 @@
       <dropTable tableName="SOURCE_REF"/>
     </changeSet>
 
+    <changeSet id="20120815_member_source_ref" author="djones">
+      <createTable tableName="MEMBER_SOURCE_REF">
+          <column name="id" type="BIGINT" ><constraints primaryKey="true" nullable="false" /></column>
+          <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+          <column name="updated" type="TIMESTAMP"></column>
+          <column name="version" type="BIGINT"></column>
+          <column name="memberId" type="BIGINT"><constraints nullable="false"/></column>
+          <column name="sourceId" type="BIGINT"><constraints nullable="false"/></column>
+      </createTable>
+      <addAutoIncrement tableName="MEMBER_SOURCE_REF" columnName="id" columnDataType="bigint" />
+
+      <addForeignKeyConstraint constraintName="FkMemberSourceRefMember"
+            baseTableName="MEMBER_SOURCE_REF" baseColumnNames="memberId"
+            referencedTableName="MEMBER" referencedColumnNames="id" />
+      
+      <addForeignKeyConstraint constraintName="FkMemberSourceRefSource"
+            baseTableName="MEMBER_SOURCE_REF" baseColumnNames="sourceId"
+            referencedTableName="SOURCE" referencedColumnNames="id" />
+    </changeSet>
 
 </databaseChangeLog>
