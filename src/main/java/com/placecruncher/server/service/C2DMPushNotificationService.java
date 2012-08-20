@@ -65,6 +65,9 @@ public class C2DMPushNotificationService {
                     "application/x-www-form-urlencoded;charset=UTF-8");
             conn.setRequestProperty("Content-Length",
                     Integer.toString(postData.length));
+            
+            this.authenticationToken = "DQAAAOQAAABuQ2aPOQA7n3XBEgGO-2-qvxBz3kZa_2MrxUDny14YVfi1rVdow_VnvL40fvPqoEj_O22vtQhfwHE59C4RMO_kJcboQaKWz8jFxH8akMGzog175mdViQTT0x765Hx-J1rFj9FMIHNNiIGW_LQTPmIRk9UXEyygEbc6mHC5tEDHgy2VO5lKw_3rV9CnLcDqsRep8GEGrhxI4l2B7abKtHxl_JovZxStSpehKwpxrurLO2bOGqqgb96kI0T498HSFkbIkNJ4Zk1nJc7zBlEJtObnbNwI5p5kB4pvoyFYbaMH82tztnV6DY6QCkUdI4W9wmg";
+            
             conn.setRequestProperty("Authorization", "GoogleLogin auth="
                     + authenticationToken);
             

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import com.placecruncher.server.service.ApplePushNotificationService;
 import com.placecruncher.server.service.C2DMPushNotificationService;
+import com.placecruncher.server.service.GCMPushNotificationService;
 
 
 import com.placecruncher.server.dao.DeviceDao;
@@ -37,7 +38,7 @@ public class Device extends SuperEntity {
     private ApplePushNotificationService applePushNotificationService;
     
     @Autowired
-    private C2DMPushNotificationService c2DMPushNotificationService;
+    private GCMPushNotificationService gCMPushNotificationService;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -94,7 +95,7 @@ public class Device extends SuperEntity {
         if (DeviceType.IPHONE.equals(deviceType)) {
             applePushNotificationService.sendMessage(message, this.getToken()); 
         } else {
-            this.c2DMPushNotificationService.sendMessage(message, this.getToken());
+            this.gCMPushNotificationService.sendMessage(message, this.getToken());
         }
     }
 }
