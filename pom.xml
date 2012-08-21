@@ -25,6 +25,10 @@
             <name>Spring Maven Release Repository</name>
             <url>http://maven.springframework.org/release</url>
         </repository>
+        <repository>
+           <id>gcm-server-repository</id>
+           <url>https://raw.github.com/slorber/gcm-server-repository/master/releases/</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -328,6 +332,12 @@
             <groupId>com.notnoop.apns</groupId>
             <artifactId>apns</artifactId>
             <version>0.1.6</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.android.gcm</groupId>
+            <artifactId>gcm-server</artifactId>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
 

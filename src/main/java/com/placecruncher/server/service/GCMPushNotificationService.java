@@ -21,6 +21,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.google.android.gcm.server.*;
+
 
 @Service
 public class GCMPushNotificationService {
@@ -47,10 +49,12 @@ public class GCMPushNotificationService {
     private int readTimeout;
 
     public boolean sendMessage(String message, String token) {
-        Map<String, String> messageMap = new HashMap<String, String>();
-        messageMap.put("message", message);
-        JSONObject body = new JSONObject(messageMap);
-        return sendMessage(token, body, "generic");
+        
+        //Map<String, String> messageMap = new HashMap<String, String>();
+        //messageMap.put("message", message);
+        //JSONObject body = new JSONObject(messageMap);
+        //return sendMessage(token, body, "generic");
+        return sendTestMessage(token, message, "generic");
     }
     
     /**
@@ -219,4 +223,21 @@ public class GCMPushNotificationService {
         }
     }
 
+    private boolean sendTestMessage(String token, String body, String key) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("sendTestMessage token: " + token + " body: " + body + " key: " + key);
+            LOGGER.info("sendTestMessage apiSecret: " + apiSecret);
+        }
+        Sender sender = new Sender(apiSecret);
+        Message message = new Message.Builder().addData("test", "test").collapseKey("key").build();
+        
+        try {
+            Result result = sender.send(message, token, 5);
+            LOGGER.info("errorCodeName: " +  result.getErrorCodeName());
+        } catch (IOException e) {
+            LOGGER.error(e, e);
+        }
+        
+        return true;
+    }
 }

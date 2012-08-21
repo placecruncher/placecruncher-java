@@ -86,4 +86,6 @@
   <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/1.0/objenesis-1.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/notnoop/apns/apns/0.1.6/apns-0.1.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/android/gcm/gcm-server/1.0.2/gcm-server-1.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar"/>
 </classpath>
