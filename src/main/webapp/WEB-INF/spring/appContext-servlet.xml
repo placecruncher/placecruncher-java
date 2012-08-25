@@ -85,4 +85,9 @@
 
   <tx:annotation-driven />
 
+  <bean id="documentationController" class="com.mangofactory.swagger.springmvc.controller.DocumentationController">
+    <property name="apiVersion" value="0.2"/>
+    <property name="swaggerVersion" value="1.1-SNAPSHOT"/>
+    <property name="basePath" value="http://localhost:8080/placecruncher/" />
+  </bean>
 </beans>
