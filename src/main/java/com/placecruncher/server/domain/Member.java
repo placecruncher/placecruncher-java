@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -25,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.placecruncher.server.application.Constants;
+import com.placecruncher.server.controller.MemberController;
 import com.placecruncher.server.dao.MemberDao;
 
 @Entity
@@ -33,7 +35,7 @@ import com.placecruncher.server.dao.MemberDao;
 public class Member extends SuperEntity {
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOGGER = Logger.getLogger(Member.class);
+    private static final Logger LOGGER = Logger.getLogger(MemberController.class);
 
     public static final int USERNAME_MAXLEN = 64;
     public static final int PASSWORD_MAXLEN = 32;
@@ -50,6 +52,8 @@ public class Member extends SuperEntity {
     private List<ApprovedEmail> approvedEmails;
     private List<Device> devices;
 
+    private MemberSourceRef memberSourceRef;
+    
     @Value("${crunch.message}")
     private String crunchMessage;
 
@@ -167,6 +171,22 @@ public class Member extends SuperEntity {
             }
         }
     }
+    
+    public void sendTestMessage() {
+        List<Device> devices = this.getDevices();
+
+        if (devices != null && !devices.isEmpty()) {
+            Device device = devices.get(0);
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("device:" + device);
+            }
+            device.sendMessage(crunchMessage.trim());
+        } else {
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("member: " + this + "device + is null");
+            }
+        }        
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy="member", fetch=FetchType.EAGER, cascade = { CascadeType.ALL} )
@@ -186,10 +206,20 @@ public class Member extends SuperEntity {
     }
 
     public void registerDevice(Device device) {
-
+       if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Registering : " + device + " for member: " + this);
+       }
+      
        List<Device> savedDevices = getDevices();
-
-       if (savedDevices == null) {
+       
+       if (savedDevices != null) {
+           if (LOGGER.isInfoEnabled()) {
+               LOGGER.info("savedDevices : " + savedDevices + " for member: " + this);
+           }
+       } else {
+           if (LOGGER.isInfoEnabled()) {
+               LOGGER.info("savedDevices : is null for member: " + this);
+           }
            savedDevices = new ArrayList<Device>();
        }
 
@@ -205,6 +235,9 @@ public class Member extends SuperEntity {
 
        device.setMember(this);
        savedDevices.add(device);
+       
+       device.saveOrUpdate();
+       this.saveOrUpdate();
     }
 
     public static Member currentMember() {
@@ -220,5 +253,13 @@ public class Member extends SuperEntity {
       return SecurityContextHolder.getContext().getAuthentication() != null;
     }
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "member")
+    public MemberSourceRef getMemberSourceRef() {
+        return memberSourceRef;
+    }
 
+    public void setMemberSourceRef(MemberSourceRef memberSourceRef) {
+        this.memberSourceRef = memberSourceRef;
+    }
 }
