@@ -24,12 +24,7 @@ public class SourceModel  extends EntityModel {
     public static List<SourceModel> transform(List<Source> sources) {
         return TransformUtils.transform(sources, new Transformer() {
             public Object transform(Object input) {
-                SourceModel model = new SourceModel((Source)input);
-                // DSDXXX debug debug
-                if (model.getId() == null) {
-                    throw new RuntimeException("model id is " + model.getId() + " sourcd id is " + ((Source)input).getId());
-                }
-                return model;
+                return new SourceModel((Source)input);
             }
         }, new ArrayList<SourceModel>());
     }

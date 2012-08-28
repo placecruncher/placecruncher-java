@@ -34,7 +34,6 @@ public class Source extends SuperEntity {
         return id;
     }
 
-    // DSDXXX I wonder if this always needs to be public for the bean property copy
     public void setId(Integer id) {
         this.id = id;
     }

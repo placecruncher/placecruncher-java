@@ -79,6 +79,7 @@ public class PlaceDao extends AbstractDao<Integer, Place> {
 
     @SuppressWarnings("unchecked")
     // DSDXXX build a filter and pagination class instead of passing in filter parameters
+    // DSDXXX Should place lists be unique based on source?  I don't think this should be a list or maybe it should
     public List<SourcePlaceList> findSourcePlaceList(Member member, Source source) {
       Criteria criteria = getCurrentSession().createCriteria(SourcePlaceList.class);
       criteria.add(Restrictions.eq("member", member));

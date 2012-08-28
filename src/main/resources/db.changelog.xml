@@ -353,10 +353,15 @@
       <addForeignKeyConstraint constraintName="FkMemberSourceRefMember"
             baseTableName="MEMBER_SOURCE_REF" baseColumnNames="memberId"
             referencedTableName="MEMBER" referencedColumnNames="id" />
-      
+
       <addForeignKeyConstraint constraintName="FkMemberSourceRefSource"
             baseTableName="MEMBER_SOURCE_REF" baseColumnNames="sourceId"
             referencedTableName="SOURCE" referencedColumnNames="id" />
     </changeSet>
 
+    <changeSet id="20120827_member_source_ref_constraints" author="ddieckman">
+      <addUniqueConstraint tableName="MEMBER_SOURCE_REF"
+          columnNames="memberId, sourceId"
+          constraintName="uniq_member_source"/>
+    </changeSet>
 </databaseChangeLog>

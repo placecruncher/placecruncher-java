@@ -11,7 +11,6 @@ import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Device;
-import com.placecruncher.server.domain.Email;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.MemberRole;
 import com.placecruncher.server.domain.Source;
@@ -25,9 +24,6 @@ public class MemberService {
 
     @Autowired
     private PlaceDao placeDao;
-
-    @Autowired
-    private PlaceService placeService;
 
     @Transactional
     public String registerUser(String userName, String password, String email, Device device) {
@@ -78,16 +74,6 @@ public class MemberService {
         placeDao.removePlaceList(member, source);
     }
 
-    @Transactional
-    public boolean addSource(Member member, Source source) {
-        if (!placeDao.findSourcePlaceList(member, source).isEmpty()) {
-            return false;
-        }
-        placeService.createPlaceList(source, member);
-
-        return true;
-    }
-    
     @Transactional
     public void sendTestMessage(Member member) {
         member.sendTestMessage();

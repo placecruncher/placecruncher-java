@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,14 +31,18 @@ import com.placecruncher.server.domain.SourceModel;
 import com.placecruncher.server.domain.SourcePlaceList;
 import com.placecruncher.server.exception.ResourceNotFoundException;
 import com.placecruncher.server.service.MemberService;
+import com.placecruncher.server.service.PlaceService;
 
 @Controller
 @RequestMapping("/api/private/v1/members")
 public class MemberController {
-    private static final Logger LOGGER = Logger.getLogger(MemberController.class);
+    // private final Logger log = Logger.getLogger(this.getClass());
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private PlaceService placeService;
 
     @Autowired
     private MemberDao memberDao;
@@ -100,7 +103,7 @@ public class MemberController {
 
         return responsePayload;
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = "self/sendTestMessage")
     @ResponseBody
     public ResponsePayload sendTestMessage() {
@@ -198,7 +201,7 @@ public class MemberController {
             // DSDXXX this is a new source, need to handle this
             throw new RuntimeException("addSource not implemented for new sources");
         } else {
-            memberService.addSource(self, source);
+            placeService.addPlaces(self, source);
         }
         return new ResponseWrapper<SourceModel>(new SourceModel(source));
     }

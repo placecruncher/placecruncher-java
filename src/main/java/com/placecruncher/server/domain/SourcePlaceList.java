@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+// DSDXXX get rid of the Hibernate inheritance stuff and make one big object
 @Entity
 @DiscriminatorValue("SOURCE")
 public class SourcePlaceList extends PlaceList {

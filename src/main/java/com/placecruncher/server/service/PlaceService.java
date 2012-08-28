@@ -8,7 +8,6 @@ import com.placecruncher.server.controller.PlaceModel;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Place;
-import com.placecruncher.server.domain.PlaceList;
 import com.placecruncher.server.domain.Source;
 
 @Service
@@ -42,14 +41,11 @@ public class PlaceService {
         return place;
     }
 
-    /**
-     * Create a place based on the source.
-     * @param source The source.
-     * @param member The owner of the list.
-     * @return The new list.
-     */
     @Transactional
-    public PlaceList createPlaceList(Source source, Member member) {
-        return placeDao.createPlaceList(source, member);
+    public void addPlaces(Member member, Source source) {
+        if (placeDao.findSourcePlaceList(member, source).isEmpty()) {
+            placeDao.createPlaceList(source, member);
+        }
     }
+
 }

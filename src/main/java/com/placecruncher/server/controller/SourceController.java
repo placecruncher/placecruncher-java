@@ -26,7 +26,6 @@ import com.placecruncher.server.domain.SourceModel;
 import com.placecruncher.server.service.SourceService;
 
 @Controller
-// DSDXXX this path seems to be a constant everywhere
 @RequestMapping("/api/private/v1/sources")
 public class SourceController {
     private final Logger log = Logger.getLogger(this.getClass());

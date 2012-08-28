@@ -5,7 +5,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,10 +19,6 @@ public class SourceDaoTest extends DaoTestCase {
 
     @Autowired
     private SourceFactory sourceFactory;
-
-    @Before
-    public void setUp() {
-    }
 
     @Test
     public void create() {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.controller.PlaceModel;
+import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Member;
@@ -27,6 +28,9 @@ public class SourceService {
     private PlaceDao placeDao;
 
     @Autowired
+    private MemberDao memberDao;
+
+    @Autowired
     private PlaceService placeService;
 
     @Transactional
@@ -40,20 +44,21 @@ public class SourceService {
 
     @Transactional
     public Source submitSource(Source source) {
-        // Update the status
-        source.setStatus(StatusEnum.CLOSED);
+        if (!StatusEnum.CLOSED.equals(source.getStatus())) {
+            log.info("Marking source '" + source.getUrl() + "' as CLOSED" );
 
-        // TODO Notify the submitter that the source has been crunched
+            // Mark the source as closed
+            source.setStatus(StatusEnum.CLOSED);
 
-        // Share the source (from submitter to submitter)
-        Member submitter = null;
-        shareSource(source, submitter, submitter);
-
+            // Notify each member that has a reference to the source
+            for (Member member : memberDao.findBySource(source)) {
+                // Add place list to member
+                placeService.addPlaces(member,  source);
+                // Notify the member
+                member.notifyDevices("I haz crunchd da url '" + source.getUrl() + "'");
+            }
+        }
         return source;
-    }
-
-    @Transactional
-    public void shareSource(Source source, Member from, Member to) {
     }
 
     @Transactional

@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -33,8 +32,6 @@ import com.placecruncher.server.dao.MemberDao;
 @Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}) })
 @Configurable(dependencyCheck = true)
 public class Member extends SuperEntity {
-    private static final long serialVersionUID = 1L;
-
     private static final Logger LOGGER = Logger.getLogger(MemberController.class);
 
     public static final int USERNAME_MAXLEN = 64;
@@ -49,11 +46,9 @@ public class Member extends SuperEntity {
     private String email;
     private MemberRole memberRole = MemberRole.ROLE_USER;
 
-    private List<ApprovedEmail> approvedEmails;
-    private List<Device> devices;
+    private List<ApprovedEmail> approvedEmails = new ArrayList<ApprovedEmail>();
+    private List<Device> devices = new ArrayList<Device>();
 
-    private MemberSourceRef memberSourceRef;
-    
     @Value("${crunch.message}")
     private String crunchMessage;
 
@@ -156,36 +151,19 @@ public class Member extends SuperEntity {
     }
 
     public void processEmail(Email email) {
+        notifyDevices(crunchMessage.trim());
+    }
 
-        List<Device> devices = this.getDevices();
-
-        if (devices != null && !devices.isEmpty()) {
-            Device device = devices.get(0);
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("device:" + device);
-            }
-            device.sendMessage(crunchMessage.trim());
-        } else {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("member: " + this + "device + is null");
-            }
+    public void notifyDevices(String msg) {
+        LOGGER.debug("Sending message '" + msg + "' to user " + getUsername());
+        for (Device device : devices) {
+            LOGGER.debug("Sending message '" + msg + "' to device " + device);
+            device.sendMessage(msg);
         }
     }
-    
-    public void sendTestMessage() {
-        List<Device> devices = this.getDevices();
 
-        if (devices != null && !devices.isEmpty()) {
-            Device device = devices.get(0);
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("device:" + device);
-            }
-            device.sendMessage(crunchMessage.trim());
-        } else {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("member: " + this + "device + is null");
-            }
-        }        
+    public void sendTestMessage() {
+        notifyDevices(crunchMessage.trim());
     }
 
     @JsonIgnore
@@ -209,19 +187,8 @@ public class Member extends SuperEntity {
        if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Registering : " + device + " for member: " + this);
        }
-      
+
        List<Device> savedDevices = getDevices();
-       
-       if (savedDevices != null) {
-           if (LOGGER.isInfoEnabled()) {
-               LOGGER.info("savedDevices : " + savedDevices + " for member: " + this);
-           }
-       } else {
-           if (LOGGER.isInfoEnabled()) {
-               LOGGER.info("savedDevices : is null for member: " + this);
-           }
-           savedDevices = new ArrayList<Device>();
-       }
 
        if (!savedDevices.isEmpty()) {
            Device sd = savedDevices.get(0);
@@ -235,7 +202,7 @@ public class Member extends SuperEntity {
 
        device.setMember(this);
        savedDevices.add(device);
-       
+
        device.saveOrUpdate();
        this.saveOrUpdate();
     }
@@ -253,13 +220,4 @@ public class Member extends SuperEntity {
       return SecurityContextHolder.getContext().getAuthentication() != null;
     }
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "member")
-    public MemberSourceRef getMemberSourceRef() {
-        return memberSourceRef;
-    }
-
-    public void setMemberSourceRef(MemberSourceRef memberSourceRef) {
-        this.memberSourceRef = memberSourceRef;
-    }
 }

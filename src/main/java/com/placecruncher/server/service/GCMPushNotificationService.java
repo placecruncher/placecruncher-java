@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -21,7 +19,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.google.android.gcm.server.*;
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
 
 
 @Service
@@ -38,25 +38,25 @@ public class GCMPushNotificationService {
 
     @Value("${gcm.apiSecret}")
     private String apiSecret;
-    
+
     @Value("${gcm.endpointUrl}")
     private String gcmUrl;
 
     @Value("${gcm.connectionTimeout}")
     private int connectionTimeout;
-    
+
     @Value("${gcm.readTimeout}")
     private int readTimeout;
 
     public boolean sendMessage(String message, String token) {
-        
+
         //Map<String, String> messageMap = new HashMap<String, String>();
         //messageMap.put("message", message);
         //JSONObject body = new JSONObject(messageMap);
         //return sendMessage(token, body, "generic");
         return sendTestMessage(token, message, "generic");
     }
-    
+
     /**
      * set up the connection we use with standard settings.
      * @param connectUrl
@@ -66,7 +66,7 @@ public class GCMPushNotificationService {
      */
     private HttpsURLConnection setupConnection(String connectUrl, int dataLength) throws IOException {
         URL url = new URL(connectUrl);
-        
+
         HttpsURLConnection.setDefaultHostnameVerifier(new CustomizedHostnameVerifier());
         HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
         conn.setDoOutput(true);
@@ -75,7 +75,7 @@ public class GCMPushNotificationService {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setRequestProperty("Content-Length", Integer.toString(dataLength));
         conn.setRequestProperty("Authorization", "key=" + apiSecret);
-        
+
         conn.setConnectTimeout(connectionTimeout);
         conn.setReadTimeout(readTimeout);
         return conn;
@@ -115,7 +115,7 @@ public class GCMPushNotificationService {
                 conn = setupConnection(gcmUrl, postData.length);
                 out = conn.getOutputStream();
                 out.write(postData);
-    
+
                 int responseCode = 0;
                 // wrap the input stream access in try/catch, so we can grap the error stream instead if it fails.
                 try {
@@ -131,7 +131,7 @@ public class GCMPushNotificationService {
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     // May still have useful data in response to handle different stuff
                     // Specifically, the result can be OK + failure
-                    
+
                     // I added in some testing to see what happens on a bad reg id.
                     // eg: 2012-07-12 11:16:03,168 [http-bio-8080-exec-1] INFO  com.inqmobile.inqcloud.service.GCMPushNotificationService - Sent message. code/string: 200 / OK data
                     // {"multicast_id":4645818202832724878,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"InvalidRegistration"}]}
@@ -140,8 +140,8 @@ public class GCMPushNotificationService {
                     }
                     JSONObject responseJson = new JSONObject(responseData);
                     // we can handle this simply, because we only are making one registration id at a time.
-                    // thus checking the failure count == 0 or missing suffices.  
-                    
+                    // thus checking the failure count == 0 or missing suffices.
+
                     /*      Here are JSON results for 6 recipients (IDs 4, 8, 15, 16, 23, and 42 respectively) with 3 messages successfully processed, 1 canonical registration ID returned, and 3 errors:
                             { "multicast_id": 216,
                               "success": 3,
@@ -149,10 +149,10 @@ public class GCMPushNotificationService {
                               "canonical_ids": 1,
                               "results": [
                                 { "message_id": "1:0408" },
-                                { "error": "Unavailable" },  // TODO: Should be resent.  Not clear from docs exactly what that means   
+                                { "error": "Unavailable" },  // TODO: Should be resent.  Not clear from docs exactly what that means
                                 { "error": "InvalidRegistration" },  // TODO: odd, happens if the id is just corrupt.
                                 { "message_id": "1:1516" },
-                                { "message_id": "1:2342", "registration_id": "32" }, // TODO: handle cannonical id response. http://developer.android.com/guide/google/gcm/adv.html#canonical 
+                                { "message_id": "1:2342", "registration_id": "32" }, // TODO: handle cannonical id response. http://developer.android.com/guide/google/gcm/adv.html#canonical
                                 { "error": "NotRegistered"}  // TODO: Handle NotRegistered response, when a handset is no longer using this app.
                               ]
 }                     */
@@ -169,12 +169,12 @@ public class GCMPushNotificationService {
                 } else {
                     // 400 - json format incorrect.
                     // 401 - There was an error authenticating the sender account
-                    // 500 - There was an internal error in the GCM server while trying to process the request. 
+                    // 500 - There was an internal error in the GCM server while trying to process the request.
                     // 503 - Indicates that the server is temporarily unavailable (i.e., because of timeouts, etc ) TODO: add retry logic, has rules
                     LOGGER.error("Failed to send message. code/string: " + responseCode + " / " + responseMessage + " data\n" + responseData);
                     // consider logging some other problem?
                 }
-                
+
             }
             // CHECKSTYLE:OFF IllegalCatch
         } catch (Exception e) {
@@ -189,9 +189,9 @@ public class GCMPushNotificationService {
         }
         return result;
     }
-    
+
     /**
-     * ugh, want a function to handle 
+     * ugh, want a function to handle
      * @param ioObject
      * @return
      */
@@ -205,9 +205,9 @@ public class GCMPushNotificationService {
             } else if (ioObject instanceof HttpsURLConnection) {
                 ((HttpsURLConnection) ioObject).disconnect();
             }
-            
+
             result = true;
-            
+
             // CHECKSTYLE:OFF IllegalCatch
         } catch (Exception e) {
             // CHECKSTYLE:ON IllegalCatch
@@ -230,14 +230,14 @@ public class GCMPushNotificationService {
         }
         Sender sender = new Sender(apiSecret);
         Message message = new Message.Builder().addData("test", "test").collapseKey("key").build();
-        
+
         try {
             Result result = sender.send(message, token, 5);
             LOGGER.info("errorCodeName: " +  result.getErrorCodeName());
         } catch (IOException e) {
             LOGGER.error(e, e);
         }
-        
+
         return true;
     }
 }

@@ -13,7 +13,7 @@ import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.Source;
-import com.placecruncher.server.service.MemberService;
+import com.placecruncher.server.service.PlaceService;
 import com.placecruncher.server.service.SourceService;
 
 /**
@@ -29,7 +29,7 @@ public class SourceTestData extends AbstractSeedData {
   private SourceService sourceService;
 
   @Autowired
-  private MemberService memberService;
+  private PlaceService placeService;
 
   @Autowired
   private SourceDao sourceDao;
@@ -74,7 +74,7 @@ public class SourceTestData extends AbstractSeedData {
 
     // Link the test member to the source
     Member member = memberDao.findByUserName(SecurityTestData.MEMBER_USERNAME);
-    memberService.addSource(member,  source);
+    placeService.addPlaces(member,  source);
 
   }
 }

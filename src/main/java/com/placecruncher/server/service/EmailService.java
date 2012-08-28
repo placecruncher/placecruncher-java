@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.dao.ApprovedEmailDao;
+import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Email;
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.domain.MemberSourceRef;
 import com.placecruncher.server.domain.Source;
 
 @Service
@@ -27,6 +27,9 @@ public class EmailService {
 
     @Autowired
     private SourceDao sourceDao;
+
+    @Autowired
+    private MemberDao memberDao;
 
     @Transactional
     public boolean receviceEmail(Email email) {
@@ -56,19 +59,10 @@ public class EmailService {
                     sourceDao.persist(source);
                 }
                 sources.add(source);
-                
-             // Link member to sources
-                MemberSourceRef memberSourcRef = new MemberSourceRef();
-                memberSourcRef.setMember(member);
-                memberSourcRef.setSource(source);
-                
-                memberSourcRef.saveOrUpdate();
-                
-            }
 
-            
-            
-            
+                // Link the member to the source that was submitted
+                memberDao.addSource(member, source);
+            }
             // Notify member
             member.processEmail(email);
 
