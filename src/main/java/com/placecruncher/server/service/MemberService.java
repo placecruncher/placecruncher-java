@@ -24,6 +24,9 @@ public class MemberService {
 
     @Autowired
     private PlaceDao placeDao;
+    
+    @Autowired
+    private MailGunService mailGunService;
 
     @Transactional
     public String registerUser(String userName, String password, String email, Device device) {
@@ -77,5 +80,10 @@ public class MemberService {
     @Transactional
     public void sendTestMessage(Member member) {
         member.sendTestMessage();
+    }
+    
+    @Transactional
+    public void createTestMailBox() {
+        mailGunService.createMailBox("davidtest@placecruncher.mailgun.org", "testpassword");
     }
 }

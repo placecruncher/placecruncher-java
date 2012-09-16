@@ -119,6 +119,22 @@ public class MemberController {
         }
         return responsePayload;
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "self/createTestMailbox")
+    @ResponseBody
+    public ResponsePayload createTestMailbox() {
+
+        Meta meta = new Meta();
+        ResponsePayload responsePayload = new ResponsePayload(meta);
+
+        Member member = invokerContext.getMember();
+        if (member != null) {
+            memberService.createTestMailBox();
+        } else {
+            meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+        return responsePayload;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "self/token")
     @ResponseBody
