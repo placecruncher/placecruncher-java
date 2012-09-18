@@ -56,7 +56,8 @@ public class PlacecruncherHandlerExceptionResolver implements HandlerExceptionRe
         LOGGER.error(exception, exception);
 
         if (exception instanceof ObjectRetrievalFailureException ||
-            exception instanceof ResourceNotFoundException) {
+            exception instanceof ResourceNotFoundException ||
+            exception instanceof IllegalArgumentException) {
             writeJsonResponse(request, response,
                     HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.value(),

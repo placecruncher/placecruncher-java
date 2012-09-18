@@ -22,6 +22,12 @@ public class MemberDao extends AbstractDao<Integer, Member> {
             .add(Restrictions.eq("username", userName))
             .uniqueResult();
     }
+    
+    public Member findByPlacecruncherEmail(String placecruncherEmail) {
+        return (Member)createCriteria()
+            .add(Restrictions.eq("placecruncherEmail", placecruncherEmail))
+            .uniqueResult();
+    }
 
     public Member findByToken(String token) {
         // This will need to be made much smarter.

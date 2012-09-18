@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.dao.PlaceDao;
-import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Device;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.MemberRole;
@@ -29,12 +28,12 @@ public class MemberService {
     private MailGunService mailGunService;
 
     @Transactional
-    public String registerUser(String userName, String password, String email, Device device) {
+    public Member registerUser(String userName, String password, String email, Device device) {
         return registerUser(MemberRole.ROLE_USER, userName, password, email, device);
     }
 
     @Transactional
-    public String registerUser(MemberRole role, String userName, String password, String email, Device device) {
+    public Member registerUser(MemberRole role, String userName, String password, String email, Device device) {
 
         Member member = memberDao.findByUserName(userName);
         if (member == null) {
@@ -46,24 +45,24 @@ public class MemberService {
             member.setUsername(userName);
             UUID token = UUID.randomUUID();
             member.setToken(token.toString());
+            member.setPassword(password);
+            member.setEmail(email);
+            member.setMemberRole(role);
+            mailGunService.createMailBox(userName, password);
+            member.setPlacecruncherEmail(userName + "@placecruncher.mailgun.org");
             member.saveOrUpdate();
 
             if (device != null) {
                 device.setMember(member);
                 device.saveOrUpdate();
             }
-
-            ApprovedEmail approvedEmail = new ApprovedEmail();
-            approvedEmail.setEmail(email);
-            approvedEmail.setMember(member);
-            approvedEmail.saveOrUpdate();
-
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("Member found: username=" + userName + ", email=" + email);
+            }
+            return null;
         }
-        member.setPassword(password);
-        member.setEmail(email);
-        member.setMemberRole(role);
-
-        return member.getToken();
+        return member;
     }
 
     @Transactional

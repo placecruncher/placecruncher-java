@@ -79,12 +79,30 @@ public class EmailService {
         Member member = null;
 
         if (StringUtils.isNotBlank(email.getSender())) {
+            member = memberDao.findByPlacecruncherEmail(email.getSender());
+            if (member != null) {
+                return member;
+            }
+        }
+        
+        if (StringUtils.isNotBlank(email.getSender())) {
+            member = memberDao.findByPlacecruncherEmail(email.getFrom());
+            if (member != null) {
+                return member;
+            }
+        }
+        
+        if (StringUtils.isNotBlank(email.getSender())) {
             ApprovedEmail approvedEmail = approvedEmailDao.findByEmail(email.getSender());
             if (approvedEmail != null) {
                 member = approvedEmail.getMember();
             }
         }
 
+        if (member !=null) {
+            return member;
+        }
+        
         if (StringUtils.isNotBlank(email.getFrom())) {
             ApprovedEmail approvedEmail = approvedEmailDao.findByEmail(email.getFrom());
             if (approvedEmail != null) {

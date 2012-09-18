@@ -19,6 +19,7 @@ public class MemberFactory extends AbstractEntityFactory<Member> {
     public Member buildDefaultObject(String key) {
         Member member = new Member();
         member.setUsername(key);
+        member.setPlacecruncherEmail(key);
         return member;
     }
 }

@@ -44,6 +44,8 @@ public class Member extends SuperEntity {
     private boolean locked;
     private String token;
     private String email;
+    private String placecruncherEmail;
+    
     private MemberRole memberRole = MemberRole.ROLE_USER;
 
     private List<ApprovedEmail> approvedEmails = new ArrayList<ApprovedEmail>();
@@ -174,6 +176,15 @@ public class Member extends SuperEntity {
 
     public void setDevices(List<Device> devices) {
         this.devices = devices;
+    }
+
+    
+    public String getPlacecruncherEmail() {
+        return placecruncherEmail;
+    }
+
+    public void setPlacecruncherEmail(String placecruncherEmail) {
+        this.placecruncherEmail = placecruncherEmail;
     }
 
     @Override
