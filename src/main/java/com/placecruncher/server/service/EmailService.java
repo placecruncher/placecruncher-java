@@ -48,17 +48,18 @@ public class EmailService {
             Set<String> urls = email.extractUrls();
 
             // Find or create sources for URLs
-            List<Source> sources = new ArrayList<Source>();
             for (String url : urls) {
                 // Locate existing sources for URLs
                 Source source = sourceDao.findByUrl(url);
                 if (source == null ) {
+                    log.debug("Creating new source for URL '" + url + "'.");
                     source = new Source();
                     source.setTitle(email.getSubject());
                     source.setUrl(url);
                     sourceDao.persist(source);
                 }
-                sources.add(source);
+
+                log.info("Linking member " + member.getUsername() + " to source " + source);
 
                 // Link the member to the source that was submitted
                 memberDao.addSource(member, source);
