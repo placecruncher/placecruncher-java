@@ -58,13 +58,8 @@ public class MemberController {
 
     @RequestMapping(method = RequestMethod.POST, value = "self/register")
     @ResponseBody
-    public ResponsePayload registerUser(@RequestBody RegisterPayload registerPayload) {
-
-        Meta meta = new Meta();
-        ResponsePayload responsePayload = new ResponsePayload(meta);
-        SessionTokenWrapper sessionTokenWrapper = new SessionTokenWrapper();
-        String token = "";
-
+    public ResponseWrapper<RegisterResultWrapperPayload> registerUser(@RequestBody RegisterPayload registerPayload) {
+        RegisterResultWrapperPayload response = new RegisterResultWrapperPayload();
         Device device = null;
         registerPayload.validate();
 
@@ -73,11 +68,16 @@ public class MemberController {
             device.setDeviceType(DeviceType.getType(registerPayload.getDevice().getDeviceType()));
             device.setToken(registerPayload.getDevice().getToken());
         }
-        token = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail(), device);
+        Member member = memberService.registerUser(registerPayload.getUserName(), registerPayload.getPassword(), registerPayload.getEmail(), device);
 
-        sessionTokenWrapper.setToken(token);
-        responsePayload.setResponse(sessionTokenWrapper);
-        return responsePayload;
+        if (member != null) {
+            response.setToken(member.getToken());
+        } else {
+            response.setUserNameTaken(true);
+        }
+        
+        ResponseWrapper<RegisterResultWrapperPayload> wrapper = new ResponseWrapper<RegisterResultWrapperPayload>(response);
+        return wrapper;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "self/device")
@@ -114,6 +114,22 @@ public class MemberController {
         Member member = invokerContext.getMember();
         if (member != null) {
             memberService.sendTestMessage(member);
+        } else {
+            meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+        return responsePayload;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "self/createTestMailbox")
+    @ResponseBody
+    public ResponsePayload createTestMailbox() {
+
+        Meta meta = new Meta();
+        ResponsePayload responsePayload = new ResponsePayload(meta);
+
+        Member member = invokerContext.getMember();
+        if (member != null) {
+            memberService.createTestMailBox();
         } else {
             meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }

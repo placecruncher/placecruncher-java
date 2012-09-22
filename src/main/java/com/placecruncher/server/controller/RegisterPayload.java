@@ -8,6 +8,8 @@ public class RegisterPayload {
     private String email;
     private DevicePayload device;
     
+    private static String USERNAME_REGEX = "^[a-z0-9_-]{3,15}$";
+    
     public String getUserName() {
         return userName;
     }
@@ -30,6 +32,10 @@ public class RegisterPayload {
         }
             
         if (StringUtils.isEmpty(password) || StringUtils.isEmpty(userName) || StringUtils.isEmpty(email)) {
+            throw new IllegalArgumentException();
+        }
+        
+        if (!userName.matches(USERNAME_REGEX)) {
             throw new IllegalArgumentException();
         }
     }
