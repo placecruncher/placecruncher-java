@@ -7,39 +7,47 @@ public class RegisterPayload {
     private String password;
     private String email;
     private DevicePayload device;
-    
+
     private static String USERNAME_REGEX = "^[a-z0-9_-]{3,15}$";
-    
+
     public String getUserName() {
         return userName;
     }
-    
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public void validate() {
         if (device != null) {
             device.validate();
         }
-            
-        if (StringUtils.isEmpty(password) || StringUtils.isEmpty(userName) || StringUtils.isEmpty(email)) {
-            throw new IllegalArgumentException();
+
+        if (StringUtils.isEmpty(password)) {
+            throw new IllegalArgumentException("Missing required field 'password'");
         }
-        
+
+        if (StringUtils.isEmpty(userName)) {
+            throw new IllegalArgumentException("Missing required field 'userName'");
+        }
+
+        if (StringUtils.isEmpty(email)) {
+            throw new IllegalArgumentException("Missing required field 'email'");
+        }
+
         if (!userName.matches(USERNAME_REGEX)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Username contains invalid characters");
         }
     }
-    
+
     public String getEmail() {
         return email;
     }
