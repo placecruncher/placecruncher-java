@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.placecruncher.server.domain.Member;
-import com.placecruncher.server.domain.PropertyBuilder;
 import com.placecruncher.server.domain.Source;
 
 public class MemberDaoTest extends DaoTestCase {
@@ -31,13 +30,9 @@ public class MemberDaoTest extends DaoTestCase {
 
     @Test
     public void findByUserName() {
-        Member m1 = memberFactory.create(new PropertyBuilder()
-        .put("username", "member1")
-        .build());
+        Member m1 = memberFactory.create("username", "member1");
 
-        Member m2 = memberFactory.create(new PropertyBuilder()
-        .put("username", "member2")
-        .build());
+        Member m2 = memberFactory.create("username", "member2");
 
         Assert.assertEquals(m1, memberDao.findByUserName(m1.getUsername()));
         Assert.assertEquals(m2, memberDao.findByUserName(m2.getUsername()));

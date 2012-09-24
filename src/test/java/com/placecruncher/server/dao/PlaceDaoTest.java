@@ -37,9 +37,7 @@ public class PlaceDaoTest extends DaoTestCase {
 
     @Test
     public void createWithSource() {
-        placeFactory.create(new PropertyBuilder()
-          .put("sources[0]", sourceFactory.create())
-          .build());
+        placeFactory.create("sources[0]", sourceFactory.create());
         flush();
     }
 
@@ -48,15 +46,13 @@ public class PlaceDaoTest extends DaoTestCase {
         Source source1 = sourceFactory.create();
         Source source2 = sourceFactory.create();
         Source source3 = sourceFactory.create();
-        Place place1 = placeFactory.create(new PropertyBuilder()
-            .put("sources[0]", source1)
-            .put("sources[1]", source2)
-            .build());
+        Place place1 = placeFactory.create(
+                "sources[0]", source1,
+                "sources[1]", source2);
 
-        Place place2 = placeFactory.create(new PropertyBuilder()
-        .put("sources[0]", source2)
-        .put("sources[1]", source3)
-        .build());
+        Place place2 = placeFactory.create(
+                "sources[0]", source2,
+                "sources[1]", source3);
 
         List<Place> places = placeDao.findBySource(source1);
         Assert.assertEquals(1, places.size());
@@ -84,10 +80,9 @@ public class PlaceDaoTest extends DaoTestCase {
     public void deletePlaceWithSources() {
         Source source1 = sourceFactory.create();
         Source source2 = sourceFactory.create();
-        Place place = placeFactory.create(new PropertyBuilder()
-            .put("sources[0]", source1)
-            .put("sources[1]", source2)
-            .build());
+        Place place = placeFactory.create(
+                "sources[0]", source1,
+                "sources[1]", source2);
 
         flush();
         Assert.assertNotNull(placeDao.get(place.getId()));
@@ -98,10 +93,7 @@ public class PlaceDaoTest extends DaoTestCase {
     @Test
     public void removeSourceFromPlace() {
         Source source = sourceFactory.create();
-        Place place = placeFactory.create(new PropertyBuilder()
-        .put("sources[0]", source)
-        .build());
-
+        Place place = placeFactory.create("sources[0]", source);
         flush();
 
         Assert.assertTrue(placeDao.load(place.getId()).getSources().contains(source));
@@ -113,7 +105,7 @@ public class PlaceDaoTest extends DaoTestCase {
     }
 
     private Place createPlaceWithSources(Source... sources) {
-        PropertyBuilder pb = new PropertyBuilder();
+        PropertyBuilder pb = PropertyBuilder.instance();
         for (int i = 0; i < sources.length; i++) {
             pb.put("sources[" + i + "]", sources[i]);
         }

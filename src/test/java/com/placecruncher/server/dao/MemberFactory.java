@@ -1,5 +1,7 @@
 package com.placecruncher.server.dao;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -8,18 +10,18 @@ import com.placecruncher.server.domain.Member;
 
 @Component
 public class MemberFactory extends AbstractEntityFactory<Member> {
+
     @Autowired
-    private MemberDao memberDao;
-    
-    public MemberDao getDao() { 
-        return memberDao;
+    public MemberFactory(MemberDao dao) {
+        super(dao);
     }
-    
+
     @Override
-    public Member buildDefaultObject(String key) {
+    public Member instance(int id, Map<String, Object> properties) {
         Member member = new Member();
-        member.setUsername(key);
-        member.setPlacecruncherEmail(key);
+        String username = "User" + id;
+        member.setUsername(username);
+        member.setPlacecruncherEmail(username);
         return member;
     }
 }

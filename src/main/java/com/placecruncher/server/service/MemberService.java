@@ -23,7 +23,7 @@ public class MemberService {
 
     @Autowired
     private PlaceDao placeDao;
-    
+
     @Autowired
     private MailGunService mailGunService;
 
@@ -76,11 +76,6 @@ public class MemberService {
         placeDao.removePlaceList(member, source);
     }
 
-    @Transactional
-    public void sendTestMessage(Member member) {
-        member.sendTestMessage();
-    }
-    
     @Transactional
     public void createTestMailBox() {
         mailGunService.createMailBox("davidtest@placecruncher.mailgun.org", "testpassword");

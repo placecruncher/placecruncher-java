@@ -16,6 +16,10 @@ public class PlaceService {
     @Autowired
     private PlaceDao placeDao;
 
+    @Autowired
+    private NotificationService notificationService;
+
+
     @Transactional
     public Place createPlace(PlaceModel model) {
         Place place = new Place();
@@ -45,6 +49,7 @@ public class PlaceService {
     public void addPlaces(Member member, Source source) {
         if (placeDao.findSourcePlaceList(member, source).isEmpty()) {
             placeDao.createPlaceList(source, member);
+            notificationService.sendNotification(member, "Added places from '" + source.getName() + "'");
         }
     }
 

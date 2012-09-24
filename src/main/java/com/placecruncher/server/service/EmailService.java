@@ -1,12 +1,11 @@
 package com.placecruncher.server.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +21,10 @@ import com.placecruncher.server.domain.Source;
 public class EmailService {
     private final Logger log = Logger.getLogger(getClass());
 
+    @Value("${crunch.message}")
+    private String crunchMessage;
+
+
     @Autowired
     private ApprovedEmailDao approvedEmailDao;
 
@@ -30,6 +33,9 @@ public class EmailService {
 
     @Autowired
     private MemberDao memberDao;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Transactional
     public boolean receviceEmail(Email email) {
@@ -65,7 +71,7 @@ public class EmailService {
                 memberDao.addSource(member, source);
             }
             // Notify member
-            member.processEmail(email);
+            notificationService.sendNotification(member, crunchMessage);
 
             accepted = true;
         } else {
@@ -85,14 +91,14 @@ public class EmailService {
                 return member;
             }
         }
-        
+
         if (StringUtils.isNotBlank(email.getSender())) {
             member = memberDao.findByPlacecruncherEmail(email.getFrom());
             if (member != null) {
                 return member;
             }
         }
-        
+
         if (StringUtils.isNotBlank(email.getSender())) {
             ApprovedEmail approvedEmail = approvedEmailDao.findByEmail(email.getSender());
             if (approvedEmail != null) {
@@ -103,7 +109,7 @@ public class EmailService {
         if (member !=null) {
             return member;
         }
-        
+
         if (StringUtils.isNotBlank(email.getFrom())) {
             ApprovedEmail approvedEmail = approvedEmailDao.findByEmail(email.getFrom());
             if (approvedEmail != null) {

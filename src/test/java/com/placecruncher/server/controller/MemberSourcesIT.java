@@ -1,5 +1,6 @@
 package com.placecruncher.server.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -58,6 +59,10 @@ public class MemberSourcesIT extends ApiTestCase {
         return getForObject(PRIVATE_API + "/members/self/places", PlaceModel.LIST_TYPE);
     }
 
+    private List<NotificationModel> getNotifications() {
+        return getForObject(PRIVATE_API + "/members/self/notifications", NotificationModel.LIST_TYPE);
+    }
+
     @Test
     public void addExistingSourceToMember() {
         loginAsMember();
@@ -74,6 +79,9 @@ public class MemberSourcesIT extends ApiTestCase {
         // Member does not have test places
         Assert.assertFalse(CollectionUtils.containsAny(testPlaces, getPlaces()));
 
+        // DSDXXX need to improve the notifications API
+        Collection<NotificationModel> existingNotifications = getNotifications();
+
         // Add source to member
         addSource(sourceUrl);
 
@@ -82,6 +90,11 @@ public class MemberSourcesIT extends ApiTestCase {
 
         // Member has places associated with source
         Assert.assertTrue(CollectionUtils.isSubCollection(testPlaces, getPlaces()));
+
+        // Member received a notification
+        @SuppressWarnings("unchecked")
+        Collection<NotificationModel> notifications = CollectionUtils.removeAll(existingNotifications, getNotifications());
+        Assert.assertFalse(notifications.isEmpty());
 
     }
 

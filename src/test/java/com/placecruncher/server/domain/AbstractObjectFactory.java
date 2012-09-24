@@ -7,54 +7,61 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 
 public abstract class AbstractObjectFactory<T> implements ObjectFactory<T> {
-    
+
     private int uniqueKeyCounter = 0;
 
     /**
-     * Create a unique key for objects in this factory using the simple class name.
-     * @return A unique key.
+     * Override this method to build a default instance of the object type.
+     * @param id A unique value within the factory that can be used to generate default property values.
+     * @param properties A map of property name/value pairs which override default values.
+     * @return A default object.
      */
-    public final String uniqueKey() { 
-        return uniqueKey(getClass().getSimpleName());
+    protected abstract T instance(int id, Map<String, Object> properties);
+
+    /**
+     * Get the prefix name associated with the factory.
+     * @return A prefix name.
+     */
+    protected final String prefix() {
+      return getClass().getSimpleName();
     }
 
     /**
-     * Create a unique key for objects in this factory using the given prefix.
-     * @param prefix The prefix of the key.
-     * @return A unique key.
-     */
-    public String uniqueKey(String prefix) { 
-        return prefix + (uniqueKeyCounter++);
-    }
-    
-    /**
-     * Convenience method builds an object with an empty set of custom property values.
+     * Convenience method builds an object with default set of values.
      * @return A default object created by the factory.
      */
     public T build() {
-        Map<String, Object> properties = Collections.emptyMap();
-        return build(properties);
+      Map<String, Object> properties = Collections.emptyMap();
+      return build(properties);
     }
-    
+
     /**
-     * Override this method to build a default instance of the object type.
-     * @param key A unique key for the object.
-     * @return A default object.
+     * Build an object overriding any default properties with those provided.
+     * @param name The first property name.
+     * @param value The the first property value.
+     * @param properties An arbitrary list of String, Object, String, Object.
+     * @return A customized object created by the factory.
      */
-    public abstract T buildDefaultObject(String key);
-    
-    public T build(Map<String, Object> properties) {
-        String key = uniqueKey();
-        T object = buildDefaultObject(key);
-        if (properties != null) {
-            populate(object, properties);
-        }
-        return object;
+    public T build(String name, Object value, Object... properties) {
+      return build(PropertyBuilder.build(name, value, properties));
     }
-    
-    
+
+    /**
+     * Build an object overriding any default properties with those provided.
+     * @param properties Map of property name/value pairs.
+     * @return A customized object created by the factory.
+     */
+    public T build(Map<String, Object> properties) {
+      T object = instance(uniqueKeyCounter++, properties);
+      if (properties != null) {
+        populate(object, properties);
+      }
+      return object;
+    }
+
+
     private void populate(T object, Map<String, Object> properties) {
-        BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(object);
-        wrapper.setPropertyValues(properties);
-	}
+      BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(object);
+      wrapper.setPropertyValues(properties);
+    }
 }

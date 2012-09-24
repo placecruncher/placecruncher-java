@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.placecruncher.server.application.Constants;
@@ -45,14 +44,11 @@ public class Member extends SuperEntity {
     private String token;
     private String email;
     private String placecruncherEmail;
-    
+
     private MemberRole memberRole = MemberRole.ROLE_USER;
 
     private List<ApprovedEmail> approvedEmails = new ArrayList<ApprovedEmail>();
     private List<Device> devices = new ArrayList<Device>();
-
-    @Value("${crunch.message}")
-    private String crunchMessage;
 
     @Autowired
     private MemberDao memberDao;
@@ -152,20 +148,12 @@ public class Member extends SuperEntity {
         this.approvedEmails = approvedEmails;
     }
 
-    public void processEmail(Email email) {
-        notifyDevices(crunchMessage.trim());
-    }
-
     public void notifyDevices(String msg) {
         LOGGER.debug("Sending message '" + msg + "' to user " + getUsername());
         for (Device device : devices) {
             LOGGER.debug("Sending message '" + msg + "' to device " + device);
             device.sendMessage(msg);
         }
-    }
-
-    public void sendTestMessage() {
-        notifyDevices(crunchMessage.trim());
     }
 
     @JsonIgnore
@@ -178,7 +166,7 @@ public class Member extends SuperEntity {
         this.devices = devices;
     }
 
-    
+
     public String getPlacecruncherEmail() {
         return placecruncherEmail;
     }

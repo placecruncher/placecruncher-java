@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.application.InvokerContext;
 import com.placecruncher.server.dao.MemberDao;
+import com.placecruncher.server.dao.NotificationDao;
 import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Device;
@@ -31,6 +32,7 @@ import com.placecruncher.server.domain.SourceModel;
 import com.placecruncher.server.domain.SourcePlaceList;
 import com.placecruncher.server.exception.ResourceNotFoundException;
 import com.placecruncher.server.service.MemberService;
+import com.placecruncher.server.service.NotificationService;
 import com.placecruncher.server.service.PlaceService;
 
 @Controller
@@ -40,6 +42,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private PlaceService placeService;
@@ -52,6 +57,9 @@ public class MemberController {
 
     @Autowired
     private SourceDao sourceDao;
+
+    @Autowired
+    private NotificationDao notificationDao;
 
     @Autowired
     private InvokerContext invokerContext;
@@ -75,7 +83,7 @@ public class MemberController {
         } else {
             response.setUserNameTaken(true);
         }
-        
+
         ResponseWrapper<RegisterResultWrapperPayload> wrapper = new ResponseWrapper<RegisterResultWrapperPayload>(response);
         return wrapper;
     }
@@ -113,13 +121,13 @@ public class MemberController {
 
         Member member = invokerContext.getMember();
         if (member != null) {
-            memberService.sendTestMessage(member);
+            notificationService.sendNotification(member, "test message");
         } else {
             meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
         return responsePayload;
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = "self/createTestMailbox")
     @ResponseBody
     public ResponsePayload createTestMailbox() {
@@ -176,6 +184,15 @@ public class MemberController {
         Member self = Member.currentMember();
         Collection<PlaceModel> places = PlaceModel.transform(placeDao.findByMember(self));
         return new ResponseWrapper<Collection<PlaceModel>>(places);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(method = RequestMethod.GET, value = "self/notifications")
+    @ResponseBody
+    public ResponseWrapper<List<NotificationModel>> myNotifications() {
+        Member member = Member.currentMember();
+        List<NotificationModel> notifications = NotificationModel.transform(notificationDao.findByMember(member));
+        return new ResponseWrapper<List<NotificationModel>>(notifications);
     }
 
     @PreAuthorize("isAuthenticated()")

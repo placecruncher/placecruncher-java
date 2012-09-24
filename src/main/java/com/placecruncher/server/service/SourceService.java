@@ -33,6 +33,9 @@ public class SourceService {
     @Autowired
     private PlaceService placeService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Transactional
     public Source createSource(String name, String url) {
         Source source = new Source();
@@ -55,7 +58,7 @@ public class SourceService {
                 // Add place list to member
                 placeService.addPlaces(member,  source);
                 // Notify the member
-                member.notifyDevices("I haz crunchd da url '" + source.getUrl() + "'");
+                notificationService.sendNotification(member, "I haz crunchd da url '" + source.getUrl() + "'");
             }
         }
         return source;

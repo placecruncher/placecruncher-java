@@ -8,7 +8,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.placecruncher.server.domain.PropertyBuilder;
 import com.placecruncher.server.domain.Source;
 
 public class SourceDaoTest extends DaoTestCase {
@@ -28,17 +27,11 @@ public class SourceDaoTest extends DaoTestCase {
 
     @Test
     public void findByStatus() {
-        Source open = sourceFactory.create(new PropertyBuilder()
-            .put("status", Source.StatusEnum.OPEN)
-            .build());
+        Source open = sourceFactory.create("status", Source.StatusEnum.OPEN);
 
-        Source inProgress = sourceFactory.create(new PropertyBuilder()
-            .put("status", Source.StatusEnum.IN_PROGRESS)
-            .build());
+        Source inProgress = sourceFactory.create("status", Source.StatusEnum.IN_PROGRESS);
 
-        Source closed = sourceFactory.create(new PropertyBuilder()
-            .put("status", Source.StatusEnum.CLOSED)
-            .build());
+        Source closed = sourceFactory.create("status", Source.StatusEnum.CLOSED);
 
         List<Source> sources = sourceDao.findByStatus(Source.StatusEnum.OPEN);
         Assert.assertEquals(Collections.singletonList(open), sources);

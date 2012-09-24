@@ -3,6 +3,7 @@ package com.placecruncher.server.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -41,7 +42,7 @@ public class AbstractObjectFactoryTest {
     class TestObjectFactory extends AbstractObjectFactory<TestObject> {
 
         @Override
-        public TestObject buildDefaultObject(String key) {
+        public TestObject instance(int id, Map<String, Object> properties) {
             TestObject object = new TestObject();
             return object;
         }
@@ -57,9 +58,7 @@ public class AbstractObjectFactoryTest {
     @Test
     public void setStringProperty() {
         String stringValue = "stringValue";
-        TestObject o = factory.build(new PropertyBuilder()
-        .put("stringProperty", stringValue)
-        .build());
+        TestObject o = factory.build("stringProperty", stringValue);
 
         Assert.assertEquals(stringValue, o.getStringProperty());
     }
@@ -67,9 +66,7 @@ public class AbstractObjectFactoryTest {
     @Test
     public void setDateProperty() {
         Date value = new Date();
-        TestObject o = factory.build(new PropertyBuilder()
-        .put("dateProperty", value)
-        .build());
+        TestObject o = factory.build("dateProperty", value);
 
         Assert.assertEquals(value, o.getDateProperty());
     }
@@ -79,10 +76,9 @@ public class AbstractObjectFactoryTest {
         String value1 = "value1";
         String value2 = "value2";
 
-        TestObject o = factory.build(new PropertyBuilder()
-        .put("listProperty[0]", value1)
-        .put("listProperty[2]", value2)
-        .build());
+        TestObject o = factory.build(
+                "listProperty[0]", value1,
+                "listProperty[2]", value2);
 
         Assert.assertEquals(value1, o.getListProperty().get(0));
         Assert.assertEquals(value2, o.getListProperty().get(2));
