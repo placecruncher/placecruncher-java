@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.placecruncher.server.dao.MemberDao;
 import com.placecruncher.server.dao.PlaceDao;
+import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Device;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.MemberRole;
@@ -51,6 +52,11 @@ public class MemberService {
             mailGunService.createMailBox(userName, password);
             member.setPlacecruncherEmail(userName + "@placecruncher.mailgun.org");
             member.saveOrUpdate();
+            
+            ApprovedEmail approvedEmail = new ApprovedEmail();
+            approvedEmail.setEmail(email);
+            approvedEmail.setMember(member);
+            approvedEmail.saveOrUpdate();
 
             if (device != null) {
                 device.setMember(member);

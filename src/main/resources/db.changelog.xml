@@ -388,5 +388,11 @@
             referencedTableName="MEMBER" referencedColumnNames="id" />
 
     </changeSet>
+    
+    <changeSet id="20120925_add_email_recipient" author="djones">
+        <addColumn tableName="EMAIL">
+          <column name="recipient" type="VARCHAR(256)"></column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

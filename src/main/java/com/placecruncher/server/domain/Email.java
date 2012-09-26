@@ -54,6 +54,8 @@ public class Email extends SuperEntity {
     private String bodyHtml;
     private String strippedHtml;
     private long attachementCount;
+    private String recipient;
+    
     private int timestamp;
 
     @Transient
@@ -183,6 +185,14 @@ public class Email extends SuperEntity {
 
         boolean result = StringUtils.equals(newSignature, signature);
         return result;
+    }
+    
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public void store() {
