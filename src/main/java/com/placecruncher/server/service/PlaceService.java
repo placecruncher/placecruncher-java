@@ -1,5 +1,6 @@
 package com.placecruncher.server.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,16 +10,17 @@ import com.placecruncher.server.dao.PlaceDao;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.domain.Source;
+import com.placecruncher.server.domain.SourceModel;
 
 @Service
 public class PlaceService {
+    private final Logger log = Logger.getLogger(this.getClass());
 
     @Autowired
     private PlaceDao placeDao;
 
     @Autowired
     private NotificationService notificationService;
-
 
     @Transactional
     public Place createPlace(PlaceModel model) {
@@ -47,9 +49,16 @@ public class PlaceService {
 
     @Transactional
     public void addPlaces(Member member, Source source) {
-        if (placeDao.findSourcePlaceList(member, source).isEmpty()) {
+        // Right now we only allow a source to be added to a member once
+        if (placeDao.findSourceByMember(member, source) == null) {
             placeDao.createPlaceList(source, member);
-            notificationService.sendNotification(member, "Added places from '" + source.getName() + "'");
+
+            // Notify the member
+            NewPlaceListMessage notification = new NewPlaceListMessage();
+            notification.setSource(new SourceModel(source));
+            notificationService.sendNotification(member, notification);
+        } else {
+            log.warn("Source '" + source.getName() + "' is already associated with member '" + member.getUsername() + "'");
         }
     }
 

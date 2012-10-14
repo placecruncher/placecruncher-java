@@ -39,7 +39,11 @@
   <bean
     class="com.placecruncher.server.controller.PlacecruncherHandlerExceptionResolver" />
 
-  <mvc:annotation-driven />
+  <mvc:annotation-driven>
+  	<mvc:message-converters register-defaults="true">
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
   <security:global-method-security pre-post-annotations="enabled"/>
 
   <mvc:view-controller path="/" view-name="home" />
@@ -78,7 +82,7 @@
     <property name="defaultViews">
       <list>
         <bean
-          class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+          class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
       </list>
     </property>
   </bean>

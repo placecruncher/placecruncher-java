@@ -16,6 +16,7 @@ import com.placecruncher.server.domain.ApprovedEmail;
 import com.placecruncher.server.domain.Email;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Source;
+import com.placecruncher.server.domain.SourceModel;
 
 @Service
 public class EmailService {
@@ -50,6 +51,8 @@ public class EmailService {
             // Store email
             // email.store();
 
+            NewSourceMessage notification = new NewSourceMessage(email.getSubject());
+
             // Extract URLs from email
             Set<String> urls = email.extractUrls();
 
@@ -64,6 +67,7 @@ public class EmailService {
                     source.setUrl(url);
                     sourceDao.persist(source);
                 }
+                notification.addSource(new SourceModel(source));
 
                 log.info("Linking member " + member.getUsername() + " to source " + source);
 
@@ -71,7 +75,7 @@ public class EmailService {
                 memberDao.addSource(member, source);
             }
             // Notify member
-            notificationService.sendNotification(member, crunchMessage);
+            notificationService.sendNotification(member, notification);
 
             accepted = true;
         } else {

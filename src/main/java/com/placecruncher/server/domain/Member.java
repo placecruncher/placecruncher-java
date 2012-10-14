@@ -18,11 +18,11 @@ import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.placecruncher.server.application.Constants;
 import com.placecruncher.server.controller.MemberController;
 import com.placecruncher.server.dao.MemberDao;
@@ -148,11 +148,12 @@ public class Member extends SuperEntity {
         this.approvedEmails = approvedEmails;
     }
 
-    public void notifyDevices(String msg) {
-        LOGGER.debug("Sending message '" + msg + "' to user " + getUsername());
+    public void notifyDevices(Notification notification) {
+        String json = notification.getJson();
+        LOGGER.debug("Sending message '" + json + "' to user " + getUsername());
         for (Device device : devices) {
-            LOGGER.debug("Sending message '" + msg + "' to device " + device);
-            device.sendMessage(msg);
+            LOGGER.debug("Sending message '" + json + "' to device " + device);
+            device.sendMessage(json);
         }
     }
 

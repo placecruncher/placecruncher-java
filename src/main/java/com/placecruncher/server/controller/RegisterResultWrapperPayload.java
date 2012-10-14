@@ -1,8 +1,9 @@
 package com.placecruncher.server.controller;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 public class RegisterResultWrapperPayload {
     private boolean userNameTaken;
     private String token;

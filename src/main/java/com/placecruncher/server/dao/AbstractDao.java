@@ -167,4 +167,7 @@ public class AbstractDao<I extends Serializable, T extends Entity<I>> {
         return entities;
     }
 
+    public void evict(T entity) {
+        getCurrentSession().evict(entity);
+    }
 }

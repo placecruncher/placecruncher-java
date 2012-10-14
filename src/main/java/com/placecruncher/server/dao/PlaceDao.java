@@ -2,9 +2,7 @@ package com.placecruncher.server.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.placecruncher.server.domain.Member;
@@ -67,28 +65,31 @@ public class PlaceDao extends AbstractDao<Integer, Place> {
     }
 
     public void removePlaceList(Member member, Source source) {
-        for (SourcePlaceList placeList : findSourcePlaceList(member, source)) {
-            Query query = createQuery("delete from PlaceRef pr where pr.member = :member and pr.placeList = :placeList");
-            query.setParameter("member", member);
-            query.setParameter("placeList", placeList);
-            query.executeUpdate();
+        // Delete all place references for the member that reference the source
+        Query query = createQuery("delete from PlaceRef pr where pr.placeList in (from SourcePlaceList as pl where pl.member = :member and pl.source = :source)");
+        query.setParameter("member", member);
+        query.setParameter("source", source);
+        query.executeUpdate();
 
-            getCurrentSession().delete(placeList);
-        }
+        // Delete all place lists for the member that reference the source
+        query = createQuery("delete from SourcePlaceList pl where pl.member = :member and pl.source = :source");
+        query.setParameter("member", member);
+        query.setParameter("source", source);
+        query.executeUpdate();
+    }
+
+    public Source findSourceByMember(Member member, Source source) {
+        Query query = createQuery("select distinct pl.source from SourcePlaceList pl where pl.member = :member and pl.source = :source");
+        query.setParameter("member", member);
+        query.setParameter("source", source);
+        return (Source)query.uniqueResult();
     }
 
     @SuppressWarnings("unchecked")
-    // DSDXXX build a filter and pagination class instead of passing in filter parameters
-    // DSDXXX Should place lists be unique based on source?  I don't think this should be a list or maybe it should
-    public List<SourcePlaceList> findSourcePlaceList(Member member, Source source) {
-      Criteria criteria = getCurrentSession().createCriteria(SourcePlaceList.class);
-      criteria.add(Restrictions.eq("member", member));
-      if (source != null) {
-          criteria.add(Restrictions.eq("source", source));
-      }
-      return criteria.list();
+    public List<Source> findSourcesByMember(Member member) {
+        Query query = createQuery("select distinct pl.source from SourcePlaceList pl where pl.member = :member");
+        query.setParameter("member", member);
+        return (List<Source>)query.list();
     }
-
-
 
 }

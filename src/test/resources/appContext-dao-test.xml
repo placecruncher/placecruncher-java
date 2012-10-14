@@ -12,5 +12,7 @@
         <context:include-filter type="assignable" expression="com.placecruncher.server.domain.ObjectFactory"/>
     </context:component-scan>
 
+    <context:spring-configured/>
+
 </beans>
 

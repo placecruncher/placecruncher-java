@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.Transformer;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.placecruncher.server.domain.Place;
 import com.placecruncher.server.util.TransformUtils;
 

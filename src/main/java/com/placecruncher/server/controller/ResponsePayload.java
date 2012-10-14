@@ -1,9 +1,10 @@
 // Copyright 2011 INQ Mobile. All rights reserved.
 package com.placecruncher.server.controller;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 public class ResponsePayload {
     private Meta meta;
     private Response response;
@@ -11,7 +12,7 @@ public class ResponsePayload {
     public ResponsePayload() {
         this.meta = new Meta();
     }
-    
+
     public ResponsePayload(Meta meta) {
         this.meta = meta;
     }

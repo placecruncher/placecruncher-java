@@ -3,14 +3,14 @@ package com.placecruncher.server.controller;
 import junit.framework.Assert;
 
 import org.apache.http.HttpStatus;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.placecruncher.server.application.data.SecurityTestData;
 import com.placecruncher.server.test.ApiClientRequestContext;
 

@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.Transformer;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.placecruncher.server.domain.NotificationMessage;
 import com.placecruncher.server.domain.Notification;
 import com.placecruncher.server.util.TransformUtils;
 
@@ -15,7 +16,8 @@ public class NotificationModel extends EntityModel {
     public static final TypeReference<List<NotificationModel>> LIST_TYPE = new TypeReference<List<NotificationModel>>(){};
 
     private Integer id;
-    private String message;
+    private String text;
+    private NotificationMessage message;
     private Date created;
 
     public static List<NotificationModel> transform(List<Notification> notifications) {
@@ -41,11 +43,20 @@ public class NotificationModel extends EntityModel {
         this.id = id;
     }
 
-    public String getMessage() {
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public NotificationMessage getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(NotificationMessage message) {
         this.message = message;
     }
 

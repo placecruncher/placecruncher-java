@@ -47,6 +47,6 @@
     </bean>
     <bean id="requestContextTarget" class="com.placecruncher.server.test.ApiClientRequestContextImpl" scope="prototype"/>
 
-    <bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
 
 </beans>

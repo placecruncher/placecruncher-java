@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.placecruncher.server.application.Constants;
-import com.placecruncher.server.dao.NotificationDao;
+import com.placecruncher.server.exception.PlacecruncherRuntimeException;
 
 @Entity
 @Table(name="NOTIFICATION")
@@ -21,8 +24,15 @@ import com.placecruncher.server.dao.NotificationDao;
 public class Notification extends SuperEntity {
 
     private Integer id;
+
     private Member member;
-    private String message;
+
+    private String json;
+
+    private NotificationMessage message;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,13 +55,43 @@ public class Notification extends SuperEntity {
         this.member = member;
     }
 
-    @Column(nullable = false, length = Constants.MESSAGE_MAXLEN)
-    public String getMessage() {
+    @Column(name="message", nullable = false, length = Constants.MESSAGE_MAXLEN)
+    protected String getJson() {
+        return json;
+    }
+    protected void setJson(String json) {
+        this.json = json;
+    }
+
+
+    @Transient
+    public NotificationMessage getMessage() {
+        if (message != null) {
+            return message;
+        }
+
+        if (json != null) {
+            try {
+                message = objectMapper.readValue(json, new TypeReference<NotificationMessage>(){});
+            } catch (Exception e) {
+                throw new PlacecruncherRuntimeException("Unable to deserialize NotificationMessage, " + e.getMessage(), e);
+            }
+        }
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(NotificationMessage message) {
         this.message = message;
+        if (message != null) {
+            try {
+                this.json = objectMapper.writeValueAsString(message);
+            } catch (Exception e) {
+                throw new PlacecruncherRuntimeException("Unable to serialize NotificationMessage, " + e.getMessage(), e);
+            }
+        } else {
+            this.json = null;
+        }
     }
+
 
 }

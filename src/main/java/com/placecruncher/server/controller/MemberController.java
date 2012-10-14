@@ -27,9 +27,9 @@ import com.placecruncher.server.dao.SourceDao;
 import com.placecruncher.server.domain.Device;
 import com.placecruncher.server.domain.DeviceType;
 import com.placecruncher.server.domain.Member;
+import com.placecruncher.server.domain.SimpleNotificationMessage;
 import com.placecruncher.server.domain.Source;
 import com.placecruncher.server.domain.SourceModel;
-import com.placecruncher.server.domain.SourcePlaceList;
 import com.placecruncher.server.exception.ResourceNotFoundException;
 import com.placecruncher.server.service.MemberService;
 import com.placecruncher.server.service.NotificationService;
@@ -121,7 +121,7 @@ public class MemberController {
 
         Member member = invokerContext.getMember();
         if (member != null) {
-            notificationService.sendNotification(member, "test message");
+            notificationService.sendNotification(member, new SimpleNotificationMessage("test message"));
         } else {
             meta.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         }
@@ -201,15 +201,22 @@ public class MemberController {
             @RequestParam(value="url", required=false) String url) {
         Member self = Member.currentMember();
 
-        Source source = null;
+        List<Source> sources = new ArrayList<Source>();
+
         if (url != null) {
-            source = sourceDao.findByUrl(url);
+            // Find sources associated with member that match the given URL
+            Source source = sourceDao.findByUrl(url);
+            if (source != null) {
+                // There is a source with the given URL, see if the member references it
+                if (placeDao.findSourceByMember(self, source) != null) {
+                    sources.add(source);
+                }
+            }
+        } else {
+            // Find all sources associated with the member
+            sources.addAll(placeDao.findSourcesByMember(self));
         }
 
-        List<Source> sources = new ArrayList<Source>();
-        for( SourcePlaceList list : placeDao.findSourcePlaceList(self, source)) {
-            sources.add(list.getSource());
-        }
         return new ResponseWrapper<List<SourceModel>>(SourceModel.transform(sources));
     }
 
@@ -218,12 +225,32 @@ public class MemberController {
     public @ResponseBody ResponseWrapper<SourceModel> getSource(@PathVariable("id") int id) {
         Member self = Member.currentMember();
         Source source = sourceDao.fetch(id);
-        if (placeDao.findSourcePlaceList(self, source).isEmpty()) {
+
+        if (placeDao.findSourceByMember(self, source) == null) {
             throw new ResourceNotFoundException("Source " + id + " not associated with member " + self.getUsername());
 
         }
         return new ResponseWrapper<SourceModel>(new SourceModel(source));
     }
+
+//    @PreAuthorize("isAuthenticated()")
+//    @RequestMapping(value="self/sources/{id}/places", method=RequestMethod.GET, produces=Constants.JSON_CONTENT)
+//    public @ResponseBody ResponseWrapper<Collection<PlaceModel>> getPlacesForSource(@PathVariable("id") int id) {
+//        Member self = Member.currentMember();
+//        Source source = sourceDao.fetch(id);
+//
+//        PlaceList placeList = placeDao.findSourcePlaceList(self, source).isEmpty()
+//        if () {
+//            throw new ResourceNotFoundException("Source " + id + " not associated with member " + self.getUsername());
+//
+//        }
+//        return new ResponseWrapper<SourceModel>(new SourceModel(source));
+//        Member self = Member.currentMember();
+//        Collection<PlaceModel> places = PlaceModel.transform(placeDao.findByMember(self));
+//        return new ResponseWrapper<Collection<PlaceModel>>(places);
+//
+//    }
+
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value="self/sources", method=RequestMethod.POST, produces=Constants.JSON_CONTENT)

@@ -3,19 +3,20 @@ package com.placecruncher.server.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 public class Meta {
     private int code = HttpServletResponse.SC_OK;
-    
-    private Integer errorCode;
-    
-    private String errorMessage;
-    
 
-    public Meta() { 
+    private Integer errorCode;
+
+    private String errorMessage;
+
+
+    public Meta() {
     }
 
     public int getCode() {

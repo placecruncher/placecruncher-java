@@ -33,9 +33,6 @@ public class SourceService {
     @Autowired
     private PlaceService placeService;
 
-    @Autowired
-    private NotificationService notificationService;
-
     @Transactional
     public Source createSource(String name, String url) {
         Source source = new Source();
@@ -57,8 +54,6 @@ public class SourceService {
             for (Member member : memberDao.findBySource(source)) {
                 // Add place list to member
                 placeService.addPlaces(member,  source);
-                // Notify the member
-                notificationService.sendNotification(member, "I haz crunchd da url '" + source.getUrl() + "'");
             }
         }
         return source;

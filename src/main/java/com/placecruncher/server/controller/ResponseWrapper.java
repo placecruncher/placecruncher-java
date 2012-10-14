@@ -1,9 +1,10 @@
 package com.placecruncher.server.controller;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 // DSDXXX Try to get rid of this and have the ObjectMapper generate the Meta section, then we can return POJOS
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 public class ResponseWrapper<T> {
     private Meta meta = new Meta();
     private T response;

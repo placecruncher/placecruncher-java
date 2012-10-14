@@ -181,7 +181,7 @@ public class PlaceDaoTest extends DaoTestCase {
     }
 
     @Test
-    public void findPlaceList() {
+    public void findSourceByMember() {
         Member m1 = memberFactory.create();
         Member m2 = memberFactory.create();
 
@@ -190,14 +190,34 @@ public class PlaceDaoTest extends DaoTestCase {
         createPlaceWithSources(s1);
         createPlaceWithSources(s2);
 
-        PlaceList l1 = placeDao.createPlaceList(s1, m1);
-        PlaceList l2 = placeDao.createPlaceList(s2, m2);
+        placeDao.createPlaceList(s1, m1);
+        placeDao.createPlaceList(s2, m2);
 
-        Assert.assertTrue(CollectionUtils.isEqualCollection(placeDao.findSourcePlaceList(m1, s1), Arrays.asList(l1)));
-        Assert.assertTrue(placeDao.findSourcePlaceList(m1, s2).isEmpty());
+        Assert.assertNotNull(placeDao.findSourceByMember(m1, s1));
+        Assert.assertNull(placeDao.findSourceByMember(m1, s2));
 
-        Assert.assertTrue(CollectionUtils.isEqualCollection(placeDao.findSourcePlaceList(m2, s2), Arrays.asList(l2)));
-        Assert.assertTrue(placeDao.findSourcePlaceList(m2, s1).isEmpty());
+        Assert.assertNotNull(placeDao.findSourceByMember(m2, s2));
+        Assert.assertNull(placeDao.findSourceByMember(m2, s1));
+
+    }
+
+    @Test
+    public void findSourcesByMember() {
+        Member m1 = memberFactory.create();
+        Member m2 = memberFactory.create();
+
+        Source s1 = sourceFactory.create();
+        Source s2 = sourceFactory.create();
+
+        createPlaceWithSources(s1);
+        createPlaceWithSources(s2);
+
+        placeDao.createPlaceList(s1, m1);
+        placeDao.createPlaceList(s2, m1);
+        placeDao.createPlaceList(s2, m2);
+
+        Assert.assertTrue(CollectionUtils.isEqualCollection(placeDao.findSourcesByMember(m1), Arrays.asList(s1, s2)));
+        Assert.assertTrue(CollectionUtils.isEqualCollection(placeDao.findSourcesByMember(m2), Arrays.asList(s2)));
     }
 
 }

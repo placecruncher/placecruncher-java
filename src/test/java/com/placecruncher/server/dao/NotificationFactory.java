@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.placecruncher.server.domain.AbstractEntityFactory;
 import com.placecruncher.server.domain.Member;
 import com.placecruncher.server.domain.Notification;
+import com.placecruncher.server.domain.SimpleNotificationMessage;
 
 @Component
 public class NotificationFactory extends AbstractEntityFactory<Notification> {
@@ -23,7 +24,7 @@ public class NotificationFactory extends AbstractEntityFactory<Notification> {
     @Override
     public Notification instance(int id, Map<String, Object> properties) {
         Notification instance = new Notification();
-        instance.setMessage("Test notification " + id);
+        instance.setMessage(new SimpleNotificationMessage("Test Notification " + id));
 
         Member member = (Member)properties.get("member");
         if (member == null) {

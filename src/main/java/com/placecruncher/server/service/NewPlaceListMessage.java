@@ -16,7 +16,7 @@ public class NewPlaceListMessage extends NotificationMessage {
 
     @Override
     public String getText() {
-        return "New places have been added from '" + source.getName() + "'";
+        return "New places have been added from '" + (source == null ? "null" : source.getName()) + "'";
     }
 
 

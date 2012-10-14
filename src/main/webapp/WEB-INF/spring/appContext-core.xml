@@ -46,6 +46,8 @@
         </property>
     </bean>
 
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+
     <beans profile="test">
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="order" value="0"/>
