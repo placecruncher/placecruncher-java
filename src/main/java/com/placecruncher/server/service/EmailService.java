@@ -63,6 +63,8 @@ public class EmailService {
                     source.setTitle(email.getSubject());
                     source.setUrl(url);
                     sourceDao.persist(source);
+                    source.scrape();
+                    sourceDao.saveOrUpdate(source);
                 }
 
                 log.info("Linking member " + member.getUsername() + " to source " + source);

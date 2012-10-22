@@ -252,12 +252,8 @@ public class Email extends SuperEntity {
 
     @Override
     public String toString() {
-        return "Email [id=" + id + ", sender=" + sender + ", from=" + from
-                + ", subject=" + subject + ", bodyPlain=" + bodyPlain
-                + ", strippedText=" + strippedText + ", strippedSignature="
-                + strippedSignature + ", bodyHtml=" + bodyHtml
-                + ", strippedHtml=" + strippedHtml + ", attachementCount="
-                + attachementCount + ", timestamp=" + timestamp + "]";
+        return "Email [id=" + id + ", sender=" + sender + ", from=" + from + ", subject=" + subject + ", bodyPlain=" + bodyPlain + ", strippedText=" + strippedText + ", strippedSignature=" + strippedSignature + ", bodyHtml=" + bodyHtml
+                + ", strippedHtml=" + strippedHtml + ", attachementCount=" + attachementCount + ", recipient=" + recipient + "]";
     }
 
 
