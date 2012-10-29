@@ -66,6 +66,8 @@ public class EmailService {
                     source.setTitle(email.getSubject());
                     source.setUrl(url);
                     sourceDao.persist(source);
+                    source.scrape();
+                    sourceDao.saveOrUpdate(source);
                 }
                 notification.addSource(new SourceModel(source));
 
@@ -89,6 +91,17 @@ public class EmailService {
     public Member findMember(Email email) {
         Member member = null;
 
+        member = checkSenderAndFrom(email);
+        
+        if (member == null) {
+            member = checkRecipient(email);
+        }
+        
+        return member;
+    }
+
+    private Member checkSenderAndFrom(Email email) {
+        Member member = null;
         if (StringUtils.isNotBlank(email.getSender())) {
             member = memberDao.findByPlacecruncherEmail(email.getSender());
             if (member != null) {
@@ -96,7 +109,7 @@ public class EmailService {
             }
         }
 
-        if (StringUtils.isNotBlank(email.getSender())) {
+        if (StringUtils.isNotBlank(email.getFrom())) {
             member = memberDao.findByPlacecruncherEmail(email.getFrom());
             if (member != null) {
                 return member;
@@ -108,10 +121,9 @@ public class EmailService {
             if (approvedEmail != null) {
                 member = approvedEmail.getMember();
             }
-        }
-
-        if (member !=null) {
-            return member;
+            if (member !=null) {
+                return member;
+            }
         }
 
         if (StringUtils.isNotBlank(email.getFrom())) {
@@ -119,6 +131,17 @@ public class EmailService {
             if (approvedEmail != null) {
                 member = approvedEmail.getMember();
             }
+            if (member !=null) {
+                return member;
+            }
+        }
+        return member;
+    }
+    
+    private Member checkRecipient(Email email) {
+        Member member = null;
+        if (StringUtils.isNotBlank(email.getRecipient())) {
+            member = memberDao.findByPlacecruncherEmail(email.getRecipient());
         }
         return member;
     }

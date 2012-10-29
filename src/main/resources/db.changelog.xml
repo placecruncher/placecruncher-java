@@ -388,5 +388,30 @@
             referencedTableName="MEMBER" referencedColumnNames="id" />
 
     </changeSet>
+    
+    <changeSet id="20120925_add_email_recipient" author="djones">
+        <addColumn tableName="EMAIL">
+          <column name="recipient" type="VARCHAR(256)"></column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="20121021_source_meta" author="djones">
+      <createTable tableName="SOURCE_META">
+          <column name="id" type="BIGINT" ><constraints primaryKey="true" nullable="false" /></column>
+          <column name="created" type="TIMESTAMP"><constraints nullable="false"/></column>
+          <column name="updated" type="TIMESTAMP"></column>
+          <column name="version" type="BIGINT"></column>
+          <column name="name" type="VARCHAR(4096)"><constraints nullable="false"/></column>
+          <column name="value" type="VARCHAR(4096)"><constraints nullable="false"/></column>
+          <column name="sourceId" type="BIGINT"><constraints nullable="false"/></column>
+      </createTable>
+
+      <addAutoIncrement tableName="SOURCE_META" columnName="id" columnDataType="bigint" />
+
+      <addForeignKeyConstraint constraintName="FkSourceMetaSource"
+            baseTableName="SOURCE_META" baseColumnNames="sourceId"
+            referencedTableName="SOURCE" referencedColumnNames="id" />
+
+    </changeSet>
 
 </databaseChangeLog>

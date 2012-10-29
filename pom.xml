@@ -388,14 +388,19 @@
             <artifactId>swagger-core_2.9.1</artifactId>
             <version>1.1.0</version>
         </dependency>
-
-
+        
         <dependency>
             <groupId>com.google.android.gcm</groupId>
             <artifactId>gcm-server</artifactId>
             <version>1.0.2</version>
         </dependency>
 
+        <dependency>
+            <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.1</version>
+         </dependency>
     </dependencies>
 
     <build>

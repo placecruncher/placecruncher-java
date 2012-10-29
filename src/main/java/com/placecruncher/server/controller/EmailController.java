@@ -56,7 +56,11 @@ public class EmailController {
             String bodyHtml = httpServletRequest.getParameter("body-html");
             String strippedHtml = httpServletRequest.getParameter("stripped-html");
             String attachmentCount = httpServletRequest.getParameter("attachment-count");
+            String recipient = httpServletRequest.getParameter("recipient");
 
+            if (StringUtils.isNotEmpty(recipient)) {
+                email.setRecipient(recipient.trim());
+            }
             if (StringUtils.isNotEmpty(sender)) {
                 email.setSender(sender.trim());
             }
