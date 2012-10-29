@@ -229,7 +229,7 @@ public class GCMPushNotificationService {
             LOGGER.info("sendTestMessage apiSecret: " + apiSecret);
         }
         Sender sender = new Sender(apiSecret);
-        Message message = new Message.Builder().addData("test", "test").collapseKey("key").build();
+        Message message = new Message.Builder().addData("message", body).collapseKey("key").build();
 
         try {
             Result result = sender.send(message, token, 5);
