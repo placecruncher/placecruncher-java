@@ -16,7 +16,6 @@ public class NotificationModel extends EntityModel {
     public static final TypeReference<List<NotificationModel>> LIST_TYPE = new TypeReference<List<NotificationModel>>(){};
 
     private Integer id;
-    private String text;
     private NotificationMessage message;
     private Date created;
 
@@ -41,15 +40,6 @@ public class NotificationModel extends EntityModel {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public NotificationMessage getMessage() {
