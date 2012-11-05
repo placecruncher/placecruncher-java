@@ -10,13 +10,15 @@ public class NewSourceMessage extends NotificationMessage {
     private String title;
     private List<SourceModel> sources = new ArrayList<SourceModel>();
 
+    public NewSourceMessage() {}
+    
     public NewSourceMessage(String title) {
         this.title = title;
     }
 
     @Override
     public String getText() {
-        return "Processing places found in '" + title + "'";
+        return "Crunching places from '" + title + "'";
     }
 
     public String getTitle() {
